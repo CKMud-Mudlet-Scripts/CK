@@ -112,6 +112,6 @@ function fried:delete_toggle(name)
     db:delete(mydb.Toggles, db:eq(mydb.Toggles.name, name))
 end
 
-fried.fb.delete_toggle = fried.delete_toggle
+fried.db.delete_toggle = fried.delete_toggle
 
 return fried
