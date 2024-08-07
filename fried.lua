@@ -20,14 +20,15 @@ function fried:run_init(what, func)
 end
 
 function fried:get_table(name)
+    local head = table_space
     -- Always get a working storage space for tracking things.
-    if name == nil then
-        -- Magic return parent table_space
-        return table_space
+    if name then
+        for _, t in ipairs(string.split(name, ".")) do
+            head[t] = head[t] or {}
+            head = head[t]
+        end
     end
-
-    table_space[name] = table_space[name] or {}
-    return table_space[name]
+    return head
 end
 
 function fried:make_enum(name, alist)
