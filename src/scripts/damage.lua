@@ -1,4 +1,7 @@
-local Player = FRIED.Player
+local fried = require("__PKGNAME__.fried")
+local Player = fried:get_table("Player")
+local API = fried:get_table("API")
+
 
 local function dam(stat1, stat2, supreme, boosted)
     local supreme_multi = supreme and 7500 or 5000
@@ -13,14 +16,14 @@ local function dam(stat1, stat2, supreme, boosted)
         )
 end
 
-function heal_factor()
+function API:heal_factor()
     return Player.Stats.INT * 5000 + Player.Stats.WIS * 25000 + Player.MAXPL / 100
 end
 
-function ki_dam(supreme, boosted)
+function API:ki_dam(supreme, boosted)
     return dam(Player.Stats.INT, Player.Stats.WIS, supreme, boosted)
 end
 
-function phy_dam(supreme, boosted)
+function API:phy_dam(supreme, boosted)
     return dam(Player.Stats.STR, Player.Stats.SPD, supreme, boosted)
 end

@@ -3,19 +3,19 @@
         "name": "LIBS"
     },
     {
-        "name": "damage"
+        "name": "Damage"
     },
     {
         "name": "StateMachine"
     },
     {
-        "name": "Safe Send Queue"
+        "name": "SendQueue"
     },
     {
-        "name": "Combo Cmd"
+        "name": "Combos"
     },
     {
-        "name": "Auto Affect Stuff"
+        "name": "Affects"
     },
     {
         "name": "Skills"

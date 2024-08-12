@@ -1,3 +1,14 @@
+local fried = require("__PKGNAME__.fried")
+local Times = fried:get_table("API.Times")
+
+function Times:last(name)
+  return getStopWatchTime(name)
+end
+
+function Times:reset(name)
+  resetStopWatch(name)
+end
+
 -- Quality Of Life functions
 function math.round(x, n)
   return tonumber(string.format("%." .. n .. "f", x))

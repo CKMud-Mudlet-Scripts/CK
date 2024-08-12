@@ -1,13 +1,6 @@
 local fried = require("__PKGNAME__.fried")
-local Toggles = fried.get_table("Toggles")
-
-registerAnonymousEventHandler(
-  "sysLoadEvent",
-  fried:run_init(
-    "StateMachine",
-    function()
-      State =
-        fried:make_enum(
+local Toggles = fried:get_table("Toggles")
+local State = fried:get_table("API.State",  fried:make_enum(
           "State",
           {
             'REST',
@@ -19,41 +12,32 @@ registerAnonymousEventHandler(
             'BUFFING',
             'CRAFTING',
           }
-        )
-      State._CURRENT_STATE = State.NORMAL
-      State._PREV_STATE = State.NORMAL
-    end
-  )
-)
+))
 
-function set_state(state)
-  State._PREV_STATE = get_state() or State.NORMAL
+State._CURRENT_STATE = State._CURRENT_STATE or State.NORMAL
+State._PREV_STATE = State._PREV_STATE or State.NORMAL
+
+
+function State:set(state)
+  State._PREV_STATE = State:get() or State.NORMAL
   State._CURRENT_STATE = state
-  State._EXTRA = nil
 end
 
-function get_state()
+function State:get()
   return State._CURRENT_STATE
 end
 
-function state_revert()
-  set_state(State._PREV_STATE)
+function State:revert()
+  State:set(State._PREV_STATE)
 end
 
-function state_extra(extra)
-  if extra ~= nil then
-    State._EXTRA = extra
-  end
-  return State._EXTRA
-end
-
-function is_state(state, botmode)
+function State:check(state, botmode)
   return
-    get_state() == state and (botmode or Toggles.botmode or Toggles.training or Toggles.learning)
+    State:get() == state and (botmode or Toggles.botmode or Toggles.training or Toggles.learning)
 end
 
-function pretty_state()
-  local state = get_state()
+function State:toString()
+  local state = State:get()
   if state == State.REST then
     return "REST"
   elseif state == State.REPAIR then

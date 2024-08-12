@@ -4,10 +4,8 @@ script load order
 
 local fried = require("__PKGNAME__.fried")
 ]]
-
-
 local fried = {}
-FRIED = FRIED or {}
+FRIED = {}
 -- Saving this just in case
 local db = db
 
@@ -23,12 +21,12 @@ function fried:run_init(what, func)
     return init
 end
 
-function fried:get_table(name)
+function fried:get_table(name, default)
     local head = FRIED
     -- Always get a working storage space for tracking things.
     if name then
         for _, t in ipairs(string.split(name, ".")) do
-            head[t] = head[t] or {}
+            head[t] = head[t] or (default or {})
             head = head[t]
         end
     end
@@ -118,5 +116,15 @@ function fried:delete_toggle(name)
 end
 
 fried.db.delete_toggle = fried.delete_toggle
+
+-- I need Times.create to work in scripts outside of functions
+local Times = fried:get_table("API.Times")
+local watches = {}
+
+function Times:create(name)
+  if not watches[name] then
+    watches[name] = createStopWatch(name, true)
+  end
+end
 
 return fried

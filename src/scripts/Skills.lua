@@ -1,9 +1,9 @@
 local fried = require("__PKGNAME__.fried")
-local Learned = fried.get_table("Player.Learned")
-local Mastered = fried.get_table("Player.Mastered")
-local Boosted = fried.get_table("Player.Boosted")
-local Supreme = fried.get_table("Player.Supreme")
-local Skills = fried.get_table("API.Skills") -- FRIED.API.Skills:mastered
+local Learned = fried:get_table("Player.Learned")
+local Mastered = fried:get_table("Player.Mastered")
+local Boosted = fried:get_table("Player.Boosted")
+local Supreme = fried:get_table("Player.Supreme")
+local Skills = fried:get_table("API.Skills") -- FRIED.API.Skills:mastered
 
 -- This should be a full list of abilities
 local fullname_to_cmd =
