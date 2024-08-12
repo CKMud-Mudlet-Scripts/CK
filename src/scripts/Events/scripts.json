@@ -1,0 +1,48 @@
+[
+       {
+              "isActive": "yes",
+              "isFolder": "no",
+              "name": "onPrompt",
+              "eventHandlerList": [
+                     "onPrompt"
+              ],
+              "script": ""
+       },
+       {
+              "isActive": "yes",
+              "isFolder": "no",
+              "name": "onFightingPrompt",
+              "eventHandlerList": [
+                     "onFightingPrompt"
+              ],
+              "script": ""
+       },
+       {
+              "isActive": "yes",
+              "isFolder": "no",
+              "name": "onNotFightingPrompt",
+              "eventHandlerList": [
+                     "onNotFightingPrompt"
+              ],
+              "script": ""
+       },
+       {
+              "isActive": "yes",
+              "isFolder": "no",
+              "name": "onFinishedFighting",
+              "eventHandlerList": [
+                     "onFinishedFighting"
+              ],
+              "script": ""
+       },
+       {
+              "isActive": "yes",
+              "isFolder": "no",
+              "name": "onDisconnectionEvent",
+              "eventHandlerList": [
+                     "sysDisconnectionEvent",
+                     "sysConnectionEvent"
+              ],
+              "script": ""
+       }
+]

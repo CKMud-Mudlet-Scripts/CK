@@ -2,7 +2,7 @@
 -- Only Save up sends for sending later
 
 local fried = require("__PKGNAME__.fried")
-local SendQueue = fried:get_table("SendQueue", {first = 0, last = -1})
+local SendQueue = fried:get_table("API.SendQueue", {first = 0, last = -1})
 local State = fried:get_table("API.State")
 local Toggles = fried:get_table("Toggles")
 local API = fried:get_table("API")
@@ -33,7 +33,7 @@ function SendQueue:hasnext()
   end
 end
 
-function SendQueue.trySendNow()
+function SendQueue:trySendNow()
   local msg
   if not Toggles.fighting and State:check(State.NORMAL, true) and SendQueue:hasnext() then
     msg = SendQueue:pop()

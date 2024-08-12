@@ -48,7 +48,7 @@ function Combo:next(combo_test)
   end
 end
 
-function API:do_combo(who)
+function API:cmd_combo(who)
   who = who or ""
   if Player.COMBO then
     if ROOT.last_combo_id ~= ROOT.COMBO_ID then
@@ -57,7 +57,7 @@ function API:do_combo(who)
     end
   end
   local attack = Combo:next()
-  if Skills.learned(Skills.translate(attack)) then
+  if Skills:learned(Skills:translate(attack)) then
     send(f "{attack} {who}")
   else
     cecho(f "<red>Combo {attack} is not learned yet!")

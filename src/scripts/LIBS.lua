@@ -1,5 +1,16 @@
 local fried = require("__PKGNAME__.fried")
 local Times = fried:get_table("API.Times")
+local API = fried:get_table("API")
+local PromptCounters = fried:get_table("PromptCounters")
+
+function API:iThinkWeFighting()
+  -- If we have two prompts with not fight messages its safe to say fighting is over
+  PromptCounters.fighting = 2
+end
+
+function API:is_connected()
+  return Toggles.firstprompt == true
+end
 
 function Times:last(name)
   return getStopWatchTime(name)
@@ -29,10 +40,6 @@ end
 function table.sample_items(tl)
   local pos = math.floor(math.random() * #tl) + 1
   return tl[pos]
-end
-
-function table.append(list, item)
-  list[#list + 1] = item
 end
 
 function table.extend(list, items)
