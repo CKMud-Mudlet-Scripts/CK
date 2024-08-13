@@ -5,7 +5,7 @@ script load order
 
 
 local fried = {}
-local table_space = {}
+FRIED = FRIED or {}
 
 
 function fried:run_init(what, func)
@@ -20,7 +20,7 @@ function fried:run_init(what, func)
 end
 
 function fried:get_table(name)
-    local head = table_space
+    local head = FRIED
     -- Always get a working storage space for tracking things.
     if name then
         for _, t in ipairs(string.split(name, ".")) do
@@ -65,6 +65,7 @@ local mydb = db:create("fried_settings", {
         _violations = "REPLACE",
     }
 })
+local db = db
 
 fried.db = { settings_db = mydb }
 
@@ -75,7 +76,7 @@ end
 fried.db.set_constant = fried.set_constant
 
 function fried:read_constant(name)
-    rec = db:fetch(mydb.Constants, db:eq(mydb.Constants.name, name))
+    local rec = db:fetch(mydb.Constants, db:eq(mydb.Constants.name, name))
     if not rec[1] then
         return nil
     end
@@ -100,7 +101,7 @@ end
 fried.db.toggle = fried.toggle
 
 function fried:read_toggle(name)
-    rec = db:fetch(mydb.Toggles, db:eq(mydb.Toggles.name, name))
+    local rec = db:fetch(mydb.Toggles, db:eq(mydb.Toggles.name, name))
     if not rec[1] then
         return nil
     end
