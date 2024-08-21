@@ -1,9 +1,14 @@
 local fried = require("__PKGNAME__.fried")
-local Learned = fried:get_table("Player.Learned")
-local Mastered = fried:get_table("Player.Mastered")
-local Boosted = fried:get_table("Player.Boosted")
-local Supreme = fried:get_table("Player.Supreme")
+local Data = fried:get_table("Player.Skills")
 local Skills = fried:get_table("API.Skills") -- FRIED.API.Skills:mastered
+
+function Skills:clear()
+  Data.Learned = {}
+  Data.Mastered = {}
+  Data.Boosted = {}
+  Data.Supreme = {}
+  Data.Sections = {}
+end
 
 -- This should be a full list of abilities
 local fullname_to_cmd =
@@ -59,22 +64,24 @@ function Skills:translate(raw)
 end
 
 function Skills:mastered(skill)
-  return Mastered[skill] == true
+  return Data.Mastered[skill] == true
 end
 
 function Skills:learned(skill)
-  return Learned[skill] == true
+  return Data.Learned[skill] == true
 end
 
 function Skills:boosted(skill)
-  return Boosted[skill] == true
+  return Data.Boosted[skill] == true
 end
 
 function Skills:supreme(skill)
-  return Supreme[skill] == true
+  return Data.Supreme[skill] == true
 end
 
 function Skills:filter_learnable(adict)
+  local Mastered = Data.Mastered
+  local Learned = Data.Learned
   local nlist = {}
   -- k = skill to learn,  v is table each element must be mastered but first item is learn command
   for k, v in pairs(adict) do
@@ -95,6 +102,8 @@ function Skills:filter_learnable(adict)
 end
 
 function Skills:filter(alist, must_be_learned)
+  local Mastered = Data.Mastered
+  local Learned = Data.Learned
   if must_be_learned == nil then
     must_be_learned = false
   end
@@ -108,6 +117,7 @@ function Skills:filter(alist, must_be_learned)
 end
 
 function Skills:filter_unlearned(alist)
+  local Learned = Data.Learned
   local nlist = {}
   for i, v in ipairs(alist) do
     if Learned[v] then
