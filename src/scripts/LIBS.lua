@@ -3,6 +3,10 @@ local Times = fried:get_table("API.Times")
 local API = fried:get_table("API")
 local PromptCounters = fried:get_table("PromptCounters")
 
+function API:feature(name)
+  return fried:feature(name)
+end
+
 function API:iThinkWeFighting()
   -- If we have two prompts with not fight messages its safe to say fighting is over
   PromptCounters.fighting = 2

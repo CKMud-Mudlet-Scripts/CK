@@ -5,7 +5,7 @@ script load order
 local fried = require("__PKGNAME__.fried")
 ]]
 local fried = {}
-FRIED = {}
+FRIED = FRIED or {}
 -- Saving this just in case
 local db = db
 
@@ -31,6 +31,20 @@ function fried:get_table(name, default)
         end
     end
     return head
+end
+
+local Features = get_table("Features")
+
+function fried:define_feature(name, default_value)
+    Features[name] = default_value
+end
+
+function fried:feature(name)
+    local val = fried.db:read_toggle(name)
+    if val == nil then
+        return Features[name]
+    end
+    return val
 end
 
 function fried:make_enum(name, alist)
