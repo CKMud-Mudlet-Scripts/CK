@@ -33,7 +33,7 @@ function fried:get_table(name, default)
     return head
 end
 
-local Features = get_table("Features")
+local Features = fried:get_table("Features")
 
 function fried:define_feature(name, default_value)
     Features[name] = default_value
@@ -46,6 +46,7 @@ function fried:feature(name)
     end
     return val
 end
+
 
 function fried:make_enum(name, alist)
     -- Create an Enum Table with helpful enum values

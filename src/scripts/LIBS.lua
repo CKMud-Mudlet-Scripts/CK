@@ -7,6 +7,24 @@ function API:feature(name)
   return fried:feature(name)
 end
 
+function API:feature_names()
+  local a = {}
+  for feature in pairs(fried:get_table("Features")) do
+    table.insert(a, feature)
+  end
+  table.sort(a)
+  return a
+end
+
+local function compact_featuredb()
+  local names = API:feature_names()
+  db:delete(fried.db.settings_db.Toggles, db:not_in(fried.db.settings_db.Toggles.name, names))
+  echo("[ FRIED ] - Feature DB Compaction Complete.\n")
+end
+
+registerAnonymousEventHandler("sysExitEvent", compact_featuredb)
+
+
 function API:iThinkWeFighting()
   -- If we have two prompts with not fight messages its safe to say fighting is over
   PromptCounters.fighting = 2

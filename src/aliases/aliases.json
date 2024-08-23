@@ -1,0 +1,10 @@
+[
+    {
+        "name": "fried feature",
+        "regex": "^fried feature$"
+    },
+    {
+        "name": "fried feature toggle",
+        "regex": "^fried feature (.+) (on|off)$"
+    }
+]

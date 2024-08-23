@@ -59,7 +59,7 @@
                                           "type": "exactMatch"
                                    }
                             ],
-                            "script": "setTriggerStayOpen("Learn Scrape", 0) FRIED.Player.Skills.section = nil"
+                            "script": "setTriggerStayOpen(\"Learn Scrape\", 0) FRIED.Player.Skills.section = nil"
                      }
               ]
        }
