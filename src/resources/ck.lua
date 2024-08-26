@@ -6,8 +6,6 @@ local ck = require("__PKGNAME__.ck")
 ]] local ck = {}
 -- Global Data Prefix
 local PREFIX = "CK"
--- Saving this just in case
-local db = db
 
 function ck:run_init(what, func)
     -- Return an init function that prints out whats going on
@@ -172,6 +170,29 @@ function Times:create(name)
     if not watches[name] then
         watches[name] = createStopWatch(name, true)
     end
+end
+
+-- Versions 
+local versions = {
+    ["__PKGNAME__"] = "__VERSION__"
+}
+
+function ck:register_module(what, version)
+    versions[what] = version
+end
+
+function ck:get_version_str()
+    -- CKMud-Shared:1.x.x CKMud-Core:2.x
+    local modules = {}
+    for m in pairs(versions) do
+        table.insert(modules, m)
+    end
+    table.sort(modules)
+    local output = {}
+    for _, m in ipairs(modules) do
+        table.insert(f "{m}:{versions[m]}")
+    end
+    return table.concat(output, " ")
 end
 
 return ck
