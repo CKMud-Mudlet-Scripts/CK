@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Tell Rpc",
+        "multiline": "yes",
+        "multilineDelta": "0",
+        "patterns": [
+            {
+                "pattern": "tells you, ", 
+                "type": "substring"
+            },
+            {
+                "pattern": "^(\\w+) tells you, '(.+)'$",
+                "type": "regex"
+            }
+        ]
+    }
+]

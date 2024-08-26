@@ -11,9 +11,6 @@ function API:feature(name)
   return ck:feature(name)
 end
 
-ck:define_feature("tell_rpc", false)
-ck:define_constant("alts", {})
-
 local function compact_featuredb()
   local names = ck:feature_names()
   db:delete(ck.db.schema.Toggles, db:not_in(ck.db.schema.Toggles.name, names))
