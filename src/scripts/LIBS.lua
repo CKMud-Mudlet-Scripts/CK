@@ -11,26 +11,11 @@ function API:feature(name)
   return ck:feature(name)
 end
 
-function API:feature_names()
-  local a = {}
-  for feature in pairs(ck:get_table("Features")) do
-    table.insert(a, feature)
-  end
-  table.sort(a)
-  return a
-end
-
-function API:constant_names()
-  local a = {}
-  for const in pairs(ck:get_table("Constants")) do
-    table.insert(a, const)
-  end
-  table.sort(a)
-  return a
-end
+ck:define_feature("tell_rpc", false)
+ck:define_constant("alts", {})
 
 local function compact_featuredb()
-  local names = API:feature_names()
+  local names = ck:feature_names()
   db:delete(ck.db.schema.Toggles, db:not_in(ck.db.schema.Toggles.name, names))
   echo("[ CK ] - Feature DB Compaction Complete.\n")
 end
@@ -38,7 +23,7 @@ end
 registerAnonymousEventHandler("sysExitEvent", compact_featuredb)
 
 local function compact_constdb()
-  local names = API:constant_names()
+  local names = ck:constant_names()
   db:delete(ck.db.schema.Constants, db:not_in(ck.db.schemna.Constants.name, names))
   echo("[ CK ] - Constants DB Compaction Complete.\n")
 end

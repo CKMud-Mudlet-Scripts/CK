@@ -3,13 +3,11 @@ Some basic functionality so I don't have to worry about init order or
 script load order
 
 local ck = require("__PKGNAME__.ck")
-]]
-local ck = {}
+]] local ck = {}
 -- Global Data Prefix
 local PREFIX = "CK"
 -- Saving this just in case
 local db = db
-
 
 function ck:run_init(what, func)
     -- Return an init function that prints out whats going on
@@ -29,10 +27,11 @@ function ck:get_table(name, default)
     name = table.concat({PREFIX, name}, ".")
     -- Loop over words in name split by .
     for w, d in string.gmatch(name, "([%w_]+)(.?)") do
-        if d == "." then    -- There is a word after
+        if d == "." then -- There is a word after
             head[w] = head[w] or {}
-        else   
-            head[w] = default or {} -- If there is a default do the assignment
+        else
+            -- Don't override whats already there
+            head[w] = head[w] or (default or {}) -- If there is a default do the assignment
         end
         head = head[w]
     end
@@ -54,56 +53,81 @@ function ck:feature(name)
     return val
 end
 
+function ck:feature_names()
+    local a = {}
+    for feature in pairs(ck:get_table("Features")) do
+        table.insert(a, feature)
+    end
+    table.sort(a)
+    return a
+end
+
+function ck:constant_names()
+    local a = {}
+    for const in pairs(ck:get_table("Constants")) do
+        table.insert(a, const)
+    end
+    table.sort(a)
+    return a
+end
+
 function ck:define_constant(name, default_value)
     Constants[name] = {default_value}
 end
 
 function ck:constant(name)
-    local val = ck.db.read_constant(name)
+    local val = ck.db:read_constant(name)
     if val == nil then
         return Constants[name] and Constants[name][1] or nil
     end
     return yajl.to_value(val)[1]
 end
 
+---@param name string
+function ck:set_constant(name, value)
+    ck.db:set_constant(name, yajl.to_string({value}))
+end
+
 function ck:make_enum(name, alist)
     -- Create an Enum Table with helpful enum values
     local atable = {}
     for _, v in ipairs(alist) do
-        atable[v] = { name .. "." .. v }
+        atable[v] = {name .. "." .. v}
     end
-    setmetatable(
-        atable,
-        {
-            __index =
-                function(self, key)
-                    error(string.format("%q is not a valid member of %s", tostring(key), name), 2)
-                end,
-        }
-    )
+    setmetatable(atable, {
+        __index = function(self, key)
+            error(string.format("%q is not a valid member of %s", tostring(key), name), 2)
+        end
+    })
     return atable
 end
 
 -- DB stuff
 
-ck.db = { schema = db:create("CKMud", {
-    Toggles = {
-        name = "",
-        value = 0,
-        _unique = { "name" },
-        _violations = "REPLACE",
-    },
-    Constants = {
-        name = "",
-        value = "",
-        _unique = { "name" },
-        _violations = "REPLACE",
-    }
-}) 
+ck.db = {
+    schema = db:create("CKMud", {
+        Toggles = {
+            name = "",
+            value = 0,
+            _unique = {"name"},
+            _violations = "REPLACE"
+        },
+        Constants = {
+            name = "",
+            value = "",
+            _unique = {"name"},
+            _violations = "REPLACE"
+        }
+    })
 }
 
+---@param name string
+---@param value string
 function ck.db:set_constant(name, value)
-    db:add(self.schema.Constants, { name = name, value = value})
+    db:add(self.schema.Constants, {
+        name = name,
+        value = value
+    })
 end
 
 function ck.db:read_constant(name)
@@ -122,7 +146,10 @@ function ck.db:toggle(name, value)
     if value == nil then
         value = true
     end
-    db:add(self.schema.Toggles, { name = name, value = value and 1 or 0 })
+    db:add(self.schema.Toggles, {
+        name = name,
+        value = value and 1 or 0
+    })
 end
 
 function ck.db:read_toggle(name)

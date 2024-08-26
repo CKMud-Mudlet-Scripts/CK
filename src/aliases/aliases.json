@@ -1,18 +1,18 @@
 [
     {
-        "name": "ck feature",
-        "regex": "^ck feature$"
+        "name": "CK feature",
+        "regex": "^CK features?$"
     },
     {
-        "name": "ck feature toggle",
-        "regex": "^ck feature (.+) (on|off)$"
+        "name": "CK feature toggle",
+        "regex": "^CK feature (.+) (on|off)$"
     },
     {
-        "name": "ck constant",
-        "regex": "^ck constant$"
+        "name": "CK constant",
+        "regex": "^CK constants? ?(?: ([a-zA-Z_\\.-]+))?$"
     },
     {
-        "name": "ck constant set",
-        "regex": "^ck constant (.+) (.+)$"
+        "name": "CK constant set",
+        "regex": "^CK constants? ([a-zA-Z_\\.-]+)\\s*=\\s*(.+)$"
     }
 ]
