@@ -1,4 +1,4 @@
-local api = FRIED.API
+local api = CK.API
 local features = api:feature_names()
 local max_length = -1
 
@@ -60,11 +60,11 @@ local function footer(max_width)
   echo(f"o{body}o\n")
 end
 
-local s = header("FRIED Features List", total_width)
+local s = header("CK Features List", total_width)
 if #features > 0 then
 ncolumn(features, num_column)
 else
 echo("NO FEATURES FOUND\n")
 end
 footer(s)
-echo(" * Use `fried feature <name> on/off` to toggle\n")
+echo(" * Use `ck feature <name> on/off` to toggle\n")

@@ -1,16 +1,29 @@
-local fried = require("__PKGNAME__.fried")
-local Times = fried:get_table("API.Times")
-local API = fried:get_table("API")
-local PromptCounters = fried:get_table("PromptCounters")
+local ck = require("__PKGNAME__.ck")
+local Times = ck:get_table("API.Times")
+local API = ck:get_table("API")
+local PromptCounters = ck:get_table("PromptCounters")
+
+function API:constant(name)
+  return ck.constant(name)
+end
 
 function API:feature(name)
-  return fried:feature(name)
+  return ck:feature(name)
 end
 
 function API:feature_names()
   local a = {}
-  for feature in pairs(fried:get_table("Features")) do
+  for feature in pairs(ck:get_table("Features")) do
     table.insert(a, feature)
+  end
+  table.sort(a)
+  return a
+end
+
+function API:constant_names()
+  local a = {}
+  for const in pairs(ck:get_table("Constants")) do
+    table.insert(a, const)
   end
   table.sort(a)
   return a
@@ -18,11 +31,19 @@ end
 
 local function compact_featuredb()
   local names = API:feature_names()
-  db:delete(fried.db.settings_db.Toggles, db:not_in(fried.db.settings_db.Toggles.name, names))
-  echo("[ FRIED ] - Feature DB Compaction Complete.\n")
+  db:delete(ck.db.schema.Toggles, db:not_in(ck.db.schema.Toggles.name, names))
+  echo("[ CK ] - Feature DB Compaction Complete.\n")
 end
 
 registerAnonymousEventHandler("sysExitEvent", compact_featuredb)
+
+local function compact_constdb()
+  local names = API:constant_names()
+  db:delete(ck.db.schema.Constants, db:not_in(ck.db.schemna.Constants.name, names))
+  echo("[ CK ] - Constants DB Compaction Complete.\n")
+end
+
+registerAnonymousEventHandler("sysExitEvent", compact_constdb)
 
 
 function API:iThinkWeFighting()

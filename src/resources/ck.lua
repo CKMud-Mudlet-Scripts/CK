@@ -40,9 +40,10 @@ function ck:get_table(name, default)
 end
 
 local Features = ck:get_table("Features")
+local Constants = ck:get_table("Constants")
 
 function ck:define_feature(name, default_value)
-    Features[name] = default_value
+    Features[name] = default_value or false
 end
 
 function ck:feature(name)
@@ -51,6 +52,18 @@ function ck:feature(name)
         return Features[name]
     end
     return val
+end
+
+function ck:define_constant(name, default_value)
+    Constants[name] = {default_value}
+end
+
+function ck:constant(name)
+    local val = ck.db.read_constant(name)
+    if val == nil then
+        return Constants[name] and Constants[name][1] or nil
+    end
+    return yajl.to_value(val)[1]
 end
 
 function ck:make_enum(name, alist)
@@ -90,7 +103,7 @@ ck.db = { schema = db:create("CKMud", {
 }
 
 function ck.db:set_constant(name, value)
-    db:add(self.schema.Constants, { name = name, value = value })
+    db:add(self.schema.Constants, { name = name, value = value})
 end
 
 function ck.db:read_constant(name)

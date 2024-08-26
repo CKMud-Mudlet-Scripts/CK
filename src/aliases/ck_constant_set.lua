@@ -1,5 +1,5 @@
-local fried = require("CKMud-Shared.fried")
-local api = FRIED.API
+local ck = require("__PKGNAME__.ck")
+local api = CK.API
 local feature_list = api:feature_names()
 
 local feature = matches[2]
@@ -15,5 +15,5 @@ if not table.contains(feature_list, feature) then
 end
 
 local value = switch == "on" and true or false
-fried.db:toggle(feature, value)
+ck.db:toggle(feature, value)
 echoc(f"Setting Feature({feature}) to {switch}!\n")
