@@ -11,8 +11,6 @@ function onNotFightingPrompt()
   Toggles.EnemyLineComboTest = true
   Toggles.skip_fight = nil
 
-  raiseEvent("doNotFighting")
-  
   if State:check(State.NORMAL, true) and Times:last("status") > 120 then
     send("status")
     Times:reset("status")
