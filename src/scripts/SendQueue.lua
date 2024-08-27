@@ -9,24 +9,24 @@ local API = ck:get_table("API")
 
 
 function SendQueue:push(value)
-  local last = SendQueue.last + 1
-  SendQueue.last = last
-  SendQueue[last] = value
+  local last = self.last + 1
+  self.last = last
+  self[last] = value
 end
 
 function SendQueue:pop()
-  local first = SendQueue.first
-  if first > SendQueue.last then
+  local first = self.first
+  if first > self.last then
     error("list is empty")
   end
-  local value = SendQueue[first]
-  SendQueue[first] = nil
-  SendQueue.first = first + 1
+  local value = self[first]
+  self[first] = nil
+  self.first = first + 1
   return value
 end
 
 function SendQueue:hasnext()
-  if SendQueue.first > SendQueue.last then
+  if self.first > self.last then
     return false
   else
     return true
@@ -35,12 +35,12 @@ end
 
 function SendQueue:trySendNow()
   local msg
-  if not Toggles.fighting and State:check(State.NORMAL, true) and SendQueue:hasnext() then
-    msg = SendQueue:pop()
+  if not Toggles.fighting and State:check(State.NORMAL, true) and self:hasnext() then
+    msg = self:pop()
     send(msg)
   end
 end
 
 function API:safeSend(msg)
-  SendQueue:push(msg)
+  self.SendQueue:push(msg)
 end

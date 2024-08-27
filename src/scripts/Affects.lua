@@ -18,6 +18,7 @@ local list_of_affects = {
   "infravision",
   "celestial shield",
   "celestial drain",
+  "invigorate",
 }
 
 function Affects:rebuff(seen)
