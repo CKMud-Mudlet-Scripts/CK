@@ -168,7 +168,7 @@ local watches = ck:get_table("API.Times._watches")
 
 function Times:create(name)
     if not watches[name] then
-        watches[name] = createStopWatch(name, true)
+        watches[name] = createStopWatch(PREFIX .. "." .. name, true)
     end
 end
 

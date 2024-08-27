@@ -38,11 +38,11 @@ function API:is_connected()
 end
 
 function Times:last(name)
-  return getStopWatchTime(name)
+  return getStopWatchTime("CK." .. name)
 end
 
 function Times:reset(name)
-  resetStopWatch(name)
+  resetStopWatch("CK." .. name)
 end
 
 -- Quality Of Life functions
