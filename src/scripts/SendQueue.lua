@@ -1,11 +1,11 @@
 -- The Safe Send Queue
 -- Only Save up sends for sending later
 
-local fried = require("__PKGNAME__.fried")
-local SendQueue = fried:get_table("API.SendQueue", {first = 0, last = -1})
-local State = fried:get_table("API.State")
-local Toggles = fried:get_table("Toggles")
-local API = fried:get_table("API")
+local ck = require("__PKGNAME__.ck")
+local SendQueue = ck:get_table("API.SendQueue", {first = 0, last = -1})
+local State = ck:get_table("API.State")
+local Toggles = ck:get_table("Toggles")
+local API = ck:get_table("API")
 
 
 function SendQueue:push(value)

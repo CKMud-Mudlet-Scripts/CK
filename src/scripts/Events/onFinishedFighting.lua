@@ -1,7 +1,7 @@
 -- This runs when ever we make the transition from fighting to not fighting
-local fried = require("__PKGNAME__.fried")
-local Times = fried:get_table("API.Times")
-local Toggles = fried:get_table("Toggles")
+local ck = require("__PKGNAME__.ck")
+local Times = ck:get_table("API.Times")
+local Toggles = ck:get_table("Toggles")
 
 
 Times:create("lastfight")

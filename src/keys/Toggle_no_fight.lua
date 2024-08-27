@@ -1,4 +1,4 @@
-local Toggles = FRIED.Toggles
+local Toggles = CK.Toggles
 
 if Toggles.no_fight then
   Toggles.no_fight = false

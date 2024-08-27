@@ -1,8 +1,8 @@
-local fried = require("__PKGNAME__.fried")
-local Skills = fried:get_table("API.Skills") -- FRIED.API.Skills:mastered
-local API = fried:get_table("API") -- FRIED.API more public
-local Affects = fried:get_table("API.Affect") -- less public
-local State = fried:get_table("API.State")
+local ck = require("__PKGNAME__.ck")
+local Skills = ck:get_table("API.Skills") -- CK.API.Skills:mastered
+local API = ck:get_table("API") -- CK.API more public
+local Affects = ck:get_table("API.Affect") -- less public
+local State = ck:get_table("API.State")
 
 local list_of_affects = {
   "demonic will", 

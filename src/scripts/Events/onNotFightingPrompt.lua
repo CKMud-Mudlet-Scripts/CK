@@ -1,8 +1,8 @@
-local fried = require("__PKGNAME__.fried")
-local Player = fried:get_table("Player")
-local State = fried:get_table("API.State")
-local Times = fried:get_table("API.Times")
-local Toggles = fried:get_table("Toggles")
+local ck = require("__PKGNAME__.ck")
+local Player = ck:get_table("Player")
+local State = ck:get_table("API.State")
+local Times = ck:get_table("API.Times")
+local Toggles = ck:get_table("Toggles")
 
 
 
@@ -26,5 +26,5 @@ function onNotFightingPrompt()
     Times:reset("scouterself")
   end
   -- Handle Send Queue
-  fried:get_table("API.SendQueue"):trySendNow()
+  ck:get_table("API.SendQueue"):trySendNow()
 end

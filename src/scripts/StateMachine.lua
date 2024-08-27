@@ -1,6 +1,6 @@
-local fried = require("__PKGNAME__.fried")
-local Toggles = fried:get_table("Toggles")
-local State = fried:get_table("API.State",  fried:make_enum(
+local ck = require("__PKGNAME__.ck")
+local Toggles = ck:get_table("Toggles")
+local State = ck:get_table("API.State",  ck:make_enum(
           "State",
           {
             'REST',
@@ -13,22 +13,19 @@ local State = fried:get_table("API.State",  fried:make_enum(
             'CRAFTING',
           }
 ))
-
-State._CURRENT_STATE = State._CURRENT_STATE or State.NORMAL
-State._PREV_STATE = State._PREV_STATE or State.NORMAL
-
+local _state = ck:get_table("API._State", {CURRENT_STATE=State.NORMAL, PREV_STATE=State.NORMAL})
 
 function State:set(state)
-  State._PREV_STATE = State:get() or State.NORMAL
-  State._CURRENT_STATE = state
+  _state.PREV_STATE = State:get() or State.NORMAL
+  _state.CURRENT_STATE = state
 end
 
 function State:get()
-  return State._CURRENT_STATE
+  return _state.CURRENT_STATE
 end
 
 function State:revert()
-  State:set(State._PREV_STATE)
+  State:set(_state.PREV_STATE)
 end
 
 function State:check(state, botmode)

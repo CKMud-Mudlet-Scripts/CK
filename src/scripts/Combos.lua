@@ -1,10 +1,10 @@
-local fried = require("__PKGNAME__.fried")
-local ROOT = fried:get_table()
-local Player = fried:get_table("Player")
-local API = fried:get_table("API")
-local Combo = fried:get_table("API.Combo")
-local Times = fried:get_table("API.Times")
-local Skills = fried:get_table("API.Skills")
+local ck = require("__PKGNAME__.ck")
+local ROOT = ck:get_table()
+local Player = ck:get_table("Player")
+local API = ck:get_table("API")
+local Combo = ck:get_table("API.Combo")
+local Times = ck:get_table("API.Times")
+local Skills = ck:get_table("API.Skills")
 
 Times:create("combo")
 

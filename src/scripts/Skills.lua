@@ -1,6 +1,6 @@
-local fried = require("__PKGNAME__.fried")
-local Data = fried:get_table("Player.Skills")
-local Skills = fried:get_table("API.Skills") -- FRIED.API.Skills:mastered
+local ck = require("__PKGNAME__.ck")
+local Data = ck:get_table("Player.Skills")
+local Skills = ck:get_table("API.Skills") -- CK.API.Skills:mastered
 
 function Skills:clear()
   Data.Learned = {}

@@ -1,6 +1,6 @@
-local fried = require("__PKGNAME__.fried")
-local Player = fried:get_table("Player")
-local API = fried:get_table("API")
+local ck = require("__PKGNAME__.ck")
+local Player = ck:get_table("Player")
+local API = ck:get_table("API")
 
 
 local function dam(stat1, stat2, supreme, boosted)

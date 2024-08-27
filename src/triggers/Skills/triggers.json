@@ -14,7 +14,7 @@
                             "type": "exactMatch"
                      }
               ],
-              "script": "FRIED.API.Skills.clear()",
+              "script": "CK.API.Skills.clear()",
               "children": [
                      {
                             "name": "scrape skill",
@@ -59,7 +59,7 @@
                                           "type": "exactMatch"
                                    }
                             ],
-                            "script": "setTriggerStayOpen(\"Learn Scrape\", 0) FRIED.Player.Skills.section = nil"
+                            "script": "setTriggerStayOpen(\"Learn Scrape\", 0) CK.Player.Skills.section = nil"
                      }
               ]
        }

@@ -1,12 +1,12 @@
 --This even Fires every single Prompt
-local fried = require("__PKGNAME__.fried")
-local Player = fried:get_table("Player")
-local PromptFlags = fried:get_table("PromptFlags")
-local PromptCounters = fried:get_table("PromptCounters")
-local State = fried:get_table("API.State")
-local Affects = fried:get_table("API.Affects")
-local Toggles = fried:get_table("Toggles")
-local Timers = fried:get_table("Timers")
+local ck = require("__PKGNAME__.ck")
+local Player = ck:get_table("Player")
+local PromptFlags = ck:get_table("PromptFlags")
+local PromptCounters = ck:get_table("PromptCounters")
+local State = ck:get_table("API.State")
+local Affects = ck:get_table("API.Affects")
+local Toggles = ck:get_table("Toggles")
+local Timers = ck:get_table("Timers")
 
 local function decPromptCounters()
   for k, v in pairs(PromptCounters) do

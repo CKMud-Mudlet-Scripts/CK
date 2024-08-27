@@ -1,11 +1,11 @@
-local Data = FRIED.Player.Skills
+local Data = CK.Player.Skills
 local Learned = Data.Learned
 local Mastered = Data.Mastered
 local Supreme = Data.Supreme
 local Boosted = Data.Boosted
 local section = Data.section
 -- API
-local sapi = FRIED.API.Skills
+local sapi = CK.API.Skills
 
 -- Loop through matches
 for _, o in ipairs({0, 3}) do
