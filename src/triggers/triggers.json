@@ -1,5 +1,37 @@
 [
     {
+        "name": "Prompt",
+        "multiline": "yes",
+        "multilineDelta": "0",
+        "patterns": [
+            {
+                "pattern": "[Pl: ", 
+                "type": "substring"
+            },
+            {
+                "pattern": "^\\[Pl: (?<PL>[0-9,]+) \\| (?<Metrics>[^]]+)]\\s?(?<Forms>.+)?$",
+                "type": "regex"
+            }
+        ]
+
+    },
+    {
+        "name": "Prompt Kaioken",
+        "multiline": "yes",
+        "multilineDelta": "0",
+        "patterns": [
+            {
+                "pattern": "[Kaioken: ", 
+                "type": "substring"
+            },
+            {
+                "pattern": "^\\[Kaioken: (?<CURR>\\d+)/(?<MAX>\\d+) ]",
+                "type": "regex"
+            }
+        ]
+
+    },
+    {
         "name": "Tell Rpc",
         "multiline": "yes",
         "multilineDelta": "0",
