@@ -14,5 +14,10 @@
     {
         "name": "CK constant set",
         "regex": "^CK constants? ([a-zA-Z_\\.-]+)\\s*=\\s*(.+)$"
+    },
+    {
+        "name": "quit (without reconnecting)",
+        "regex": "^quit$",
+        "script": "send(\"quit\", true)\nregisterAnonymousEventHandler(\"sysDisconnectionEvent\", disconnect, true)"
     }
 ]

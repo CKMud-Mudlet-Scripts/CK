@@ -163,19 +163,20 @@ function ck.db:delete_toggle(name)
 end
 
 -- I need Times.create to work in scripts outside of functions
-local Times = ck:get_table("API.Times")
-local watches = ck:get_table("API.Times._watches")
+local Times = ck:get_table("API.Times", {
+    _watches = {}
+})
 
 function Times:create(name)
-    if not watches[name] then
-        watches[name] = createStopWatch(PREFIX .. "." .. name, true)
+    if not self._watches[name] then
+        tempTimer(0, function()
+            self._watches[name] = createStopWatch(PREFIX .. "." .. name, true)
+        end)
     end
 end
 
 -- Versions 
-local versions = {
-    ["__PKGNAME__"] = "__VERSION__"
-}
+local versions = {}
 
 function ck:register_module(what, version)
     versions[what] = version
@@ -184,13 +185,14 @@ end
 function ck:get_version_str()
     -- CKMud-Shared:1.x.x CKMud-Core:2.x
     local modules = {}
+    local versions = versions
     for m in pairs(versions) do
         table.insert(modules, m)
     end
     table.sort(modules)
     local output = {}
     for _, m in ipairs(modules) do
-        table.insert(f "{m}:{versions[m]}")
+        table.insert(output, f "{m}:{versions[m]}")
     end
     return table.concat(output, " ")
 end

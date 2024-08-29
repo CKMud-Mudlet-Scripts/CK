@@ -1,5 +1,9 @@
 [
     {
+        "name": "__PKGNAME__",
+        "script": "require(\"__PKGNAME__.ck\"):register_module(\"__PKGNAME__\", \"__VERSION__\")"
+    },
+    {
         "name": "LIBS"
     },
     {
