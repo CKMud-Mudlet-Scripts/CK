@@ -16,6 +16,10 @@
         "regex": "^CK constants? ([a-zA-Z_\\.-]+)\\s*=\\s*(.+)$"
     },
     {
+        "name": "CK pkg",
+        "regex": "^CK pkg(?: (versions|update|install|check-update|help)(?: (.+))?)?$"
+    },
+    {
         "name": "quit (without reconnecting)",
         "regex": "^quit$",
         "script": "send(\"quit\", true)\nregisterAnonymousEventHandler(\"sysDisconnectionEvent\", disconnect, true)"

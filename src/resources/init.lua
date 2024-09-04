@@ -197,4 +197,16 @@ function ck:get_version_str()
     return table.concat(output, " ")
 end
 
+function ck:get_versions() 
+    local modules = {}
+    for mod, v in pairs(versions) do
+        modules[mod] = v
+    end
+    return modules
+end
+
+function ck:installed_module(what)
+    return versions[what]
+end
+
 return ck

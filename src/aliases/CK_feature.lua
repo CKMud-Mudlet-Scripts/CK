@@ -1,4 +1,5 @@
 local ck = require("__PKGNAME__")
+local console = require("__PKGNAME__.console")
 local features = ck:feature_names()
 local max_length = -1
 
@@ -42,28 +43,11 @@ local function ncolumn(t, n)
     echo("\n")
 end
 
-local function header(text, max_width, color)
-    -- o----{ Header }----o
-    local dashl = math.floor((max_width - string.len(text) - 6) / 2)
-    local extra_one = (dashl * 2 + string.len(text) + 6 < max_width) and 1 or 0
-    color = color or "green"
-    local left = string.rep("-", dashl)
-    local right = string.rep("-", dashl + extra_one)
-    cecho(f "o{left}[ <{color}>{text}<reset> ]{right}o\n")
-    return string.len(left) + string.len(right) + string.len(text) + 6
-end
-
-local function footer(max_width)
-    --  o------o
-    local body = string.rep("-", max_width - 2)
-    echo(f "o{body}o\n")
-end
-
-local s = header("CK Features List", total_width)
+local s = console:header("CK Features List", total_width)
 if #features > 0 then
     ncolumn(features, num_column)
 else
     echo("NO FEATURES FOUND\n")
 end
-footer(s)
+console:footer(s)
 echo(" * Use `ck feature <name> on/off` to toggle\n")
