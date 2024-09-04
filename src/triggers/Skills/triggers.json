@@ -1,0 +1,66 @@
+[
+       {
+              "name": "Learn Scrape",
+              "multiline": "yes",
+              "multilineDelta": "1",
+              "fireLength": "99",
+              "patterns": [
+                     {
+                            "pattern": "o---------------------------------------------------------o",
+                            "type": "exactMatch"
+                     },
+                     {
+                            "pattern": "Technique           Req.       Technique           Req. ",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script": "CK.API.Skills.clear()",
+              "children": [
+                     {
+                            "name": "scrape skill",
+                            "matchall": "yes",
+                            "patterns": [
+                                   {
+                                          "pattern": "([^ ][a-z ]+?)\\s+(Mastered|Supreme|Boosted|[0-9]+%)",
+                                          "type": "regex"
+                                   }
+                            ]
+                     },
+                     {
+                            "name": "Skill Sections",
+                            "patterns": [
+                                   {
+                                          "pattern": "^(Physical) Attacks:",
+                                          "type": "regex"
+                                   },
+                                   {
+                                          "pattern": "^(Ki) Attacks:",
+                                          "type": "regex"
+                                   },
+                                   {
+                                          "pattern": "^(AoE) Attacks:",
+                                          "type": "regex"
+                                   },
+                                   {
+                                          "pattern": "^(Other) Skills:",
+                                          "type": "regex"
+                                   },
+                                   {
+                                          "pattern": "^o---------------------[ (Focus) Skills ]--------------------o$",
+                                          "type": "regex"
+                                   }
+                            ]
+                     },
+                     {
+                            "name": "close Learn scrape",
+                            "patterns": [
+                                   {
+                                          "pattern": " Use 'slist' to show all skills available to your race",
+                                          "type": "exactMatch"
+                                   }
+                            ],
+                            "script": "setTriggerStayOpen(\"Learn Scrape\", 0) CK.Player.Skills.section = nil"
+                     }
+              ]
+       }
+]

@@ -1,0 +1,30 @@
+[
+    {
+        "name": "__PKGNAME__",
+        "script": "require(\"__PKGNAME__.ck\"):register_module(\"__PKGNAME__\", \"__VERSION__\")"
+    },
+    {
+        "name": "LIBS"
+    },
+    {
+        "name": "Damage"
+    },
+    {
+        "name": "StateMachine"
+    },
+    {
+        "name": "SendQueue"
+    },
+    {
+        "name": "Combos"
+    },
+    {
+        "name": "Affects"
+    },
+    {
+        "name": "Skills"
+    },
+    {
+        "name": "Tell Rpc"
+    }
+]

@@ -1,0 +1,23 @@
+[
+    {
+        "name": "CK feature",
+        "regex": "^CK features?$"
+    },
+    {
+        "name": "CK feature toggle",
+        "regex": "^CK feature (.+) (on|off)$"
+    },
+    {
+        "name": "CK constant",
+        "regex": "^CK constants? ?(?: ([a-zA-Z_\\.-]+))?$"
+    },
+    {
+        "name": "CK constant set",
+        "regex": "^CK constants? ([a-zA-Z_\\.-]+)\\s*=\\s*(.+)$"
+    },
+    {
+        "name": "quit (without reconnecting)",
+        "regex": "^quit$",
+        "script": "send(\"quit\", true)\nregisterAnonymousEventHandler(\"sysDisconnectionEvent\", disconnect, true)"
+    }
+]

@@ -1,0 +1,153 @@
+[
+       {
+              "name": "Status Affections",
+              "multiline": "yes",
+              "multilineDelta": "1",
+              "fireLength": "50",
+              "patterns": [
+                     {
+                            "pattern": "o-----------------------------------------------------------o",
+                            "type": "exactMatch"
+                     },
+                     {
+                            "pattern": " Affections:",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script": "CK.PromptFlags.affects = {}\nCK.API.Times.reset(\"status\")",
+              "children": [
+                     {
+                            "name": "Active Buff Trigger",
+                            "multiline": "yes",
+                            "multilineDelta": "0",
+                            "patterns": [
+                                   {
+                                          "pattern": ": In affect for",
+                                          "type": "substring"
+                                   },
+                                   {
+                                          "pattern": "\\s*(?\u003caffect\u003e.+)\\s*: In affect for (?\u003ctime\u003e\\d+) mins\\.$",
+                                          "type": "regex"
+                                   }
+                            ]
+                     },
+                     {
+                            "name": "close Affections",
+                            "multiline": "yes",
+                            "multilineDelta": "1",
+                            "patterns": [
+                                   {
+                                          "pattern": "o-----------------------------------------------------------o",
+                                          "type": "exactMatch"
+                                   },
+                                   {
+                                          "pattern": " Equipment Boosts:",
+                                          "type": "exactMatch"
+                                   }
+                            ],
+                            "script": "setTriggerStayOpen(\"Status Affections\", 0)"
+                     }
+              ]
+       },
+
+       {
+              "name": "Hasshuken",
+              "patterns": [
+                     {
+                            "pattern": "Your arm movements return to normal.",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script":"CK.API:safeSend(\"focus 'hasshuken'\")"
+       },
+       {
+              "name": "Energy Shield",
+              "patterns": [
+                     {
+                            "pattern": "Your ki shield diminishes.",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script":"CK.API:safeSend(\"focus 'energy'\")"
+       },
+       {
+              "name": "zanzoken",
+              "patterns": [
+                     {
+                            "pattern": "You slow down.",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script":"CK.API:safeSend(\"focus 'zanzoken'\")"
+       },
+       {
+              "name": "Demonic Will",
+              "patterns": [
+                     {
+                            "pattern": "Your horns recede as you feel your demonic powers fade away.",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script": "CK.API:safeSend(\"focus 'demonic'\")"
+       },
+       {
+              "name": "Barrier",
+              "patterns": [
+                     {
+                            "pattern": "The globe of energy around your body fades.",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script": "CK.API:safeSend(\"focus 'barrier'\")"
+       },
+       {
+              "name": "Resonance",
+              "patterns": [
+                     {
+                            "pattern": "The harmonious aura of resonance dissipates.",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script": "CK.API:safeSend(\"focus 'resonance'\")"
+       },
+       {
+              "name": "Herculean Force",
+              "patterns": [
+                     {
+                            "pattern": "Your muscles return to their normal size.",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script": "CK.API:safeSend(\"focus 'herc'\")"
+       },
+       {
+              "name": "kino tsurugi",
+              "patterns": [
+                     {
+                            "pattern": "Your ki blades fade into nothing.",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script": "CK.API:safeSend(\"focus 'kino tsurugi'\")"
+       },
+       {
+              "name": "Regenerate",
+              "patterns": [
+                     {
+                            "pattern": "Your regenerative abilities slowly fade away.",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script": "CK.API:safeSend(\"focus 'regenerate'\")"
+       },
+       {
+              "name": "Invigorate",
+              "patterns": [
+                     {
+                            "pattern": "You suddenly feel exceptionally tired...",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script": "CK.API:safeSend(\"focus 'invigorate'\")"
+       }
+]

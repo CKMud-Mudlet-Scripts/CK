@@ -1,0 +1,8 @@
+{
+       "package": "CK",
+       "title": "Shared Code for CKmud Family of Scripts",
+       "version": "1.0.0",
+       "author": "fried",
+       "icon": "shenron.png",
+       "outputFile": true
+}
