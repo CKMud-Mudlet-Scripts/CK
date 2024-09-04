@@ -1,4 +1,4 @@
-local ck = require("__PKGNAME__.ck")
+local ck = require("__PKGNAME__")
 local ROOT = ck:get_table()
 local Player = ck:get_table("Player")
 local API = ck:get_table("API")

@@ -1,4 +1,4 @@
-local ck = require("__PKGNAME__.ck")
+local ck = require("__PKGNAME__")
 local Skills = ck:get_table("API.Skills") -- CK.API.Skills:mastered
 local API = ck:get_table("API") -- CK.API more public
 local Affects = ck:get_table("API.Affect") -- less public

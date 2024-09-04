@@ -1,4 +1,4 @@
-local ck = require("__PKGNAME__.ck")
+local ck = require("__PKGNAME__")
 local constants = ck:constant_names()
 local max_length = -1
 -- Get the max length

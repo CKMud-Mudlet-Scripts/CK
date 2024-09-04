@@ -2,7 +2,7 @@
 Some basic functionality so I don't have to worry about init order or
 script load order
 
-local ck = require("__PKGNAME__.ck")
+local ck = require("__PKGNAME__")
 ]] local ck = {}
 -- Global Data Prefix
 local PREFIX = "CK"

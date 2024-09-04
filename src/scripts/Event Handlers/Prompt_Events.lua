@@ -1,5 +1,5 @@
 -- This even Fires every single Prompt
-local ck = require("__PKGNAME__.ck")
+local ck = require("__PKGNAME__")
 local API = ck:get_table("API")
 local Player = ck:get_table("Player")
 local PromptFlags = ck:get_table("PromptFlags")

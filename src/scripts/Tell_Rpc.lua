@@ -1,6 +1,6 @@
 --[[
 This parses !cmd from tell messages and handles replies
-]] local ck = require("__PKGNAME__.ck")
+]] local ck = require("__PKGNAME__")
 local Player = ck:get_table("Player")
 local tell_rpc = ck:get_table("API.tell_rpc")
 

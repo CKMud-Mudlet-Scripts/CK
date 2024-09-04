@@ -1,4 +1,4 @@
-local ck = require("__PKGNAME__.ck")
+local ck = require("__PKGNAME__")
 local Times = ck:get_table("API.Times")
 local API = ck:get_table("API")
 local PromptCounters = ck:get_table("PromptCounters")

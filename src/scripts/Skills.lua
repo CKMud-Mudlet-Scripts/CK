@@ -1,4 +1,4 @@
-local ck = require("__PKGNAME__.ck")
+local ck = require("__PKGNAME__")
 local Data = ck:get_table("Player.Skills")
 local Skills = ck:get_table("API.Skills") -- CK.API.Skills:mastered
 

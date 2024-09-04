@@ -45,5 +45,19 @@
                 "type": "regex"
             }
         ]
+    },
+    {
+        "name": "MOTD Bypass",
+        "patterns": [
+               {
+                      "pattern": "*** PRESS RETURN: ",
+                      "type": "startOfLine"
+               },
+               {
+                      "pattern": "*** PRESS RETURN: ",
+                      "type": "exactMatch"
+               }
+        ],
+        "script": "send(\"gogogo\\n\") send(\"\\n\\n\") send(\"status\") send(\"score\") send(\"learn\")"
     }
 ]

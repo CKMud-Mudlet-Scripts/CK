@@ -1,4 +1,4 @@
-local ck = require("__PKGNAME__.ck")
+local ck = require("__PKGNAME__")
 local feature_list = ck:feature_names()
 
 local feature = matches[2]

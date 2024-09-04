@@ -1,4 +1,4 @@
-local ck = require("__PKGNAME__.ck")
+local ck = require("__PKGNAME__")
 local Toggles = ck:get_table("Toggles")
 
 local function onDisconnectionEvent(eventname)

@@ -1,4 +1,4 @@
-local ck = require("__PKGNAME__.ck")
+local ck = require("__PKGNAME__")
 local constant_list = ck:constant_names()
 local constant = matches[2]
 local raw_value = matches[3]

@@ -1,7 +1,7 @@
 -- The Safe Send Queue
 -- Only Save up sends for sending later
 
-local ck = require("__PKGNAME__.ck")
+local ck = require("__PKGNAME__")
 local SendQueue = ck:get_table("API.SendQueue", {first = 0, last = -1})
 local State = ck:get_table("API.State")
 local Toggles = ck:get_table("Toggles")
