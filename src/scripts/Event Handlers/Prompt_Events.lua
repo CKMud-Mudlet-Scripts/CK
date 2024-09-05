@@ -84,7 +84,7 @@ local function onPrompt()
     decPromptCounters()
 end
 
-registerNamedEventHandler("CKMud-Shared", "onPrompt", "CK.onPrompt", onPrompt)
+registerNamedEventHandler("__PKGNAME__", "onPrompt", "CK.onPrompt", onPrompt)
 
 local function onNotFightingPrompt()
     Toggles.EnemyLineComboTest = true
@@ -107,7 +107,7 @@ local function onNotFightingPrompt()
     ck:get_table("API.SendQueue"):trySendNow()
 end
 
-registerNamedEventHandler("CKMud-Shared", "onNotFightingPrompt", "CK.onNotFightingPrompt", onNotFightingPrompt)
+registerNamedEventHandler("__PKGNAME__", "onNotFightingPrompt", "CK.onNotFightingPrompt", onNotFightingPrompt)
 
 local function onFightingPrompt(val)
     if Times:last("fight") > 2 and PromptFlags.fighting then
@@ -120,7 +120,7 @@ local function onFightingPrompt(val)
     end
 end
 
-registerNamedEventHandler("CKMud-Shared", "onFightingPrompt", "CK.onFightingPrompt", onFightingPrompt)
+registerNamedEventHandler("__PKGNAME__", "onFightingPrompt", "CK.onFightingPrompt", onFightingPrompt)
 
 local function onFinishedFighting()
     Toggles.meleefighting = false
@@ -129,4 +129,4 @@ local function onFinishedFighting()
     cecho("\n<red>Fight Finished!")
 end
 
-registerNamedEventHandler("CKMud-Shared", "onFinishedFighting", "CK.onFinishedFighting", onFinishedFighting)
+registerNamedEventHandler("__PKGNAME__", "onFinishedFighting", "CK.onFinishedFighting", onFinishedFighting)

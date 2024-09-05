@@ -1,7 +1,7 @@
 [
     {
         "name": "__PKGNAME__",
-        "script": "require(\"__PKGNAME__\"):register_module(\"__PKGNAME__\", \"__VERSION__\")"
+        "script": "require(\"__PKGNAME__\"):register(\"__PKGNAME__\", \"__VERSION__\")"
     },
     {
         "name": "LIBS"

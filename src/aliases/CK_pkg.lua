@@ -28,6 +28,10 @@ function functions.versions()
     local s = console:header("CK pkg versions", 25, "cyan")
     local fmt = "|<GhostWhite>%10s <cyan>: <GhostWhite>%-10s<reset>|\n"
     for m, v in pairs(ck:get_versions()) do
+        -- Remove the CK- prefix
+        if m:find("CK-", 1, true) then
+            m = m:split("-")[2]
+        end
         cecho(fmt:format(m, v))
     end
     console:footer(s)
@@ -36,9 +40,10 @@ end
 
 function functions.install(name, version)
     name = name:title()
+    fullname = f"CK-{name}"
     if table.contains(submodules, name) then
-        if ck:installed_module(name) == nil then
-            local url = get_install_url(f"CK-{name}")
+        if ck:installed_module(fullname) == nil then
+            local url = get_install_url(fullname)
             installPackage(url)
         else
             print("Already Installed")

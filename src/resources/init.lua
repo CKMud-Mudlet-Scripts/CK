@@ -178,8 +178,16 @@ end
 -- Versions 
 local versions = {}
 
-function ck:register_module(what, version)
+function ck:register(what, version, noregister)
+
     versions[what] = version
+
+    if not noregister then
+        registerNamedEventHandler(what, "reregister_package", "CK:Register_Package", function(event)
+            require("CK"):register(what, version, true)
+        end)
+    end
+
 end
 
 function ck:get_version_str()
@@ -197,7 +205,7 @@ function ck:get_version_str()
     return table.concat(output, " ")
 end
 
-function ck:get_versions() 
+function ck:get_versions()
     local modules = {}
     for mod, v in pairs(versions) do
         modules[mod] = v
@@ -208,5 +216,21 @@ end
 function ck:installed_module(what)
     return versions[what]
 end
+
+-- Sub Package Plugins System
+
+-- When CK is reinstalled tell the other packages to register again
+registerNamedEventHandler(PREFIX, "sysInstall", "sysInstall", function(event, name)
+    if name:starts(PREFIX) then
+        raiseEvent("CK:Register_Package")
+    end
+end)
+
+-- When a package is uninstalled remove it from our list
+registerNamedEventHandler(PREFIX, "sysUninstall", "sysUninstall", function(event, name)
+    if name:starts(PREFIX) then
+        versions[name] = nil
+    end
+end)
 
 return ck
