@@ -1,7 +1,7 @@
 local ck = require("__PKGNAME__")
 local Player = ck:get_table("Player")
 local Toggles = ck:get_table("Toggles")
-local zeta = ck:get_table("API.Zetabot", { state = {}, triggers = {} })
+local zeta = ck:get_table("API.Zetabot", { triggers = {} })
 local Times = ck:get_table("API.Times")
 
 Times:create("zeta.sense")
@@ -11,7 +11,7 @@ local function enter()
     -- Change Mode
     API.Mode.switch(API.Mode.Zetabot)
     -- Clear out all state
-    Toggles.zetabot_state = { ok_to_blast = true, ok_to_sense = true, ok_to_adjust = true }
+    zeta.state = { ok_to_blast = true, ok_to_sense = true, ok_to_adjust = true }
     -- Setup Temp Triggers
 
     -- Look for a signal that the AOE executed
