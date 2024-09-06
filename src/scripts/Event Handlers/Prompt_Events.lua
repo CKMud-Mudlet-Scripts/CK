@@ -46,6 +46,26 @@ local function clearFlags()
     end
 end
 
+local function LastPrompt()
+    local last = Times:last("prompt")
+    local force = false
+    if API:is_connected() then
+        if API.Mode:check(API.Mode.Interactive) then
+            force = last > 30
+        else
+            force = last > 8
+        end
+
+        if force then
+            send("\n")
+        end
+    
+        if  API.Times:last("prompt") > 3600 then
+            cecho("<red>!!!!!Prompt is not parsing file a bug!!!!!")
+        end
+    end
+end
+
 local function onPrompt()
     Times:reset("prompt")
     Toggles.firstprompt = true
@@ -53,14 +73,10 @@ local function onPrompt()
     if not PromptFlags.Kaioken then
         Player.Kaioken = 0
     end
-    -- Lets make sure we get a prompt on a regular cadence
-    if Timers.forceprompt ~= nil then
-        killTimer(Timers.forceprompt)
-        Timers.forceprompt = nil
-    end
-    Timers.forceprompt = tempTimer(30, function()
-        send("score")
-    end)
+
+    -- setup a timer so we always get a prompt in a reasonable time
+    registerNamedTimer("__PKGNAME__", "CK:LastPrompt", 30, LastPrompt, true)
+
     if not Status.HT then
         Toggles.NEXTHT = nil
     end
