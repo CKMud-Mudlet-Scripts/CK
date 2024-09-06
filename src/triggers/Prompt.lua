@@ -47,7 +47,7 @@ end
 
 -- Toggle this
 cecho(f"[<green>{CK.API.State:toString()}<white>]")
-cecho(f"[<red>{(CK.Player.MaxGravity or "???")}x G<white>]")
+cecho(f"[<red>{(CK.Player.MaxGravity or '???')}x G<white>]")
 -- Fix this so its doesn't live here
 if Toggles.botmode then
   cecho("[<green>ZetaBot<white>]")
