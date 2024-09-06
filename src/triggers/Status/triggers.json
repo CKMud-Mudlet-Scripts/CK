@@ -6,12 +6,12 @@
               "fireLength": "10",
               "patterns": [
                      {
-                            "pattern": "o---------------------------------------------------------o",
+                            "pattern": "o-----------------------------------------------------------o",
                             "type": "exactMatch"
                      },
                      {
                             "pattern": " Status:",
-                            "type": "exactMatch"
+                            "type": "startOfLine"
                      }
               ],
               "script": "",
@@ -40,6 +40,56 @@
                                    }
                             ],
                             "script": "setTriggerStayOpen(\"Status Scrape\", 0)"
+                     }
+              ]
+       },
+       {
+              "name": "Status Affections",
+              "multiline": "yes",
+              "multilineDelta": "1",
+              "fireLength": "50",
+              "patterns": [
+                     {
+                            "pattern": "o-----------------------------------------------------------o",
+                            "type": "exactMatch"
+                     },
+                     {
+                            "pattern": " Affections:",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script": "CK.PromptFlags.affects = {}",
+              "children": [
+                     {
+                            "name": "Active Buff Trigger",
+                            "multiline": "yes",
+                            "multilineDelta": "0",
+                            "patterns": [
+                                   {
+                                          "pattern": ": In affect for",
+                                          "type": "substring"
+                                   },
+                                   {
+                                          "pattern": "\\s*(?\u003caffect\u003e.+)\\s*: In affect for (?\u003ctime\u003e\\d+) minutes\\.$",
+                                          "type": "regex"
+                                   }
+                            ]
+                     },
+                     {
+                            "name": "close Affections",
+                            "multiline": "yes",
+                            "multilineDelta": "1",
+                            "patterns": [
+                                   {
+                                          "pattern": "o-----------------------------------------------------------o",
+                                          "type": "exactMatch"
+                                   },
+                                   {
+                                          "pattern": " Equipment Boosts:",
+                                          "type": "exactMatch"
+                                   }
+                            ],
+                            "script": "setTriggerStayOpen(\"Status Affections\", 0)"
                      }
               ]
        }

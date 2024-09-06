@@ -1,66 +1,5 @@
 [
        {
-              "name": "Status Affections",
-              "multiline": "yes",
-              "multilineDelta": "1",
-              "fireLength": "50",
-              "patterns": [
-                     {
-                            "pattern": "o-----------------------------------------------------------o",
-                            "type": "exactMatch"
-                     },
-                     {
-                            "pattern": " Affections:",
-                            "type": "exactMatch"
-                     }
-              ],
-              "script": "CK.PromptFlags.affects = {}",
-              "children": [
-                     {
-                            "name": "Active Buff Trigger",
-                            "multiline": "yes",
-                            "multilineDelta": "0",
-                            "patterns": [
-                                   {
-                                          "pattern": ": In affect for",
-                                          "type": "substring"
-                                   },
-                                   {
-                                          "pattern": "\\s*(?\u003caffect\u003e.+)\\s*: In affect for (?\u003ctime\u003e\\d+) minutes\\.$",
-                                          "type": "regex"
-                                   }
-                            ]
-                     },
-                     {
-                            "name": "close Affections",
-                            "multiline": "yes",
-                            "multilineDelta": "1",
-                            "patterns": [
-                                   {
-                                          "pattern": "o-----------------------------------------------------------o",
-                                          "type": "exactMatch"
-                                   },
-                                   {
-                                          "pattern": " Equipment Boosts:",
-                                          "type": "exactMatch"
-                                   }
-                            ],
-                            "script": "setTriggerStayOpen(\"Status Affections\", 0)"
-                     }
-              ]
-       },
-
-       {
-              "name": "Hasshuken",
-              "patterns": [
-                     {
-                            "pattern": "Your arm movements return to normal.",
-                            "type": "exactMatch"
-                     }
-              ],
-              "script":"CK.API:safeSend(\"focus 'hasshuken'\")"
-       },
-       {
               "name": "Energy Shield",
               "patterns": [
                      {
@@ -71,7 +10,7 @@
               "script":"CK.API:safeSend(\"focus 'energy'\")"
        },
        {
-              "name": "zanzoken",
+              "name": "Zanzoken",
               "patterns": [
                      {
                             "pattern": "You slow down.",
@@ -79,56 +18,6 @@
                      }
               ],
               "script":"CK.API:safeSend(\"focus 'zanzoken'\")"
-       },
-       {
-              "name": "Demonic Will",
-              "patterns": [
-                     {
-                            "pattern": "Your horns recede as you feel your demonic powers fade away.",
-                            "type": "exactMatch"
-                     }
-              ],
-              "script": "CK.API:safeSend(\"focus 'demonic'\")"
-       },
-       {
-              "name": "Barrier",
-              "patterns": [
-                     {
-                            "pattern": "The globe of energy around your body fades.",
-                            "type": "exactMatch"
-                     }
-              ],
-              "script": "CK.API:safeSend(\"focus 'barrier'\")"
-       },
-       {
-              "name": "Resonance",
-              "patterns": [
-                     {
-                            "pattern": "The harmonious aura of resonance dissipates.",
-                            "type": "exactMatch"
-                     }
-              ],
-              "script": "CK.API:safeSend(\"focus 'resonance'\")"
-       },
-       {
-              "name": "Herculean Force",
-              "patterns": [
-                     {
-                            "pattern": "Your muscles return to their normal size.",
-                            "type": "exactMatch"
-                     }
-              ],
-              "script": "CK.API:safeSend(\"focus 'herc'\")"
-       },
-       {
-              "name": "kino tsurugi",
-              "patterns": [
-                     {
-                            "pattern": "Your ki blades fade into nothing.",
-                            "type": "exactMatch"
-                     }
-              ],
-              "script": "CK.API:safeSend(\"focus 'kino tsurugi'\")"
        },
        {
               "name": "Regenerate",
@@ -141,6 +30,96 @@
               "script": "CK.API:safeSend(\"focus 'regenerate'\")"
        },
        {
+              "name": "Swiftness",
+              "patterns": [
+                     {
+                            "pattern": "You are no longer masking your movement.",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script": "CK.API:safeSend(\"focus 'swiftness'\")"
+       },
+       {
+              "name": "Gigantification",
+              "patterns": [
+                     {
+                            "pattern": "Your body shrinks back to its normal size.",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script": "CK.API:safeSend(\"focus 'gigantification'\")"
+       },
+       {
+              "name": "Hasshuken",
+              "patterns": [
+                     {
+                            "pattern": "Your arm movements return to normal.",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script":"CK.API:safeSend(\"focus 'hasshuken'\")"
+       },
+       {
+              "name": "Herculean Force",
+              "patterns": [
+                     {
+                            "pattern": "Your muscles return to their normal size.",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script": "CK.API:safeSend(\"focus 'herc'\")"
+       },
+       {
+              "name": "Resonance",
+              "patterns": [
+                     {
+                            "pattern": "The harmonious aura of resonance dissipates.",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script": "CK.API:safeSend(\"focus 'resonance'\")"
+       },
+       {
+              "name": "Hakai Barrier",
+              "patterns": [
+                     {
+                            "pattern": "Your hakai barrier slowly fades away.",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script": "if CK.API:feature(\"auto_hakai\") then CK.API:safeSend(\"focus 'hakai'\") end"
+       },
+       {
+              "name": "Forcefield",
+              "patterns": [
+                     {
+                            "pattern": "Your forcefield flickers briefly and fades away.",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script":"CK.API:safeSend(\"focus 'forcefield'\")"
+       },       
+       {
+              "name": "Barrier",
+              "patterns": [
+                     {
+                            "pattern": "The globe of energy around your body fades.",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script": "CK.API:safeSend(\"focus 'barrier'\")"
+       },
+       {
+              "name": "Infravision",
+              "patterns": [
+                     {
+                            "pattern": "Your night vision seems to fade.",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script":"CK.API:safeSend(\"focus 'infravision'\")"
+       },
+       {
               "name": "Invigorate",
               "patterns": [
                      {
@@ -149,5 +128,69 @@
                      }
               ],
               "script": "CK.API:safeSend(\"focus 'invigorate'\")"
+       },
+       {
+              "name": "Kino Tsurugi",
+              "patterns": [
+                     {
+                            "pattern": "Your ki blades fade into nothing.",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script": "CK.API:safeSend(\"focus 'kino tsurugi'\")"
+       },
+       {
+              "name": "Wrathful Fury",
+              "patterns": [
+                     {
+                            "pattern": "You aura subsides as your destructive wrath wanes.",
+                            "type": "exactMatch"
+                     },
+                     {
+                            "pattern": "Your aura subsides as your destructive wrath wanes.",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script": "CK.API:safeSend(\"focus 'wrath'\")"
+       },
+       {
+              "name": "Demonic Will",
+              "patterns": [
+                     {
+                            "pattern": "Your horns recede as you feel your demonic powers fade away.",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script": "CK.API:safeSend(\"focus 'demonic'\")"
+       },
+       {
+              "name": "Celestial Shield",
+              "patterns": [
+                     {
+                            "pattern": "Your divine barrier slowly fades away.",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script":"CK.API:safeSend(\"focus 'celestial shield'\")"
+       },
+       {
+              "name": "Divine Judgement",
+              "patterns": [
+                     {
+                            "pattern": "Your body is no longer radiating divine energy.",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script":"CK.API:safeSend(\"focus 'divine judgement'\")"
+       },
+       {
+              "name": "Celestial Drain",
+              "patterns": [
+                     {
+                            "pattern": "Your celestial aura of resurgence fades away.",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script":"CK.API:safeSend(\"focus 'celestial drain'\")"
        }
 ]

@@ -41,7 +41,7 @@ local function clearFlags()
     for key, _ in pairs(PromptFlags) do
         table.insert(klist, key)
     end
-    for _, key in ipairs(PromptFlags) do
+    for _, key in ipairs(klist) do
         PromptFlags[key] = nil
     end
 end
@@ -92,8 +92,9 @@ local function onPrompt()
         raiseEvent("CK.onNotFightingPrompt")
     end
     -- Handle Buffs before we clear flags
-    if PromptFlags.affections and State:check(State.NORMAL, true) then
+    if PromptFlags.affects and State:check(State.NORMAL, true) then
         Affects:rebuff(PromptFlags.affects)
+
     end
     -- All flags since last prompt should be cleared so next prompt we can take action
     clearFlags()
