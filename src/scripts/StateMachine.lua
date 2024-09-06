@@ -24,6 +24,10 @@ function State:get()
   return _state.CURRENT_STATE
 end
 
+function State:is(state)
+  return state == self:get()
+end
+
 function State:revert()
   State:set(_state.PREV_STATE)
 end

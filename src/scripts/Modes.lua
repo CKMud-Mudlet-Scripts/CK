@@ -15,6 +15,7 @@ local _mode = ck:get_table("API._mode", {mode=Mode.Interactive, string=""})
 function Mode:switch(new_mode)
     new_mode = new_mode or Mode.Interactive
     API.State:set(API.State.NORMAL)
+    -- Remove this shit later
     if new_mode == Mode.Interactive then
         _mode.string = ""
         Toggles.botmode = false

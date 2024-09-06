@@ -1,0 +1,46 @@
+[
+       {
+              "name": "Status Scrape",
+              "multiline": "yes",
+              "multilineDelta": "1",
+              "fireLength": "10",
+              "patterns": [
+                     {
+                            "pattern": "o---------------------------------------------------------o",
+                            "type": "exactMatch"
+                     },
+                     {
+                            "pattern": " Status:",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script": "",
+              "children": [
+                     {
+                            "name": "scrape max gravity",
+                            "multiline": "yes",
+                            "multilineDelta": "0",
+                            "patterns": [
+                                   {
+                                          "pattern": "You are able to withstand",
+                                          "type": "substring"
+                                   },
+                                   {
+                                          "pattern": "You are able to withstand (\\d+)x gravity.",
+                                          "type": "regex"
+                                   }
+                            ]
+                     },
+                     {
+                            "name": "close Status scrape",
+                            "patterns": [
+                                   {
+                                          "pattern": "  Affections:",
+                                          "type": "exactMatch"
+                                   }
+                            ],
+                            "script": "setTriggerStayOpen(\"Status Scrape\", 0)"
+                     }
+              ]
+       }
+]
