@@ -35,7 +35,7 @@
                             "name": "close Status scrape",
                             "patterns": [
                                    {
-                                          "pattern": "  Affections:",
+                                          "pattern": " Affections:",
                                           "type": "exactMatch"
                                    }
                             ],
