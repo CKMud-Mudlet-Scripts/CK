@@ -48,13 +48,9 @@ end
 -- Toggle this
 cecho(f"[<green>{CK.API.State:toString()}<white>]")
 cecho(f"[<red>{(CK.Player.MaxGravity or '???')}x G<white>]")
--- Fix this so its doesn't live here
-if Toggles.botmode then
-  cecho("[<green>ZetaBot<white>]")
-elseif Toggles.training then
-  cecho("[<green>AutoTrain<white>]")
-elseif Toggles.learn then
-  cecho("[<green>AutoLearn<white>]")
+
+if not CK.API.Mode:is(CK.API.Mode.Interactive) then
+  cecho(f"[<green>{CK.API.Mode:toString()}<white>]")
 end
 
 -- Toggle this
