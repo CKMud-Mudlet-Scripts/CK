@@ -14,7 +14,7 @@
                             "type": "exactMatch"
                      }
               ],
-              "script": "CK.PromptFlags.affects = {}\nCK.API.Times.reset(\"status\")",
+              "script": "CK.PromptFlags.affects = {}",
               "children": [
                      {
                             "name": "Active Buff Trigger",
@@ -26,7 +26,7 @@
                                           "type": "substring"
                                    },
                                    {
-                                          "pattern": "\\s*(?\u003caffect\u003e.+)\\s*: In affect for (?\u003ctime\u003e\\d+) mins\\.$",
+                                          "pattern": "\\s*(?\u003caffect\u003e.+)\\s*: In affect for (?\u003ctime\u003e\\d+) minutes\\.$",
                                           "type": "regex"
                                    }
                             ]

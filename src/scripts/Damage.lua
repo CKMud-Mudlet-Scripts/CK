@@ -2,6 +2,9 @@ local ck = require("__PKGNAME__")
 local Player = ck:get_table("Player")
 local API = ck:get_table("API")
 
+ck:get_table("Player.Stats")
+ck:get_table("Player.BaseStats")
+
 
 local function dam(stat1, stat2, supreme, boosted)
     local supreme_multi = supreme and 7500 or 5000
@@ -10,14 +13,14 @@ local function dam(stat1, stat2, supreme, boosted)
         math.floor(
             ((stat1 * 1.8) * supreme_multi) +
             ((stat2 / 5) * supreme_multi) +
-            (Player.DAMROLL * boost_multi) +
-            (Player.HITROLL * boost_multi) +
-            (math.min((Player.MAXPL / 200), 2000000))
+            (Player.Damroll * boost_multi) +
+            (Player.Hitroll * boost_multi) +
+            (math.min((Player.MaxPl / 200), 2000000))
         )
 end
 
 function API:heal_factor()
-    return Player.Stats.INT * 5000 + Player.Stats.WIS * 25000 + Player.MAXPL / 100
+    return Player.Stats.INT * 5000 + Player.Stats.WIS * 25000 + Player.MaxPl / 100
 end
 
 function API:ki_dam(supreme, boosted)

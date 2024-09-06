@@ -2,9 +2,56 @@ local ck = require("__PKGNAME__")
 local Times = ck:get_table("API.Times")
 local API = ck:get_table("API")
 local PromptCounters = ck:get_table("PromptCounters")
+local Player = ck:get_table("Player")
+
+ck:define_constant("name", "???")
+ck:define_constant("race", "???")
+
+-- Figure out something better
+function API:isAndroid(race)
+  return race == "Android"
+end
+
+function API:isBioDroid(race)
+  return race == "Bio-Android"
+end
+
+function API:setRace(race)
+  local old_race = ck:constant("race")
+  if old_race == "???" then
+    ck:set_constant("race", race)
+  elseif old_race ~= race then
+    cecho(f" <Red>Error: Race Change from {old_race}, use `lua CK constant race={race}`")
+  end
+end
+
+function API:setName(name)
+  local old_name = ck:constant("name")
+  if old_name == "???" then
+    ck:set_constant("name", name)
+  elseif old_name ~= name then
+    cecho(f" <Red>Error: Named Changed from {old_race}, use `lua CK constant name={name}`")
+  end
+end
+
+
+function API:status_ok()
+  -- Maybe a better system is needed, but this check means you are OK, not great but not bad state
+  -- Good for AOE and scouter prechecks
+  local race = self:constant("race")
+  local health = (Player.Health or 100) >= 50
+  if self:isBioDroid(race) then
+     return health and Player.Biomass >= 50
+  elseif self:isAndroid(race) then
+     return health and Player.Heat <= 60
+  else 
+    -- Everyone else
+     return health and Player.Ki > 50 and Player.Fatigue <= 60
+  end
+end
 
 function API:constant(name)
-  return ck.constant(name)
+  return ck:constant(name)
 end
 
 function API:feature(name)
@@ -71,4 +118,28 @@ function table.extend(list, items)
   for _, item in ipairs(items) do
     list[#list + 1] = item
   end
+end
+
+function API:item_tier()
+  -- Thanks Vorrac
+  local base_pl = Player.BasePl
+  local tier = 0
+  if base_pl >= 3000000000 then
+    tier = 8
+  elseif base_pl >= 1500000000 then
+    tier = 7
+  elseif base_pl >= 500000000 then
+    tier = 6
+  elseif base_pl >= 250000000 then
+    tier = 5
+  elseif base_pl >= 125000000 then
+    tier = 4
+  elseif base_pl >= 75000000 then
+    tier = 3
+  elseif base_pl >= 25000000 then
+    tier = 2
+  elseif base_pl >= 1000000 then
+    tier = 1
+  end
+  return tier
 end

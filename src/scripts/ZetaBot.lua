@@ -104,8 +104,7 @@ local function do_zetabot()
             zeta.state.ok_to_blast = true
             Times:reset("zeta.blast")
         end
-        -- Scripts must define an API.status_ok
-        if zeta.state.ok_to_blast and not Toggles.fighting and API.status_ok() then
+        if zeta.state.ok_to_blast and not Toggles.fighting and API:status_ok() then
             if zeta.state.ok_to_adjust then
                 send(f("adjust {g}"))
                 zeta.state.ok_to_adjust = false

@@ -98,7 +98,7 @@ local function onNotFightingPrompt()
         send("score")
         Times:reset("score")
     end
-    if State:check(State.NORMAL, true) and Toggles.status_green and Times:last("scouterself") > 900 then
+    if State:check(State.NORMAL, true) and API:status_ok() and Times:last("scouterself") > 900 then
         -- status_green depends on the race 
         send("analyze self")
         Times:reset("scouterself")
