@@ -23,5 +23,16 @@
         "name": "quit (without reconnecting)",
         "regex": "^quit$",
         "script": "send(\"quit\", true)\nregisterAnonymousEventHandler(\"sysDisconnectionEvent\", disconnect, true)"
+    },
+    {
+        "name": "zetabot",
+        "regex": "^zetabot(?: ([A-Za-z0-9]+)(?: (.+))?)?$",
+        "script": "CK.API.Zetabot:toggle(matches[2], matches[3])"
+    },
+    {
+        "name": "CK",
+        "regex": "^CK$",
+        "script": "print('CK feature - see feature toggles\nCK feature toggle - set a feature on/off\nCK constants - see constant values\nCK constant set - set a constant value\nCK pkg -- Manage CK Packages\nzetabot - autobot but better')"
+
     }
 ]

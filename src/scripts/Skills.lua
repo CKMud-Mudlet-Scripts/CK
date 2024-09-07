@@ -1,5 +1,5 @@
 local ck = require("__PKGNAME__")
-local Data = ck:get_table("Player.Skills")
+local Data = ck:get_table("Player.Skills", {Learned = {}, Mastered = {}, Boosted = {}, Supreme={}, Sections = {}})
 local Skills = ck:get_table("API.Skills") -- CK.API.Skills:mastered
 
 function Skills:clear()

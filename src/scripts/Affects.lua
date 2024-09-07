@@ -24,7 +24,7 @@ local list_of_affects = {
 }
 
 if API:feature("auto_hakai") then
-   list_of_affects:insert("hakai barrier")
+   table.insert(list_of_affects, "hakai barrier")
 end
 
 function Affects:rebuff(seen)

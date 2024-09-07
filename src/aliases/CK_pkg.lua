@@ -4,7 +4,7 @@ local mode = matches[2] or "help"
 local args = (matches[3] or ""):split(" ")
 
 -- This list might have to grow in time
-local submodules = {"Enoch", "Chat", "Core", "Prime", "Map"}
+local submodules = {"Chat", "Map"}
 
 
 local function get_install_url(fullname)
@@ -21,7 +21,10 @@ end
 local functions = {}
 
 function functions.help()
-  print("TODO Help Screen")
+  print("CK install <chat|map> - install extra like map/chat")
+  print("CK upgrade <name> - upgrade a named package")
+  print("CK upgrade all - upgrade all packages")
+  print("CK versions - list all packages")
 end
 
 function functions.versions()
@@ -54,8 +57,25 @@ function functions.install(name, version)
 end
 
 function functions.upgrade(name, version)
-    -- uninstallPackage("CKMud-Core")
-    -- installPackage("https://github.com/CKMud-Mudlet-Scripts/Core/releases/latest/download/CKMud-Core.mpackage")
+    local function upgrade(package)
+        uninstallPackage(package)
+        installPackage(get_install_url(package))
+    end
+
+    if name == "all" then
+        for m,v in pairs(ck:get_versions()) do
+            upgrade(m)
+        end
+    else
+        local installed = ck:get_versions()
+        if installed[name] then
+            upgrade(name)
+        elseif installed[f"CK-{name}"] then
+            upgrade(f"CK-{name}")
+        else
+            print(f"{name} is not installed!")
+        end
+    end
 end
 
 functions["check-updates"] = function()
