@@ -6,25 +6,23 @@ local args = (matches[3] or ""):split(" ")
 -- This list might have to grow in time
 local submodules = {"Chat", "Map"}
 
-
 local function get_install_url(fullname)
     local shortname = fullname
     -- Are we talking about the main package or a subpackage
     if shortname:find("-") then
         shortname = fullname:split("-")[2]
     end
-    local url = f"https://github.com/CKMud-Mudlet-Scripts/{shortname}/releases/latest/download/{fullname}.mpackage"
+    local url = f "https://github.com/CKMud-Mudlet-Scripts/{shortname}/releases/latest/download/{fullname}.mpackage"
     return url
 end
-
 
 local functions = {}
 
 function functions.help()
-  print("CK pkg install <chat|map> - install extra like map/chat")
-  print("CK pkg upgrade <name> - upgrade a named package")
-  print("CK pkg upgrade all - upgrade all packages")
-  print("CK pkg versions - list all packages")
+    print("CK pkg install <chat|map> - install extra like map/chat")
+    print("CK pkg upgrade <name> - upgrade a named package")
+    print("CK pkg upgrade all - upgrade all packages")
+    print("CK pkg versions - list all packages")
 end
 
 function functions.versions()
@@ -38,12 +36,12 @@ function functions.versions()
         cecho(fmt:format(m, v))
     end
     console:footer(s)
-  
+
 end
 
 function functions.install(name, version)
     name = name:title()
-    fullname = f"CK-{name}"
+    fullname = f "CK-{name}"
     if table.contains(submodules, name) then
         if ck:installed_module(fullname) == nil then
             local url = get_install_url(fullname)
@@ -52,7 +50,7 @@ function functions.install(name, version)
             print("Already Installed")
         end
     else
-        print(f"No Such Package {name}")
+        print(f "No Such Package {name}")
     end
 end
 
@@ -61,19 +59,20 @@ function functions.update(name, version)
         uninstallPackage(package)
         installPackage(get_install_url(package))
     end
+    name = name:title()
 
-    if name == "all" then
-        for m,v in pairs(ck:get_versions()) do
+    if name == "All" then
+        for m, v in pairs(ck:get_versions()) do
             upgrade(m)
         end
     else
         local installed = ck:get_versions()
         if installed[name] then
             upgrade(name)
-        elseif installed[f"CK-{name}"] then
-            upgrade(f"CK-{name}")
+        elseif installed[f "CK-{name}"] then
+            upgrade(f "CK-{name}")
         else
-            print(f"{name} is not installed!")
+            print(f "{name} is not installed!")
         end
     end
 end
