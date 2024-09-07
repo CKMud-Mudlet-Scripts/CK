@@ -21,10 +21,10 @@ end
 local functions = {}
 
 function functions.help()
-  print("CK install <chat|map> - install extra like map/chat")
-  print("CK upgrade <name> - upgrade a named package")
-  print("CK upgrade all - upgrade all packages")
-  print("CK versions - list all packages")
+  print("CK pkg install <chat|map> - install extra like map/chat")
+  print("CK pkg upgrade <name> - upgrade a named package")
+  print("CK pkg upgrade all - upgrade all packages")
+  print("CK pkg versions - list all packages")
 end
 
 function functions.versions()
@@ -56,7 +56,7 @@ function functions.install(name, version)
     end
 end
 
-function functions.upgrade(name, version)
+function functions.update(name, version)
     local function upgrade(package)
         uninstallPackage(package)
         installPackage(get_install_url(package))
@@ -78,7 +78,8 @@ function functions.upgrade(name, version)
     end
 end
 
-functions["check-updates"] = function()
+functions["check-update"] = function()
+    echo("To be complete later...")
 end
 
 -- Dispatch
