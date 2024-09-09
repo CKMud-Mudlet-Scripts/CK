@@ -6,6 +6,7 @@ local ck = require("__PKGNAME__")
 ]] local ck = {}
 -- Global Data Prefix
 local PREFIX = "CK"
+local WAS_SET = "__ck_defaults_WAS_SET"
 
 function ck:run_init(what, func)
     -- Return an init function that prints out whats going on
@@ -25,15 +26,32 @@ function ck:get_table(name, default)
     name = table.concat({PREFIX, name}, ".")
     -- Loop over words in name split by .
     for w, d in string.gmatch(name, "([%w_]+)(.?)") do
-        if d == "." then -- There is a word after
-            head[w] = head[w] or {}
-        else
-            -- Don't override whats already there
-            head[w] = head[w] or (default or {}) -- If there is a default do the assignment
-        end
+        head[w] = head[w] or {}
         head = head[w]
     end
+    if default and not head[WAS_SET] then
+        ck:copy_table_into(default, head)
+        -- prevent the defaults from being copied again on script save. 
+        head[WAS_SET] = true
+    end
     return head
+end
+
+function ck:copy_table_into(t, dst)
+    for k, v in pairs(t) do
+        dst[k] = v
+    end
+    local mt = getmetatable(t)
+    if mt then
+        setmetatable(dst, mt)
+    end
+end
+
+function ck:clear_table(t)
+    local keys = table.keys(t)
+    for _, key in ipairs(keys) do
+        t[key] = nil
+    end
 end
 
 local Features = ck:get_table("Features")
@@ -94,7 +112,9 @@ function ck:make_enum(name, alist)
     end
     setmetatable(atable, {
         __index = function(self, key)
-            error(string.format("%q is not a valid member of %s", tostring(key), name), 2)
+            if not key == WAS_SET then
+                error(string.format("%q is not a valid member of %s", tostring(key), name), 2)
+            end
         end
     })
     return atable
