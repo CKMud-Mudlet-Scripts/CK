@@ -18,6 +18,21 @@ Times:create("score")
 Times:create("status")
 Times:create("prompt")
 
+local function PlayerLoad()
+if API:is_connected(true) then
+    race = ck:constant("face")
+    send("score")
+    send("status")
+    if API:isBioDroid(race) then
+        send("analyze self")
+    elseif API:isAndroid(race) then
+        send("upgrade")
+    end
+
+    raiseEvent("CK.onPlayerReload")
+end
+end
+
 local function decPromptCounters()
     for k, v in pairs(PromptCounters) do
         if v ~= nil then
@@ -72,6 +87,10 @@ registerNamedTimer("__PKGNAME__", "CK:LastPrompt", 8, LastPrompt, true)
 local function onPrompt()
     Times:reset("prompt")
     Toggles.firstprompt = true
+
+    if Player.Health == nil or CK.Player.MaxGravity == nil then
+        PlayerLoad()
+    end
 
     if not PromptFlags.Kaioken then
         Player.Kaioken = 0
@@ -139,7 +158,7 @@ end
 
 registerNamedEventHandler("__PKGNAME__", "onFightingPrompt", "CK.onFightingPrompt", onFightingPrompt)
 
-local function onFinishedFighting()
+local function onFinishedFighting(event)
     Toggles.meleefighting = false
     Times:reset("fightfinished")
     Toggles.NEXTHT = nil
@@ -149,16 +168,5 @@ end
 registerNamedEventHandler("__PKGNAME__", "onFinishedFighting", "CK.onFinishedFighting", onFinishedFighting)
 
 registerNamedEventHandler("__PKGNAME__", "CK:PlayerReload", "sysLoadEvent", function(event)
-    if API:is_connected(true) then
-        race = ck:constant("face")
-        send("score")
-        send("status")
-        if API:isBioDroid(race) then
-            send("analyze self")
-        elseif API:isAndroid(race) then
-            send("upgrade")
-        end
-
-        raiseEvent("CK.onPlayerReload")
-    end
+    PlayerLoad()
 end)
