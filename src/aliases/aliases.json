@@ -38,7 +38,7 @@
     {
         "name": "CK update",
         "regex": "^CK update$",
-        "script": "expandAlias(\"CK pkg update CK\")"
+        "script": "expandAlias(\"CK pkg update CK\", false)"
 
     }
 ]

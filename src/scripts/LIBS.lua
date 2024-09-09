@@ -65,24 +65,25 @@ local function compact_featuredb()
   echo("[ CK ] - Feature DB Compaction Complete.\n")
 end
 
-registerAnonymousEventHandler("sysExitEvent", compact_featuredb)
-
 local function compact_constdb()
   local names = ck:constant_names()
   db:delete(ck.db.schema.Constants, db:not_in(ck.db.schemna.Constants.name, names))
   echo("[ CK ] - Constants DB Compaction Complete.\n")
 end
 
-registerAnonymousEventHandler("sysExitEvent", compact_constdb)
-
+registerNamedEventHandler("__PKGNAME__", "CK:CompactDB", "sysExitEvent", function(event)
+  compact_constdb()
+  compact_featuredb()
+end)
 
 function API:iThinkWeFighting()
   -- If we have two prompts with not fight messages its safe to say fighting is over
   PromptCounters.fighting = 2
 end
 
-function API:is_connected()
-  return Toggles.firstprompt == true
+function API:is_connected(ignore_prompt)
+  local _, _, connected = getConnectionInfo()
+  return (ignore_prompt or Toggles.firstprompt == true) and connected == true
 end
 
 function Times:last(name)

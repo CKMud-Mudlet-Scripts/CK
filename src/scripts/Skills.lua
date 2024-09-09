@@ -127,3 +127,6 @@ function Skills:filter_unlearned(alist)
   return nlist
 end
 
+registerNamedEventHandler("__PKGNAME__", "CK:SkillsReLoad", "CK.onPlayerReload", function (event)
+  send("learn")
+end)

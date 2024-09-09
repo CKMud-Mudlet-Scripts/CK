@@ -6,6 +6,8 @@ local zeta = ck:get_table("API.Zetabot", {
 })
 local Times = ck:get_table("API.Times")
 local API = ck:get_table("API")
+local State = ck:get_table("API.State")
+local Mode = ck:get_table("API.Mode")
 
 Times:create("zeta.sense")
 Times:create("zeta.blast")
@@ -20,7 +22,7 @@ local function do_zetabot()
     local target = zeta.target
     local g = math.min(math.floor((1 / 5000) * 0.06 * Player.MaxPl), (Player.MaxGravity or 2) - 1)
 
-    if API.State:is(API.State.NORMAL) then
+    if State:is(State.NORMAL) then
         -- We should be attacking
         if Times:last("zeta.blast") > 120 then
             -- Stuck lets reset
@@ -36,7 +38,7 @@ local function do_zetabot()
             send(aoe)
             zeta.state.ok_to_blast = false
         end
-    elseif API.State:is(API.State.SENSE) then
+    elseif State:is(State.SENSE) then
         -- We should be looking
         if Times:last("zeta.sense") > 120 then
             -- Stuck lets reset
@@ -50,7 +52,7 @@ end
 
 local function enter()
     -- Change Mode
-    API.Mode:switch(API.Mode.Zetabot)
+    Mode:switch(Mode.Zetabot)
     -- Clear out all state
     zeta.state = {
         ok_to_blast = true,
@@ -68,14 +70,14 @@ local function enter()
     -- Look for a single nobody is around to aoe
     table.insert(zeta.triggers, tempTrigger("There is no one around to use", function()
         -- Move to SENSE state
-        API.State:set(API.State.SENSE)
+        State:set(State.SENSE)
         -- Its okay to send a sense
         zeta.state.ok_to_sense = true
     end))
     -- Look for Sense target found
     table.insert(zeta.triggers, tempTrigger("You're already in the same room!!", function()
         -- Move to NORMAL state
-        API.State:set(API.State.NORMAL)
+        State:set(State.NORMAL)
         -- Its okay to blast again
         zeta.state.ok_to_blast = true
         -- Its okay to adjust gravity
@@ -99,13 +101,13 @@ local function exit()
     end
     zeta.triggers = {}
     -- Change Mode
-    API.Mode:switch(API.Mode.Interactive)
+    Mode:switch(Mode.Interactive)
 end
 
 function zeta:toggle(aoe, target)
     self.target = target
     self.aoe = aoe
-    if API.Mode:is(API.Mode.Zetabot) then
+    if Mode:is(Mode.Zetabot) then
         -- Its on, but we want to change target or attack
         if aoe and target then
             print(f "Zetabot Mode Swap: {aoe} {target}!")

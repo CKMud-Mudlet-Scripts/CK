@@ -147,3 +147,18 @@ local function onFinishedFighting()
 end
 
 registerNamedEventHandler("__PKGNAME__", "onFinishedFighting", "CK.onFinishedFighting", onFinishedFighting)
+
+registerNamedEventHandler("__PKGNAME__", "CK:PlayerReload", "sysLoadEvent", function(event)
+    if API:is_connected(true) then
+        race = ck:constant("face")
+        send("score")
+        send("status")
+        if API:isBioDroid(race) then
+            send("analyze self")
+        elseif API:isAndroid(race) then
+            send("upgrade")
+        end
+
+        raiseEvent("CK.onPlayerReload")
+    end
+end)
