@@ -10,6 +10,8 @@ local Toggles = ck:get_table("Toggles")
 local Timers = ck:get_table("Timers")
 local Times = ck:get_table("API.Times")
 local Status = ck:get_table("Player.Status")
+-- Like a prompt counter but reset in special conditions
+local Counters = ck:get_table("Counters", {not_fighting=0})
 
 Times:create("fight")
 Times:create("fightfinished")
@@ -126,6 +128,7 @@ registerNamedEventHandler("__PKGNAME__", "onPrompt", "CK.onPrompt", onPrompt)
 local function onNotFightingPrompt()
     Toggles.EnemyLineComboTest = true
     Toggles.skip_fight = nil
+    Counters.not_fighting = Counters.not_fighting + 1
 
     if State:check(State.NORMAL, true) and Times:last("status") > 120 then
         send("status")
@@ -147,6 +150,7 @@ end
 registerNamedEventHandler("__PKGNAME__", "onNotFightingPrompt", "CK.onNotFightingPrompt", onNotFightingPrompt)
 
 local function onFightingPrompt(val)
+    Counters.not_fighting = 0
     if ck:feature("auto_fight") then
         if Times:last("fight") > 2 and PromptFlags.fighting then
             if not Toggles.no_fight then

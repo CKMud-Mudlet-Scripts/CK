@@ -35,7 +35,7 @@ end
 
 function SendQueue:trySendNow()
   local msg
-  if not Toggles.fighting and State:check(State.NORMAL, true) and self:hasnext() then
+  if API:not_fighting() and State:check(State.NORMAL, true) and self:hasnext() then
     msg = self:pop()
     send(msg)
   end
