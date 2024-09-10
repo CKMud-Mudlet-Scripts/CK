@@ -17,20 +17,21 @@ Times:create("scouterself")
 Times:create("score")
 Times:create("status")
 Times:create("prompt")
+ck:define_feature("auto_fight", false)
 
 local function PlayerLoad()
-if API:is_connected(true) then
-    race = ck:constant("face")
-    send("score")
-    send("status")
-    if API:isBioDroid(race) then
-        send("analyze self")
-    elseif API:isAndroid(race) then
-        send("upgrade")
-    end
+    if API:is_connected(true) then
+        race = ck:constant("face")
+        send("score")
+        send("status")
+        if API:isBioDroid(race) then
+            send("analyze self")
+        elseif API:isAndroid(race) then
+            send("upgrade")
+        end
 
-    raiseEvent("CK.onPlayerReload")
-end
+        raiseEvent("CK.onPlayerReload")
+    end
 end
 
 local function decPromptCounters()
@@ -146,9 +147,11 @@ end
 registerNamedEventHandler("__PKGNAME__", "onNotFightingPrompt", "CK.onNotFightingPrompt", onNotFightingPrompt)
 
 local function onFightingPrompt(val)
-    if Times:last("fight") > 2 and PromptFlags.fighting then
-        if not Toggles.no_fight then
-            API:cmd_fight(nil)
+    if ck:feature("auto_fight") then
+        if Times:last("fight") > 2 and PromptFlags.fighting then
+            if not Toggles.no_fight then
+                API:cmd_fight(nil)
+            end
         end
     end
     if State:check(State.CRAFTING, true) or State:check(State.BUFFING, true) or State:check(State.SENSE, true) then
