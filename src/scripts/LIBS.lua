@@ -3,6 +3,7 @@ local Times = ck:get_table("API.Times")
 local Toggles = ck:get_table("Toggles")
 local API = ck:get_table("API")
 local PromptCounters = ck:get_table("PromptCounters")
+local PromptFlags = ck:get_table("PromptFlags")
 local Player = ck:get_table("Player")
 
 ck:define_constant("name", "???")
@@ -27,6 +28,7 @@ function API:setRace(race)
 end
 
 function API:setName(name)
+  Player.name = name
   local old_name = ck:constant("name")
   if old_name == "???" then
     ck:set_constant("name", name)
@@ -79,6 +81,8 @@ end)
 function API:iThinkWeFighting()
   -- If we have two prompts with not fight messages its safe to say fighting is over
   PromptCounters.fighting = 2
+  Toggles.fighting = true
+  PromptFlags.fighting = true
 end
 
 function API:is_connected(ignore_prompt)
