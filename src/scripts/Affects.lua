@@ -6,36 +6,17 @@ local State = ck:get_table("API.State")
 
 ck:define_feature("auto_hakai", false)
 
-local list_of_affects = {
-  "demonic will", 
-  "energy shield", 
-  "barrier", 
-  "hasshuken", 
-  "herculean force", 
-  "resonance",
-  "zanzoken", 
-  "kino tsurugi", 
-  "regenerate",
-  "forcefield",
-  "infravision",
-  "celestial shield",
-  "celestial drain",
-  "invigorate",
-}
-
-if API:feature("auto_hakai") then
-   table.insert(list_of_affects, "hakai barrier")
-end
-
 function Affects:rebuff(seen)
-  for _, affect in ipairs(Skills:filter_unlearned(list_of_affects)) do
-    if not seen[affect] and State:check(State.NORMAL, true) then
-      cecho(f"\n<cyan>Performing Rebuff: {affect}")
-      API:focus(affect)
+    for _, affect in ipairs(Skills:buffs()) do
+        if not seen[affect] and State:is(State.NORMAL) then
+            if affect ~= "hakai barrier" or API:feature("auto_hakai") then
+                cecho(f "\n<cyan>Performing Rebuff: {affect}")
+                API:focus(affect)
+            end
+        end
     end
-  end
 end
 
 function API:focus(affect)
-  send(f"focus '{affect}'")
+    send(f "focus '{affect}'")
 end
