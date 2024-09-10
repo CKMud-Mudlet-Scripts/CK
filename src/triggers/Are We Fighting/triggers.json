@@ -1,0 +1,112 @@
+[
+       {
+              "name": "Enemy Damage",
+              "multiline": "yes",
+              "multilineDelta": "0",
+              "patterns": [
+                     {
+                            "pattern": "[Enemy: ",
+                            "type": "startOfLine"
+                     },
+                     {
+                            "pattern": "\\[Enemy: (?\u003cEnemy\u003e.+)] \\[[0-9,]+]",
+                            "type": "regex"
+                     }
+              ],
+              "script": "if multumatches[2].Enemy ~= \"DEAD\" then CK.API:iThinkWeFighting() end"
+       },
+       {
+              "name": "Enemy Unnamed Health",
+              "multiline": "yes",
+              "multilineDelta": "1",
+              "patterns": [
+                     {
+                            "pattern": "[Enemy: ",
+                            "type": "startOfLine"
+                     },
+                     {
+                            "pattern": "\\[Enemy: \\d+%?]",
+                            "type": "regex"
+                     }
+              ],
+              "script": "CK.API.iThinkWeFighting()"
+       },
+       {
+              "name": "No way! You're fighting",
+              "patterns": [
+                     {
+                            "pattern": "No way!  You're fighting for your life!",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script": "CK.API.iThinkWeFighting()"
+       },
+       {
+              "name": "Damage String",
+              "multiline": "yes",
+              "multilineDelta": "0",
+              "patterns": [
+                     {
+                            "pattern": "***",
+                            "type": "substring"
+                     },
+                     {
+                            "pattern": "\\*\\*\\*[0-9,]+\\*\\*\\*",
+                            "type": "regex"
+                     }
+              ],
+              "script": "CK.API.iThinkWeFighting()"
+       },
+       {
+              "name": "DPS Summary",
+              "multiline": "yes",
+              "multilineDelta": "2",
+              "patterns": [
+                     {
+                            "pattern": "o------------------------------------------------------------o",
+                            "type": "exactMatch"
+                     },
+                     {
+                            "pattern": "  Combat Time: ",
+                            "type": "startOfLine"
+                     },
+                     {
+                            "pattern": " Total Damage: ",
+                            "type": "startOfLine"
+                     }
+              ],
+              "script": "CK.Toggles.fighting = false"
+       },
+       {
+              "name": "battlespam mode",
+              "multiline": "yes",
+              "multilineDelta": "0",
+              "patterns": [
+                     {
+                            "pattern": " times. [",
+                            "type": "substring"
+                     },
+                     {
+                            "pattern": "^\\[(.+?)] hits (.+?) [0-9]+ times. [[0-9,]+]$",
+                            "type": "regex"
+                     }
+              ],
+              "script": ""
+       },
+       {
+              "name": "Boss Health",
+              "multiline": "yes",
+              "multilineDelta": "0",
+              "patterns": [
+                     {
+                            "pattern": "%]",
+                            "type": "substring"
+                     },
+                     {
+                            "pattern": "^\\[[^:]+: [0-9]+%]$",
+                            "type": "regex"
+                     }
+              ],
+              "script": "CK.API.iThinkWeFighting()"
+       }
+]
