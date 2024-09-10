@@ -13,7 +13,7 @@
                             "type": "regex"
                      }
               ],
-              "script": "if multumatches[2].Enemy ~= \"DEAD\" then CK.API:iThinkWeFighting() end"
+              "script": "if multimatches[2].Enemy ~= \"DEAD\" then CK.API:iThinkWeFighting() end"
        },
        {
               "name": "Enemy Unnamed Health",
