@@ -41,7 +41,7 @@ if Player.GK then
 Player.MaxGK = 500 + 50 * (Player.RemortLevel or 0)
 end
 
-if not Player.SUPPRESSED and Player.MaxPl then
+if not sup and Player.MaxPl then
 Player.Health = math.floor((Player.Pl / Player.MaxPl) * 100)
 end
 
