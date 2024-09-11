@@ -14,5 +14,5 @@ if not table.contains(feature_list, feature) then
 end
 
 local value = switch == "on" and true or false
-ck.db:toggle(feature, value)
+ck:set_feature(feature, value)
 echoc(f "Setting Feature({feature}) to {switch}!\n")

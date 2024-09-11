@@ -102,6 +102,14 @@ end
 ---@param name string
 function ck:set_constant(name, value)
     ck.db:set_constant(name, yajl.to_string({value}))
+    raiseEvent("CK.Constant", name, value)
+end
+
+--@param name string
+--@param vale bool
+function ck:set_feature(name, value)
+    ck.db:toggle(name, value)
+    raiseEvent("CK.Feature", name, value)
 end
 
 function ck:make_enum(name, alist)
