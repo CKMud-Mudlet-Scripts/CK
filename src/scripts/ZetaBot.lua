@@ -11,6 +11,9 @@ local Mode = ck:get_table("API.Mode")
 
 Times:create("zeta.sense")
 Times:create("zeta.blast")
+ck:define_constant("zetabot.timeout", 120)
+ck:define_constant("zetabot.delay", 0.5)
+
 
 ---@diagnostic disable-next-line: unused-function
 local function do_zetabot()
@@ -21,10 +24,11 @@ local function do_zetabot()
     local aoe = zeta.aoe
     local target = zeta.target
     local g = math.min(math.floor((1 / 5000) * 0.06 * Player.MaxPl), (Player.MaxGravity or 2) - 1)
+    local timeout = ck:constant("zetabot.timeout")
 
     if State:is(State.NORMAL) then
         -- We should be attacking
-        if Times:last("zeta.blast") > 120 then
+        if Times:last("zeta.blast") > timeout then
             -- Stuck lets reset
             zeta.state.ok_to_blast = true
             Times:reset("zeta.blast")
@@ -40,7 +44,7 @@ local function do_zetabot()
         end
     elseif State:is(State.SENSE) then
         -- We should be looking
-        if Times:last("zeta.sense") > 120 then
+        if Times:last("zeta.sense") > timeout then
             -- Stuck lets reset
             zeta.state.ok_to_sense = true
             Times:reset("zeta.sense")
@@ -89,7 +93,7 @@ local function enter()
     end))
 
     -- Install a timer
-    registerNamedTimer("__PKGNAME__", "CK:Zetabot", 0.5, do_zetabot, true)
+    registerNamedTimer("__PKGNAME__", "CK:Zetabot", ck:constant("zetabot.delay"), do_zetabot, true)
 end
 
 local function exit()
