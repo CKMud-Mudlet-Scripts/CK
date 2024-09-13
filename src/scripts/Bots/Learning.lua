@@ -111,21 +111,20 @@ end
 
 function learn:toggle(target, path)
     self.target = target
-    self.aoe = aoe
-    if Mode:is(Mode.Zetabot) then
-        -- Its on, but we want to change target or attack
-        if aoe and target then
-            print(f "Zetabot Mode Swap: {aoe} {target}!")
-        else
-            exit()
-            print("Zetabot Mode Disabled!!!")
-        end
+    self.speedwalk = path
+    if Mode:is(Mode.Learning) then
+        exit()
+        print("Learning Mode Disabled!!!")
     else -- Its off
-        if aoe == nil or target == nil then
-            print("Zetabot Error no attack and/or target")
+        local is_android = API:isAndroid(ck:constant("race"))
+        if target == nil or (path == nil and not is_android) then
+            if is_android then
+                print("Learning mode requires a target argument!")
+            else
+                print("Learning mode requires target and speedwalk to rest")
+            end
         else
-            -- We have aoe and target lets roll
-            print("Zetabot Mode Enabled!!!")
+            print("Learning Mode Enabled!!!")
             enter()
         end
     end
