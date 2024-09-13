@@ -10,11 +10,17 @@ local Mode = ck:get_table("API.Mode",  ck:make_enum(
           }
 ))
 local API = ck:get_table("API")
-local _mode = ck:get_table("API._mode", {mode=Mode.Interactive, string=""})
+local _mode = ck:get_table("API._mode", {mode=Mode.Interactive, string="", exit_func=nil})
 
-function Mode:switch(new_mode)
+function Mode:switch(new_mode, exit_func)
     new_mode = new_mode or Mode.Interactive
     API.State:set(API.State.NORMAL)
+
+    -- So we can go from one mode to another easily
+    if _mode.mode ~= Mode.Interactive and _mode.exit_func then
+        _mode.exit_func()
+    end
+
     -- Remove this shit later
     if new_mode == Mode.Interactive then
         _mode.string = ""
@@ -38,6 +44,7 @@ function Mode:switch(new_mode)
         Toggles.learning = false
     end
     _mode.mode = new_mode
+    _mode.exit_func = exit_func
 end
 
 function Mode:is(mode)

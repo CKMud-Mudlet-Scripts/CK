@@ -14,7 +14,6 @@ Times:create("zeta.blast")
 ck:define_constant("zetabot.timeout", 120)
 ck:define_constant("zetabot.delay", 0.5)
 
-
 ---@diagnostic disable-next-line: unused-function
 local function do_zetabot()
     if not API:is_connected() then
@@ -54,9 +53,19 @@ local function do_zetabot()
     end
 end
 
+local function exit()
+    -- Delete timer
+    deleteNamedTimer("__PKGNAME__", "CK:Zetabot")
+    -- Kill Triggers
+    for _, id in ipairs(zeta.triggers) do
+        killTrigger(id)
+    end
+    zeta.triggers = {}
+end
+
 local function enter()
     -- Change Mode
-    Mode:switch(Mode.Zetabot)
+    Mode:switch(Mode.Zetabot, exit)
     -- Clear out all state
     zeta.state = {
         ok_to_blast = true,
@@ -96,18 +105,6 @@ local function enter()
     registerNamedTimer("__PKGNAME__", "CK:Zetabot", ck:constant("zetabot.delay"), do_zetabot, true)
 end
 
-local function exit()
-    -- Delete timer
-    deleteNamedTimer("__PKGNAME__", "CK:Zetabot")
-    -- Kill Triggers
-    for _, id in ipairs(zeta.triggers) do
-        killTrigger(id)
-    end
-    zeta.triggers = {}
-    -- Change Mode
-    Mode:switch(Mode.Interactive)
-end
-
 function zeta:toggle(aoe, target)
     self.target = target
     self.aoe = aoe
@@ -125,7 +122,8 @@ function zeta:toggle(aoe, target)
         else
             -- We have aoe and target lets roll
             print("Zetabot Mode Enabled!!!")
-            enter()
+            -- Change Mode
+            Mode:switch(Mode.Interactive)
         end
     end
 end

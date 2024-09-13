@@ -55,9 +55,19 @@ local function do_learning()
     end
 end
 
+local function exit()
+    -- Delete timer
+    deleteNamedTimer("__PKGNAME__", "CK:Zetabot")
+    -- Kill Triggers
+    for _, id in ipairs(zeta.triggers) do
+        killTrigger(id)
+    end
+    zeta.triggers = {}
+end
+
 local function enter()
     -- Change Mode
-    Mode:switch(Mode.Zetabot)
+    Mode:switch(Mode.Zetabot, exit)
     -- Clear out all state
     zeta.state = {
         ok_to_blast = true,
@@ -97,18 +107,6 @@ local function enter()
     registerNamedTimer("__PKGNAME__", "CK:Zetabot", ck:constant("zetabot.delay"), do_zetabot, true)
 end
 
-local function exit()
-    -- Delete timer
-    deleteNamedTimer("__PKGNAME__", "CK:Zetabot")
-    -- Kill Triggers
-    for _, id in ipairs(zeta.triggers) do
-        killTrigger(id)
-    end
-    zeta.triggers = {}
-    -- Change Mode
-    Mode:switch(Mode.Interactive)
-end
-
 function learn:toggle(target, path)
     self.target = target
     self.speedwalk = path
@@ -125,7 +123,8 @@ function learn:toggle(target, path)
             end
         else
             print("Learning Mode Enabled!!!")
-            enter()
+            -- Change Mode
+            Mode:switch(Mode.Interactive)
         end
     end
 end
