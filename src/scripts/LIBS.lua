@@ -5,7 +5,6 @@ local API = ck:get_table("API")
 local PromptCounters = ck:get_table("PromptCounters")
 local PromptFlags = ck:get_table("PromptFlags")
 local Player = ck:get_table("Player")
-local Counters = ck:get_table("Counters")
 
 ck:define_constant("name", "???")
 ck:define_constant("race", "???")
@@ -81,14 +80,14 @@ end)
 
 function API:iThinkWeFighting()
   -- If we have two prompts with not fight messages its safe to say fighting is over
-  PromptCounters.fighting = 2
+  PromptCounters.fighting = 3
   Toggles.fighting = true
   PromptFlags.fighting = true
 end
 
 function API:not_fighting()
   -- If we haven't been fighting for 3 prompts then we are not fighting
-  return Counters.not_fighting > 3 and Toggles.fighting == false
+  return PromptCounters.fighting == nil and Toggles.fighting == false
 end
 
 function API:is_connected(ignore_prompt)

@@ -10,8 +10,7 @@ local Toggles = ck:get_table("Toggles")
 local Timers = ck:get_table("Timers")
 local Times = ck:get_table("API.Times")
 local Status = ck:get_table("Player.Status")
--- Like a prompt counter but reset in special conditions
-local Counters = ck:get_table("Counters", {not_fighting=0})
+
 
 Times:create("fight")
 Times:create("fightfinished")
@@ -50,18 +49,6 @@ end
 
 local function isPromptCounterActive(name)
     return PromptCounters[name] ~= nil
-end
-
-local function clearFlags()
-    -- get_table means everyone has a ref to the table in their local
-    -- so we set all the keys to null
-    local klist = {}
-    for key, _ in pairs(PromptFlags) do
-        table.insert(klist, key)
-    end
-    for _, key in ipairs(klist) do
-        PromptFlags[key] = nil
-    end
 end
 
 local function LastPrompt()
@@ -119,7 +106,7 @@ local function onPrompt()
 
     end
     -- All flags since last prompt should be cleared so next prompt we can take action
-    clearFlags()
+    ck:clear_table(PromptFlags)
     decPromptCounters()
 end
 
@@ -128,7 +115,6 @@ registerNamedEventHandler("__PKGNAME__", "onPrompt", "CK.onPrompt", onPrompt)
 local function onNotFightingPrompt()
     Toggles.EnemyLineComboTest = true
     Toggles.skip_fight = nil
-    Counters.not_fighting = Counters.not_fighting + 1
 
     if State:check(State.NORMAL, true) and Times:last("status") > 120 then
         send("status")
