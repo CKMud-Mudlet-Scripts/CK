@@ -103,6 +103,10 @@ function Times:reset(name)
   resetStopWatch("CK." .. name)
 end
 
+function PromptCounters:active(name)
+  return PromptCounters[name] ~= nil
+end
+
 -- Quality Of Life functions
 function math.round(x, n)
   return tonumber(string.format("%." .. n .. "f", x))
