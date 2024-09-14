@@ -86,6 +86,11 @@ local function onPrompt()
         Player.Kaioken = 0
     end
 
+    if not PromptFlags.Target then
+        Player.Target = nil
+        Player.Target_Full = nil
+    end
+
     if not Status.HT then
         Toggles.NEXTHT = nil
     end

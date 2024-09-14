@@ -5,7 +5,7 @@
         "multilineDelta": "0",
         "patterns": [
             {
-                "pattern": "[Pl: ", 
+                "pattern": "[Pl: ",
                 "type": "substring"
             },
             {
@@ -13,7 +13,6 @@
                 "type": "regex"
             }
         ]
-
     },
     {
         "name": "Prompt Kaioken",
@@ -21,7 +20,7 @@
         "multilineDelta": "0",
         "patterns": [
             {
-                "pattern": "[Kaioken: ", 
+                "pattern": "[Kaioken: ",
                 "type": "substring"
             },
             {
@@ -29,7 +28,21 @@
                 "type": "regex"
             }
         ]
-
+    },
+    {
+        "name": "Prompt Target",
+        "multiline": "yes",
+        "multilineDelta": "0",
+        "patterns": [
+            {
+                "pattern": "[Target: ",
+                "type": "substring"
+            },
+            {
+                "pattern": "\\[Target: ([^\\]]+)]\\s?]",
+                "type": "regex"
+            }
+        ]
     },
     {
         "name": "Tell Rpc",
@@ -37,7 +50,7 @@
         "multilineDelta": "0",
         "patterns": [
             {
-                "pattern": "tells you, ", 
+                "pattern": "tells you, ",
                 "type": "substring"
             },
             {
@@ -49,14 +62,14 @@
     {
         "name": "MOTD Bypass",
         "patterns": [
-               {
-                      "pattern": "*** PRESS RETURN: ",
-                      "type": "startOfLine"
-               },
-               {
-                      "pattern": "*** PRESS RETURN: ",
-                      "type": "exactMatch"
-               }
+            {
+                "pattern": "*** PRESS RETURN: ",
+                "type": "startOfLine"
+            },
+            {
+                "pattern": "*** PRESS RETURN: ",
+                "type": "exactMatch"
+            }
         ],
         "script": "send(\"gogogo\\n\") send(\"\\n\\n\") send(\"status\") send(\"score\") send(\"learn\")"
     }
