@@ -113,7 +113,8 @@ function zeta:toggle(aoe, target)
         if aoe and target then
             print(f "Zetabot Mode Swap: {aoe} {target}!")
         else
-            exit()
+            -- Change mode, since it will call exit 
+            Mode:switch(Mode.Interactive)
             print("Zetabot Mode Disabled!!!")
         end
     else -- Its off
@@ -122,8 +123,7 @@ function zeta:toggle(aoe, target)
         else
             -- We have aoe and target lets roll
             print("Zetabot Mode Enabled!!!")
-            -- Change Mode
-            Mode:switch(Mode.Interactive)
+            enter()
         end
     end
 end

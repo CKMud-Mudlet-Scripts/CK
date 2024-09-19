@@ -8,6 +8,8 @@ local Times = ck:get_table("API.Times")
 local API = ck:get_table("API")
 local State = ck:get_table("API.State")
 local Mode = ck:get_table("API.Mode")
+local PromptCounters = ck:get_table("PromptCounters")
+
 
 --[[
 Times:create("zeta.sense")
@@ -57,61 +59,28 @@ end
 
 local function exit()
     -- Delete timer
-    deleteNamedTimer("__PKGNAME__", "CK:Zetabot")
+    deleteNamedTimer("__PKGNAME__", "CK:Learning")
     -- Kill Triggers
-    for _, id in ipairs(zeta.triggers) do
+    for _, id in ipairs(learn.triggers) do
         killTrigger(id)
     end
-    zeta.triggers = {}
+    learn.triggers = {}
 end
 
 local function enter()
     -- Change Mode
-    Mode:switch(Mode.Zetabot, exit)
+    Mode:switch(Mode.Learning, exit)
     -- Clear out all state
-    zeta.state = {
-        ok_to_blast = true,
-        ok_to_sense = true,
-        ok_to_adjust = true
-    }
-    -- Setup Temp Triggers
-
-    -- Look for a signal that the AOE executed
-    table.insert(zeta.triggers, tempTrigger("You have gained", function()
-        -- Its okay to blast again
-        zeta.state.ok_to_blast = true
-    end))
-
-    -- Look for a single nobody is around to aoe
-    table.insert(zeta.triggers, tempTrigger("There is no one around to use", function()
-        -- Move to SENSE state
-        State:set(State.SENSE)
-        -- Its okay to send a sense
-        zeta.state.ok_to_sense = true
-    end))
-    -- Look for Sense target found
-    table.insert(zeta.triggers, tempTrigger("You're already in the same room!!", function()
-        -- Move to NORMAL state
-        State:set(State.NORMAL)
-        -- Its okay to blast again
-        zeta.state.ok_to_blast = true
-        -- Its okay to adjust gravity
-        zeta.state.ok_to_adjust = true
-    end))
-    -- Look for Sense Execute
-    table.insert(zeta.triggers, tempTrigger("You concentrate and sense", function()
-        zeta.state.ok_to_sense = true
-    end))
-
+    learn.state = { }
     -- Install a timer
-    registerNamedTimer("__PKGNAME__", "CK:Zetabot", ck:constant("zetabot.delay"), do_zetabot, true)
+    registerNamedTimer("__PKGNAME__", "CK:Learning", 0.5, do_learning, true)
 end
 
 function learn:toggle(target, path)
     self.target = target
     self.speedwalk = path
     if Mode:is(Mode.Learning) then
-        exit()
+        Mode:switch(Mode.Interactive)
         print("Learning Mode Disabled!!!")
     else -- Its off
         local is_android = API:isAndroid(ck:constant("race"))
@@ -124,7 +93,7 @@ function learn:toggle(target, path)
         else
             print("Learning Mode Enabled!!!")
             -- Change Mode
-            Mode:switch(Mode.Interactive)
+            enter()
         end
     end
 end
