@@ -53,8 +53,24 @@ if not CK.API.Mode:is(CK.API.Mode.Interactive) then
   cecho(f"[<green>{CK.API.Mode:toString()}<white>]")
 end
 
+-- Inject Health % after PL 
+-- toggle this
+selectString("|", 1)
+if Player.Health then 
+  if Player.Health >= 79 then
+    fg("green")
+  elseif Player.Health >= 50 then
+    fg("orange")
+  else
+    fg{"red"}
+  end
+end
+replace(f"{Player.Health}% |")
+selectString("|", 1)
+fg("ansiLightBlack")
+deselect()
+
 -- Toggle this
-cecho(f"\n[Health: <green>{Player.Health or '???'}<white>%]")
 if Toggles.EnemyLineComboTest then
   Player.COMBO = nil
 else
