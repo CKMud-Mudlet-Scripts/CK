@@ -5,9 +5,11 @@ local API = ck:get_table("API")
 local PromptCounters = ck:get_table("PromptCounters")
 local PromptFlags = ck:get_table("PromptFlags")
 local Player = ck:get_table("Player")
+local Skills = ck:get_table("API.Skills")
 
 ck:define_constant("name", "???")
 ck:define_constant("race", "???")
+ck:define_feature("auto_unravel", true)
 
 -- Figure out something better
 function API:isAndroid(race)
@@ -37,6 +39,11 @@ function API:setName(name)
   end
 end
 
+function API:auto_unravel(target)
+  if ck:feature("auto_unravel") and Skills:learned("unravel") then
+    send(f"focus 'unravel' {target}")
+  end
+end
 
 function API:status_ok()
   -- Maybe a better system is needed, but this check means you are OK, not great but not bad state

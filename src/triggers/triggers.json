@@ -104,5 +104,37 @@
             }
         ],
         "script": "send(\"--\") send(\"eat fruit all\")"
+    },
+    {
+        "name": "Auto Unravel Gauntlet",
+        "multiline": "yes",
+        "multilineDelta": "0",
+        "patterns": [
+            {
+                "pattern": "A door opens and",
+                "type": "startOfLine"
+            },
+            {
+                "pattern": "^A door opens and (\\w+).* walks in.$",
+                "type": "regex"
+            }
+        ],
+        "script": "CK.API.auto_unravel(multimatches[2][2])"
+    },
+    {
+        "name": "Auto Unravel Rival",
+        "multiline": "yes",
+        "multilineDelta": "0",
+        "patterns": [
+            {
+                "pattern": "flies out of nowhere and attacks you!",
+                "type": "substring"
+            },
+            {
+                "pattern": "^(\\w+).* flies out of nowhere and attacks you!$",
+                "type": "regex"
+            }
+        ],
+        "script": "CK.API.auto_unravel(multimatches[2][2])"
     }
 ]

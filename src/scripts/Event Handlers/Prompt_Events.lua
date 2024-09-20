@@ -18,7 +18,7 @@ Times:create("scouterself")
 Times:create("score")
 Times:create("status")
 Times:create("prompt")
-ck:define_feature("auto_fight", false)
+ck:define_feature("auto_fight", true)
 
 local function PlayerLoad()
     if API:is_connected(true) then
