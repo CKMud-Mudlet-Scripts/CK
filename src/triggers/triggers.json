@@ -136,5 +136,25 @@
             }
         ],
         "script": "CK.API.auto_unravel(multimatches[2][2])"
+    },
+    {
+        "name": "Auto Fish Reelin",
+        "patterns": [
+            {
+                "pattern": "You feel a tug on your line!",
+                "type": "exactMatch"
+            }
+        ],
+        "script": "send(\"reelin\")"
+    },
+    {
+        "name": "Auto Fish Retry",
+        "patterns": [
+            {
+                "pattern": "You pull your arm back and try to cast out your line, but it gets all tangled up.",
+                "type": "exactMatch"
+            }
+        ],
+        "script": "send(\"castout\")"
     }
 ]
