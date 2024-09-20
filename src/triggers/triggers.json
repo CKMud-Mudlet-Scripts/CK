@@ -72,5 +72,37 @@
             }
         ],
         "script": "send(\"gogogo\\n\") send(\"\\n\\n\") send(\"status\") send(\"score\") send(\"learn\")"
+    },
+    {
+        "name": "Eat Fruit on 6x donation",
+        "multiline": "yes",
+        "multilineDelta": "0",
+        "patterns": [
+            {
+                "pattern": "[CKMud Info]:",
+                "type": "startOfLine"
+            },
+            {
+                "pattern": "^\\[CKMud Info]: (.+)'s donation has unlocked 6.0x Gains upon the universe for 30 minutes.",
+                "type": "regex"
+            }
+        ],
+        "script": "send(\"--\") send(\"eat fruit all\")"
+    },
+    {
+        "name": "Eat Fruit on 6x bestowed",
+        "multiline": "yes",
+        "multilineDelta": "0",
+        "patterns": [
+            {
+                "pattern": "[CKMud Info]:",
+                "type": "startOfLine"
+            },
+            {
+                "pattern": "^\\[CKMud Info]: (.+) has bestowed 6.0x Gains upon the universe for ",
+                "type": "regex"
+            }
+        ],
+        "script": "send(\"--\") send(\"eat fruit all\")"
     }
 ]
