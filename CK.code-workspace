@@ -1,0 +1,37 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"Lua.runtime.version": "Lua 5.1",
+		"Lua.diagnostics.globals": [
+			"CK",
+			"cecho",
+			"createStopWatch",
+			"db",
+			"deleteLine",
+			"deleteNamedTimer",
+			"deselect",
+			"echo",
+			"f",
+			"fg",
+			"getFgColor",
+			"killTrigger",
+			"matches",
+			"multimatches",
+			"raiseEvent",
+			"registerNamedEventHandler",
+			"registerNamedTimer",
+			"replace",
+			"selectString",
+			"send",
+			"tempTimer",
+			"tempTrigger"
+		],
+		"Lua.workspace.library": [
+			"src/resources"
+		],
+	}
+}
