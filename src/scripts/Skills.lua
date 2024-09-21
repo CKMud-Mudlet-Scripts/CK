@@ -13,6 +13,7 @@ local Data = ck:get_table("Player.Skills", {
     }
 })
 local Skills = ck:get_table("API.Skills") -- CK.API.Skills:mastered
+local Player = ck:get_table("Player")
 
 function Skills:clear()
     Data.Learned = {}
@@ -68,6 +69,11 @@ local fullname_to_cmd = {
     ["destruction sphere"] = "dsphere"
 }
 
+local known_buffs = { "demonic will", "energy shield", "barrier", "hasshuken", "herculean force", "resonance",
+    "zanzoken", "kino tsurugi", "regenerate", "forcefield", "infravision", "celestial shield",
+    "celestial drain", "invigorate", "swiftness", "gigantification", "wrathful fury",
+    "divine judgement", "hakai barrier" }
+
 function Skills:translate(raw)
     -- Get the short_name from long name
     local lraw = string.lower(raw)
@@ -94,7 +100,24 @@ function Skills:supreme(skill)
     return Data.Supreme[skill] == true
 end
 
-function Skills:filter_learnable(adict)
+function Skills:learnable()
+    local adict =
+    {
+        ["scatter"] = { "kishot" },
+        ["warp"] = { "superk", "instant" },
+        ["superbb"] = { "bigbang" },
+        ["superk"] = { "kame" },
+        ["machpunch"] = { "punch" },
+        ["machkick"] = { "kick" },
+    }
+    if Player.BasePl > 125000000 then
+        adict["finalk"] = { "warp", "final" }
+        adict["justice"] = { "cyclone", "dynamite", "rage" }
+        adict["supergodfist"] = { "godfist", "wolf", "dpunch" }
+        adict["accel"] = { "justice", "instant", "whirl" }
+        adict["eclipse"] = { "finalk", "disrupt" }
+    end
+
     local Mastered = Data.Mastered
     local Learned = Data.Learned
     local nlist = {}
@@ -142,13 +165,24 @@ function Skills:filter_unlearned(alist)
     return nlist
 end
 
+function Skills:filter_mastered(alist)
+    local Mastered = Data.Mastered
+    local nlist = {}
+    for i, v in ipairs(alist) do
+        if not Mastered[v] then
+            table.insert(nlist, v)
+        end
+    end
+    return nlist
+end
+
 registerNamedEventHandler("__PKGNAME__", "CK:SkillsReLoad", "CK.onPlayerReload", function(event)
     send("learn")
 end)
 
 function Skills:heals()
     local alist = {}
-    local words = {"revitalize", "restoration"}
+    local words = { "revitalize", "restoration" }
     for _, v in ipairs(Data.Sections.Focus) do
         if table.contains(words, v) or v:find("heal", 1, true) then
             table.insert(alist, v)
@@ -159,10 +193,6 @@ end
 
 function Skills:buffs()
     local alist = {}
-    local known_buffs = {"demonic will", "energy shield", "barrier", "hasshuken", "herculean force", "resonance",
-                         "zanzoken", "kino tsurugi", "regenerate", "forcefield", "infravision", "celestial shield",
-                         "celestial drain", "invigorate", "swiftness", "gigantification", "wrathful fury",
-                         "divine judgement", "hakai barrier"}
     for _, v in ipairs(Data.Sections.Focus) do
         if table.contains(known_buffs, v) then
             table.insert(alist, v)
@@ -172,13 +202,26 @@ function Skills:buffs()
 end
 
 function Skills:AoE()
-  return Data.Sections.AoE
+    return Data.Sections.AoE
 end
 
 function Skills:energy_attacks()
-  return Data.Sections.Ki
+    return Data.Sections.Ki
 end
 
 function Skills:melee_attacks()
-  return Data.Sections.Physical
+    return Data.Sections.Physical
+end
+
+function Skills:ultras()
+    local ultra1 = 'ultra instinct'
+    local ultra2 = 'ultra ego'
+    local alist = {} -- Even tho mortals can only have 1
+    if self.learned(ultra1) then
+        table.insert(alist, ultra1)
+    end
+    if self.learned(ultra2) then
+        table.insert(alist, ultra2)
+    end
+    return alist
 end
