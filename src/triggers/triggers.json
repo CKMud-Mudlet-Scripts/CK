@@ -54,7 +54,7 @@
                 "type": "substring"
             },
             {
-                "pattern": "^(\\w+) tells you, '(.+)'$",
+                "pattern": "^(\\w+) tells you, '(!.+)'$",
                 "type": "regex"
             }
         ]

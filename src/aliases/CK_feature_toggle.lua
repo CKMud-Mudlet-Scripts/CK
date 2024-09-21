@@ -15,4 +15,4 @@ end
 
 local value = switch == "on" and true or false
 ck:set_feature(feature, value)
-echoc(f "Setting Feature({feature}) to {switch}!\n")
+cecho(f "Setting Feature({feature}) to {switch}!\n")

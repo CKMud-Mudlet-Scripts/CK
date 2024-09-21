@@ -64,6 +64,22 @@
                             ],
                             "script": "CK.Player.BasePl = tonumber(multimatches[2][2]:gsub(',', ''):trim())"
                      },
+                                          {
+                            "name": "BasePl Android",
+                            "multiline": "yes",
+                            "multilineDelta": "0",
+                            "patterns": [
+                                   {
+                                          "pattern": "Reactor:",
+                                          "type": "startOfLine"
+                                   },
+                                   {
+                                          "pattern": "^Reactor:\\s*([0-9,]+) / (?:[0-9,]+|Unlimited)",
+                                          "type": "regex"
+                                   }
+                            ],
+                            "script": "CK.Player.BasePl = tonumber(multimatches[2][2]:gsub(',', ''):trim())"
+                     },
                      {
                             "name": "Biomass and Regen",
                             "multiline": "yes",

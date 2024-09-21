@@ -37,11 +37,13 @@ end
 
 local function decPromptCounters()
     for k, v in pairs(PromptCounters) do
-        if v ~= nil then
-            if v <= 1 then
-                PromptCounters[k] = nil
-            elseif v ~= nil then
-                PromptCounters[k] = v - 1
+        if k ~= "active" then
+            if v ~= nil then
+                if v <= 1 then
+                    PromptCounters[k] = nil
+                elseif v ~= nil then
+                    PromptCounters[k] = v - 1
+                end
             end
         end
     end
@@ -108,7 +110,6 @@ local function onPrompt()
     -- Handle Buffs before we clear flags
     if PromptFlags.affects and State:check(State.NORMAL, true) then
         Affects:rebuff(PromptFlags.affects)
-
     end
     -- All flags since last prompt should be cleared so next prompt we can take action
     ck:clear_table(PromptFlags)
@@ -130,7 +131,7 @@ local function onNotFightingPrompt()
         Times:reset("score")
     end
     if State:check(State.NORMAL, true) and API:status_ok() and Times:last("scouterself") > 900 then
-        -- status_green depends on the race 
+        -- status_green depends on the race
         send("analyze self")
         Times:reset("scouterself")
     end
@@ -141,11 +142,10 @@ end
 registerNamedEventHandler("__PKGNAME__", "onNotFightingPrompt", "CK.onNotFightingPrompt", onNotFightingPrompt)
 
 local function onFightingPrompt(val)
-    Counters.not_fighting = 0
     if ck:feature("auto_fight") then
         if Times:last("fight") > 2 and PromptFlags.fighting then
             if not Toggles.no_fight then
-                API:cmd_fight(nil)
+                --API:cmd_fight(nil)
             end
         end
     end

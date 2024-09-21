@@ -62,7 +62,7 @@ if Player.Health then
   elseif Player.Health >= 50 then
     fg("orange")
   else
-    fg{"red"}
+    fg("red")
   end
 end
 replace(f"{Player.Health}% |")
