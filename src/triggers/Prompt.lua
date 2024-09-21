@@ -56,10 +56,14 @@ end
 -- Inject Health % after PL 
 -- toggle this
 selectString("|", 1)
-if Player.Health then 
-  if Player.Health >= 79 then
+if Player.Health then
+  -- 100%     75%       50%       25%
+  -- green -> yellow -> orange -> red
+  if Player.Health > 75 then
     fg("green")
-  elseif Player.Health >= 50 then
+  elseif Player.Health > 50 then
+    fg("yellow")
+  elseif Player.Health > 25 then
     fg("orange")
   else
     fg("red")
