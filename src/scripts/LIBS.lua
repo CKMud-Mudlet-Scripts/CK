@@ -45,6 +45,17 @@ function API:auto_unravel(target)
   end
 end
 
+function API:get_gravity(training)
+  local max_gravity = Player.MaxGravity or 2
+  local max_pl = Player.MaxPl or Player.Pl
+  if training then
+    return math.min(math.floor((1 / 5000) * 0.06 * max_pl), max_gravity - 1)
+  else
+    return max_gravity - 1
+  end
+end
+
+
 function API:status_ok()
   -- Maybe a better system is needed, but this check means you are OK, not great but not bad state
   -- Good for AOE and scouter prechecks

@@ -22,7 +22,7 @@ local function do_zetabot()
     end
     local aoe = zeta.aoe
     local target = zeta.target
-    local g = math.min(math.floor((1 / 5000) * 0.06 * Player.MaxPl), (Player.MaxGravity or 2) - 1)
+    local g = API:get_gravity()
     local timeout = ck:constant("zetabot.timeout")
 
     if State:is(State.NORMAL) then

@@ -2,7 +2,7 @@ local ck = require("__PKGNAME__")
 local Player = ck:get_table("Player")
 local Toggles = ck:get_table("Toggles")
 local learn = ck:get_table("API.Learning", {
-    triggers = {}
+    triggers = {}, gravity = 0
 })
 local Times = ck:get_table("API.Times")
 local API = ck:get_table("API")
@@ -11,12 +11,7 @@ local Mode = ck:get_table("API.Mode")
 local PromptCounters = ck:get_table("PromptCounters")
 
 
---[[
-Times:create("zeta.sense")
-Times:create("zeta.blast")
-ck:define_constant("learning.timeout", 120)
-ck:define_constant("zetabot.delay", 0.5)
-]]
+
 
 ---@diagnostic disable-next-line: unused-function
 local function do_learning()
@@ -24,36 +19,35 @@ local function do_learning()
         -- Don't do anything unless we are connected and have a prompt
         return
     end
-    local aoe = zeta.aoe
-    local target = zeta.target
-    local g = math.min(math.floor((1 / 5000) * 0.06 * Player.MaxPl), (Player.MaxGravity or 2) - 1)
-    local timeout = ck:constant("zetabot.timeout")
+    local speedwalk = learn.speedwalk
+    local target = learn.target
+    local g = API:get_gravity()
 
     if State:is(State.NORMAL) then
         -- We should be attacking
-        if Times:last("zeta.blast") > timeout then
+        if Times:last("learn.blast") > timeout then
             -- Stuck lets reset
-            zeta.state.ok_to_blast = true
-            Times:reset("zeta.blast")
+            learn.state.ok_to_blast = true
+            Times:reset("learn.blast")
         end
-        if zeta.state.ok_to_blast and API:status_ok() then
-            if zeta.state.ok_to_adjust and API:not_fighting() then
+        if learn.state.ok_to_blast and API:status_ok() then
+            if learn.state.ok_to_adjust and API:not_fighting() then
                 send(f("adjust {g}"))
-                zeta.state.ok_to_adjust = false
+                learn.state.ok_to_adjust = false
             end
 
             send(aoe)
-            zeta.state.ok_to_blast = false
+            learn.state.ok_to_blast = false
         end
     elseif State:is(State.SENSE) then
         -- We should be looking
-        if Times:last("zeta.sense") > timeout then
+        if Times:last("learn.sense") > timeout then
             -- Stuck lets reset
-            zeta.state.ok_to_sense = true
-            Times:reset("zeta.sense")
+            learn.state.ok_to_sense = true
+            Times:reset("learn.sense")
         end
         send(f("sense {target}"))
-        zeta.state.ok_to_sense = false
+        learn.state.ok_to_sense = false
     end
 end
 
@@ -71,7 +65,8 @@ local function enter()
     -- Change Mode
     Mode:switch(Mode.Learning, exit)
     -- Clear out all state
-    learn.state = { }
+    learn.state = {}
+    learn.gravity = 0
     -- Install a timer
     registerNamedTimer("__PKGNAME__", "CK:Learning", 0.5, do_learning, true)
 end
@@ -97,4 +92,3 @@ function learn:toggle(target, path)
         end
     end
 end
-
