@@ -105,7 +105,7 @@ end
 
 function API:not_fighting()
   -- If we haven't been fighting for 3 prompts then we are not fighting
-  return PromptCounters.fighting == nil and Toggles.fighting == false
+  return PromptCounters.fighting == nil and Toggles.fighting ~= true
 end
 
 function API:is_connected(ignore_prompt)
