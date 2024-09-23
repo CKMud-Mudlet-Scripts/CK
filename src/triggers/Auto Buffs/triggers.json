@@ -197,7 +197,7 @@
               "name": "Tremor Pulse",
               "patterns": [
                      {
-                            "pattern": "You feel your body synchronize with the flow of time.",
+                            "pattern": "You feel unease as your body loses sync with time.",
                             "type": "exactMatch"
                      }
               ],
