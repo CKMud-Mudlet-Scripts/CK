@@ -192,5 +192,15 @@
                      }
               ],
               "script":"CK.API:safeSend(\"focus 'celestial drain'\")"
+       },
+       {
+              "name": "Tremor Pulse",
+              "patterns": [
+                     {
+                            "pattern": "You feel your body synchronize with the flow of time.",
+                            "type": "exactMatch"
+                     }
+              ],
+              "script":"CK.API:safeSend(\"focus 'tremor'\")"
        }
 ]

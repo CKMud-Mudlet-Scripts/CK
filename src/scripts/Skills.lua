@@ -72,7 +72,7 @@ local fullname_to_cmd = {
 local known_buffs = { "demonic will", "energy shield", "barrier", "hasshuken", "herculean force", "resonance",
     "zanzoken", "kino tsurugi", "regenerate", "forcefield", "infravision", "celestial shield",
     "celestial drain", "invigorate", "swiftness", "gigantification", "wrathful fury",
-    "divine judgement", "hakai barrier" }
+    "divine judgement", "hakai barrier", "tremor pulse" }
 
 function Skills:translate(raw)
     -- Get the short_name from long name
