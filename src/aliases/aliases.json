@@ -43,5 +43,10 @@
         "name": "CK update",
         "regex": "^CK update$",
         "script": "expandAlias(\"CK pkg update CK\", false)"
+    },
+    {
+        "name": "Android Configure",
+        "regex": "^configure(?: (.+))$",
+        "script": "CK.API.Racial:Android_setConfigure(matches[2]); send(matches[1], false)"
     }
 ]

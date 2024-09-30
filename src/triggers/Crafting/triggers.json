@@ -1,0 +1,82 @@
+[
+    {
+        "name": "Crafting State Enter",
+        "patterns": [
+            {
+                "pattern": "You begin to break rocks into smaller rocks with your pickaxe",
+                "type": "exactMatch"
+            },
+            {
+                "pattern": "You sit down and start fabricating a bag.",
+                "type": "exactMatch"
+            },
+            {
+                "pattern": "You start chopping away at a nearby tree",
+                "type": "exactMatch"
+            },
+            {
+                "pattern": "You begin to collect sand with your sand collector.",
+                "type": "exactMatch"
+            },
+            {
+                "pattern": "You begin to flay the corpse with your weapon.",
+                "type": "exactMatch"
+            },
+            {
+                "pattern": "You start crafting a new",
+                "type": "startOfLine"
+            }
+        ],
+        "script": "CK.API.State:set(CK.API.State.CRAFTING)"
+    },
+    {
+        "name": "Crafting State Exit - Simple",
+        "patterns": [
+            {
+                "pattern": "After hours of mining... you have found nothing...",
+                "type": "exactMatch"
+            },
+            {
+                "pattern": "You are interrupted and fail to find any ore.",
+                "type": "exactMatch"
+            },
+            {
+                "pattern": "You have crafted a new",
+                "type": "startOfLine"
+            },
+            {
+                "pattern": "After hours of mining you have found",
+                "type": "startOfLine"
+            },
+            {
+                "pattern": "After hours of collecting you have found",
+                "type": "startOfLine"
+            },
+            {
+                "pattern": "After flaying the corpse, you peel off",
+                "type": "startOfLine"
+            },
+            {
+                "pattern": "After alot of chopping you learn the tree is rotten and useless...",
+                "type": "exactMatch"
+            }
+        ],
+        "script": "CK.API.State:set(CK.API.State.NORMAL)"
+    },
+    {
+        "name": "Crafting State Exit - chop",
+        "multiline": "yes",
+        "multilineDelta": "0",
+        "patterns": [
+            {
+                "pattern": "You chop",
+                "type": "substring"
+            },
+            {
+                "pattern": "You chop (.+) off the nearby tree!",
+                "type": "regex"
+            }
+        ],
+        "script": "CK.API.State:set(CK.API.State.NORMAL)"
+    }
+]

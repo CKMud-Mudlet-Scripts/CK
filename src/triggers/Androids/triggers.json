@@ -1,0 +1,28 @@
+[
+    {
+        "name": "Vent Closed",
+        "patterns": [
+            {
+                "pattern": "You stop venting excess heat.",
+                "type": "exactMatch"
+            },
+            {
+                "pattern": "Your ventilation system closes now that you are cooled down.",
+                "type": "exactMatch"
+            }
+        ],
+        "script": "CK.API.State:set(CK.API.State.NORMAL); local conf = CK.API.Racial:Android_getConfigure(); send(f\"configure {conf}\")"
+    },
+    {
+        "name": "Vent open",
+        "multiline": "yes",
+        "multilineDelta": "0",
+        "patterns": [
+            {
+                "pattern": "You start venting excess heat.",
+                "type": "exactMatch"
+            }
+        ],
+        "script": "CK.API.State:set(CK.API.State.REST)"
+    }
+]

@@ -6,27 +6,17 @@ local PromptCounters = ck:get_table("PromptCounters")
 local PromptFlags = ck:get_table("PromptFlags")
 local Player = ck:get_table("Player")
 local Skills = ck:get_table("API.Skills")
+local State = ck:get_table("API.State")
+local Mode = ck:get_table("API.Mode")
 
 ck:define_constant("name", "???")
-ck:define_constant("race", "???")
 ck:define_feature("auto_unravel", true)
 
--- Figure out something better
-function API:isAndroid(race)
-  return race == "Android"
-end
-
-function API:isBioDroid(race)
-  return race == "Bio-Android"
-end
-
-function API:setRace(race)
-  local old_race = ck:constant("race")
-  if old_race == "???" then
-    ck:set_constant("race", race)
-  elseif old_race ~= race then
-    cecho(f" <Red>Error: Race Change from {old_race}, use `lua CK constant race={race}`")
-  end
+function API:RESET_ALL()
+    State:set(State.ALLSTOP)
+    API.SendQueue:clear()
+    Mode:switch()
+    State:set()
 end
 
 function API:setName(name)
@@ -35,13 +25,13 @@ function API:setName(name)
   if old_name == "???" then
     ck:set_constant("name", name)
   elseif old_name ~= name then
-    cecho(f" <Red>Error: Named Changed from {old_race}, use `lua CK constant name={name}`")
+    cecho(f " <Red>Error: Named Changed from {old_race}, use `lua CK constant name={name}`")
   end
 end
 
 function API:auto_unravel(target)
   if ck:feature("auto_unravel") and Skills:learned("unravel") then
-    send(f"focus 'unravel' {target}")
+    send(f "focus 'unravel' {target}")
   end
 end
 
@@ -55,19 +45,18 @@ function API:get_gravity(training)
   end
 end
 
-
 function API:status_ok()
   -- Maybe a better system is needed, but this check means you are OK, not great but not bad state
   -- Good for AOE and scouter prechecks
   local race = self:constant("race")
   local health = (Player.Health or 100) >= 50
   if self:isBioDroid(race) then
-     return health and Player.Biomass >= 50
+    return health and Player.Biomass >= 50
   elseif self:isAndroid(race) then
-     return health and Player.Heat <= 60
-  else 
+    return health and Player.Heat <= 60
+  else
     -- Everyone else
-     return health and Player.Ki > 50 and Player.Fatigue <= 60
+    return health and Player.Ki > 50 and Player.Fatigue <= 60
   end
 end
 

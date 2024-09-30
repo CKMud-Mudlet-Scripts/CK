@@ -2,7 +2,7 @@
 -- Only Save up sends for sending later
 
 local ck = require("__PKGNAME__")
-local SendQueue = ck:get_table("API.SendQueue", {first = 0, last = -1})
+local SendQueue = ck:get_table("API.SendQueue", {first = 1, last = 0})
 local State = ck:get_table("API.State")
 local Toggles = ck:get_table("Toggles")
 local API = ck:get_table("API")
@@ -27,9 +27,21 @@ end
 
 function SendQueue:hasnext()
   if self.first > self.last then
+    if self.first ~= 1 then
+      self.first = 1
+      self.last = 0
+    end
     return false
   else
     return true
+  end
+end
+
+function SendQueue:clear()
+  if self.first ~= 0 then
+    for pos=self.first,self.last do
+        self[pos] = nil;
+    end
   end
 end
 

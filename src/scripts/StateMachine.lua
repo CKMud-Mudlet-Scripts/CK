@@ -11,13 +11,14 @@ local State = ck:get_table("API.State",  ck:make_enum(
             'NORMAL',
             'BUFFING',
             'CRAFTING',
+            'ALLSTOP'
           }
 ))
 local _state = ck:get_table("API._State", {CURRENT_STATE=State.NORMAL, PREV_STATE=State.NORMAL})
 
 function State:set(state)
   _state.PREV_STATE = State:get() or State.NORMAL
-  _state.CURRENT_STATE = state
+  _state.CURRENT_STATE = state or State.NORMAL
 end
 
 function State:get()

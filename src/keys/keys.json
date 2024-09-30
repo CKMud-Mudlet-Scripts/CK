@@ -1,6 +1,7 @@
 [
        {
-              "name": "Toggle no_fight",
-              "keys": "F10"
+              "name": "RESET ALL",
+              "keys": "F12",
+              "script": "CK.API:RESET_ALL()"
        }
 ]
