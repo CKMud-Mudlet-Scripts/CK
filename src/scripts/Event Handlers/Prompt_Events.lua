@@ -104,7 +104,8 @@ local function onPrompt()
     -- Lets handle fighting and non fighting stuff
     if Toggles.fighting then
         raiseEvent("CK.onFightingPrompt")
-    else
+    elseif API:not_fighting() then
+        -- Only when we are damn sure we are not fighting
         raiseEvent("CK.onNotFightingPrompt")
     end
     -- Handle Buffs before we clear flags
@@ -137,6 +138,7 @@ local function onNotFightingPrompt()
     end
     -- Handle Send Queue
     ck:get_table("API.SendQueue"):trySendNow()
+    raiseEvent("CK.notFighting")
 end
 
 registerNamedEventHandler("__PKGNAME__", "onNotFightingPrompt", "CK.onNotFightingPrompt", onNotFightingPrompt)
@@ -152,6 +154,7 @@ local function onFightingPrompt(val)
     if State:check(State.CRAFTING, true) or State:check(State.BUFFING, true) or State:check(State.SENSE, true) then
         State:check(State.NORMAL)
     end
+    raiseEvent("CK.fighting")
 end
 
 registerNamedEventHandler("__PKGNAME__", "onFightingPrompt", "CK.onFightingPrompt", onFightingPrompt)
@@ -161,6 +164,7 @@ local function onFinishedFighting(event)
     Times:reset("fightfinished")
     Toggles.NEXTHT = nil
     cecho("\n<red>Fight Finished!")
+    raiseEvent("CK.finishedFighting")
 end
 
 registerNamedEventHandler("__PKGNAME__", "onFinishedFighting", "CK.onFinishedFighting", onFinishedFighting)
