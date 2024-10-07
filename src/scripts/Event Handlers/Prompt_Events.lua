@@ -123,8 +123,9 @@ local function onNotFightingPrompt()
     Toggles.skip_fight = nil
 
     if State:check(State.NORMAL, true) and Times:last("status") > 120 then
+        Toggles.hide_status = true
         send("status")
-        Times:reset("status")
+        Times:reset("status")  -- Prevent immediate re-entry next prompt
     end
     if State:check(State.NORMAL, true) and Times:last("score") > 300 then
         send("score")
