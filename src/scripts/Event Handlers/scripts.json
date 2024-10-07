@@ -4,5 +4,8 @@
        },
        {
               "name": "Connection Events"
+       },
+       {
+              "name": "MSDP"
        }
 ]
