@@ -27,6 +27,8 @@ The script will from time to time issue the following commands so its aware of t
 
 `zetabot <aoe> <target>` - Start the zetabot, you don't need to be in the room of the target to start, and you don't have to the aoe mastered. If you have a Zeta it will automaticlly use it based on your Max Gravity from `status`
 
+`redeem all` - Redeem all loot boxes until you have no more
+
 `CK` - get a list of CK commands
 
 `CK update` - update the CK script from github
