@@ -14,17 +14,17 @@
                             "type": "startOfLine"
                      }
               ],
-              "script": "CK.API.Times:reset(\"status\")\nif CK.Toggles.hide_status then\ndeleteLine()\nmoveCursor(0,getLineNumber()-1)\ndeleteLine()\nend\n",
+              "script": "CK.API.Times:reset(\"status\")\nif CK.Toggles.hide_status then\ngagLine()\nmoveCursor(0,getLineNumber()-1)\ngagLine()\nend\n",
               "children": [
                      {
-                            "name": "deleteLine",
+                            "name": "gagLine",
                             "patterns": [
                                    {
                                           "pattern": "return CK.Toggles.hide_status",
                                           "type": "lua"
                                    }
                             ],
-                            "script": "deleteLine()"
+                            "script": "gagLine()"
                      },
                      {
                             "name": "scrape max gravity",
@@ -68,17 +68,17 @@
                             "type": "exactMatch"
                      }
               ],
-              "script": "CK.PromptFlags.affects = {}\nif CK.Toggles.hide_status then\ndeleteLine()\nend\n",
+              "script": "CK.PromptFlags.affects = {}\nif CK.Toggles.hide_status then\ngagLine()\nend\n",
               "children": [
                      {
-                            "name": "deleteLine",
+                            "name": "gagLine",
                             "patterns": [
                                    {
                                           "pattern": "return CK.Toggles.hide_status",
                                           "type": "lua"
                                    }
                             ],
-                            "script": "deleteLine()"
+                            "script": "gagLine()"
                      },
                      {
                             "name": "Active Buff Trigger",
