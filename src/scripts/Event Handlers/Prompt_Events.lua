@@ -7,7 +7,6 @@ local PromptCounters = ck:get_table("PromptCounters")
 local State = ck:get_table("API.State")
 local Affects = ck:get_table("API.Affects")
 local Toggles = ck:get_table("Toggles")
-local Timers = ck:get_table("Timers")
 local Times = ck:get_table("API.Times")
 local Status = ck:get_table("Player.Status")
 
@@ -123,7 +122,7 @@ local function onNotFightingPrompt()
     Toggles.EnemyLineComboTest = true
     Toggles.skip_fight = nil
 
-    if State:check(State.NORMAL, true) and Times:last("status") > 600 then
+    if State:check(State.NORMAL, true) and Times:last("status") > 120 then
         send("status")
         Times:reset("status")
     end

@@ -14,8 +14,18 @@
                             "type": "startOfLine"
                      }
               ],
-              "script": "",
+              "script": "CK.API.Times:reset(\"status\")\nif CK.Toggles.hide_status then\ndeleteLine()\nmoveCursor(0,getLineNumber()-1)\ndeleteLine()\nend\n",
               "children": [
+                     {
+                            "name": "deleteLine",
+                            "patterns": [
+                                   {
+                                          "pattern": "return CK.Toggles.hide_status",
+                                          "type": "lua"
+                                   }
+                            ],
+                            "script": "deleteLine()"
+                     },
                      {
                             "name": "scrape max gravity",
                             "multiline": "yes",
@@ -58,8 +68,18 @@
                             "type": "exactMatch"
                      }
               ],
-              "script": "CK.PromptFlags.affects = {}",
+              "script": "CK.PromptFlags.affects = {}\nif CK.Toggles.hide_status then\ndeleteLine()\nend\n",
               "children": [
+                     {
+                            "name": "deleteLine",
+                            "patterns": [
+                                   {
+                                          "pattern": "return CK.Toggles.hide_status",
+                                          "type": "lua"
+                                   }
+                            ],
+                            "script": "deleteLine()"
+                     },
                      {
                             "name": "Active Buff Trigger",
                             "multiline": "yes",
@@ -88,8 +108,7 @@
                                           "pattern": " Equipment Boosts:",
                                           "type": "exactMatch"
                                    }
-                            ],
-                            "script": "setTriggerStayOpen(\"Status Affections\", 0)"
+                            ]
                      }
               ]
        }

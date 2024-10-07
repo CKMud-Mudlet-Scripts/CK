@@ -27,10 +27,12 @@
 			"replace",
 			"selectString",
 			"send",
+			"setTriggerStayOpen",
 			"tempTimer",
 			"tempTrigger",
 			"getTime",
-			"tempExactMatchTrigger"
+			"tempExactMatchTrigger",
+			"tempLineTrigger"
 		],
 		"Lua.workspace.library": [
 			"src/resources"
