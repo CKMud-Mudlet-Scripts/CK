@@ -124,12 +124,12 @@ local function onNotFightingPrompt()
 
     if State:check(State.NORMAL, true) and Times:last("status") > 120 then
         Toggles.hide_status = true
-        send("status")
+        send("status", false)
         Times:reset("status")  -- Prevent immediate re-entry next prompt
     end
     if State:check(State.NORMAL, true) and Times:last("score") > 300 then
         Toggles.hide_score = true
-        send("score")
+        send("score", false)
         Times:reset("score")
     end
     if State:check(State.NORMAL, true) and API:status_ok() and Times:last("scouterself") > 900 then
