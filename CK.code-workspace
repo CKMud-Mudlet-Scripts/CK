@@ -28,7 +28,9 @@
 			"selectString",
 			"send",
 			"tempTimer",
-			"tempTrigger"
+			"tempTrigger",
+			"getTime",
+			"tempExactMatchTrigger"
 		],
 		"Lua.workspace.library": [
 			"src/resources"
