@@ -123,11 +123,11 @@ local function onNotFightingPrompt()
     Toggles.EnemyLineComboTest = true
     Toggles.skip_fight = nil
 
-    if State:check(State.NORMAL, true) and Times:last("status") > 120 then
+    if State:check(State.NORMAL, true) and Times:last("status") > 600 then
         send("status")
         Times:reset("status")
     end
-    if State:check(State.NORMAL, true) and Times:last("score") > 240 then
+    if State:check(State.NORMAL, true) and Times:last("score") > 300 then
         send("score")
         Times:reset("score")
     end
