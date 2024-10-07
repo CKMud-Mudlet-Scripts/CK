@@ -62,5 +62,53 @@
                             "script": "setTriggerStayOpen(\"Learn Scrape\", 0) CK.Player.Skills.section = nil"
                      }
               ]
+       },
+       {
+              "name": "Learned Skill",
+              "multiline": "yes",
+              "multielineDelta": "0",
+              "patterns": [
+                     {
+                            "pattern": "You have learned",
+                            "type": "startOfLine"
+                     },
+                     {
+                            "pattern": "You have learned (.+)!",
+                            "type": "regex"
+                     }
+              ],
+              "script": "CK.Player.Skills.Learned[CK.API.Skills.translate(multimatches[2][2])] = true"
+       },       
+       {
+              "name": "Learned Skill from",
+              "multiline": "yes",
+              "multielineDelta": "0",
+              "patterns": [
+                     {
+                            "pattern": "You've learned the skill",
+                            "type": "startOfLine"
+                     },
+                     {
+                            "pattern": "You've learned the skill '(.+)' from .+\\.",
+                            "type": "regex"
+                     }
+              ],
+              "script": "CK.Player.Skills.Learned[CK.API.Skills.translate(multimatches[2][2])] = true"
+       },
+       {
+              "name": "Mastered Skill",
+              "multiline": "yes",
+              "multielineDelta": "0",
+              "patterns": [
+                     {
+                            "pattern": "You have mastered the",
+                            "type": "startOfLine"
+                     },
+                     {
+                            "pattern": "You have mastered the (.+) technique!",
+                            "type": "regex"
+                     }
+              ],
+              "script": "CK.Player.Skills.Mastered[CK.API.Skills.translate(multimatches[2][2])] = true"
        }
 ]
