@@ -128,6 +128,7 @@ local function onNotFightingPrompt()
         Times:reset("status")  -- Prevent immediate re-entry next prompt
     end
     if State:check(State.NORMAL, true) and Times:last("score") > 300 then
+        Toggles.hide_score = true
         send("score")
         Times:reset("score")
     end

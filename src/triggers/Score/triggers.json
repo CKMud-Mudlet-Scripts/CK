@@ -14,8 +14,18 @@
                             "type": "regex"
                      }
               ],
-              "script": "CK.API:setName(multimatches[2][2]:trim())",
+              "script": "CK.API:setName(multimatches[2][2]:trim())\nCK.API.Times:reset(\"score\")\nif CK.Toggles.hide_score then\ngagLine()\nend",
               "children": [
+                     {
+                            "name": "gagLine",
+                            "patterns": [
+                                   {
+                                          "pattern": "return CK.Toggles.hide_score",
+                                          "type": "lua"
+                                   }
+                            ],
+                            "script": "gagLine()"
+                     },
                      {
                             "name": "Race Scrape",
                             "multiline": "yes",
@@ -185,10 +195,9 @@
                             "patterns": [
                                    {
                                           "pattern": "See 'Status', 'Train', and 'Traits' for more information.",
-                                          "type": "exactMatch"
+                                          "type": "startOfLine"
                                    }
-                            ],
-                            "script": "setTriggerStayOpen(\"Score Scrape\", 0)"
+                            ]
                      }
               ]
        }
