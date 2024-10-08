@@ -41,86 +41,86 @@ registerNamedEventHandler("__PKGNAME__", "MSDP RACE", "msdp.RACE",
 -- BASE_PL
 registerNamedEventHandler("__PKGNAME__", "MSDP BasePL", "msdp.BASE_PL",
     function()
-        Player.BasePl = msdp.BASE_PL
+        Player.BasePl = tonumber(msdp.BASE_PL)
     end
 )
 
 -- PL and MaxPl
 registerNamedEventHandler("__PKGNAME__", "MSDP MAX_PL", "msdp.POWERLEVEL_MAX",
     function()
-        Player.MaxPl = msdp.POWERLEVEL_MAX
+        Player.MaxPl = tonumber(msdp.POWERLEVEL_MAX)
     end
 )
 registerNamedEventHandler("__PKGNAME__", "MSDP PL", "msdp.POWERLEVEL",
     function()
-        Player.Pl = msdp.POWERLEVEL
+        Player.Pl = tonumber(msdp.POWERLEVEL)
     end
 )
 
 -- FATIGUE API:has_fatigue()
 registerNamedEventHandler("__PKGNAME__", "MSDP FATIGUE", "msdp.FATIGUE",
     function()
-        Player.Fatigue = msdp.FATIGUE
+        Player.Fatigue = tonumber(msdp.FATIGUE)
     end
 )
 registerNamedEventHandler("__PKGNAME__", "MSDP MAX FATIGUE", "msdp.FATIGUE_MAX",
     function()
-        Player.MaxFatigue = msdp.FATIGUE_MAX
+        Player.MaxFatigue = tonumber(msdp.FATIGUE_MAX)
     end
 )
 
 -- KI/Max KI
 registerNamedEventHandler("__PKGNAME__", "MSDP KI", "msdp.KI",
     function()
-        Player.Ki = msdp.KI
+        Player.Ki = tonumber(msdp.KI)
     end
 )
 registerNamedEventHandler("__PKGNAME__", "MSDP MAX KI", "msdp.KI_MAX",
     function()
-        Player.MaxKi = msdp.KI_MAX
+        Player.MaxKi = tonumber(msdp.KI_MAX)
     end
 )
 
 -- God Ki
 registerNamedEventHandler("__PKGNAME__", "MSDP GK", "msdp.GODKI",
     function()
-        Player.GK = msdp.GODKI
+        Player.GK = tonumber(msdp.GODKI)
     end
 )
 registerNamedEventHandler("__PKGNAME__", "MSDP MAX KI", "msdp.GODKI_MAX",
     function()
-        Player.MaxGK = msdp.GODKI_MAX
+        Player.MaxGK = tonumber(msdp.GODKI_MAX)
     end
 )
 
 -- Hitroll and Damroll
 registerNamedEventHandler("__PKGNAME__", "MSDP Damroll", "msdp.DAMROLL",
     function()
-        Player.Damroll = msdp.DAMROLL
+        Player.Damroll = tonumber(msdp.DAMROLL)
     end
 )
 registerNamedEventHandler("__PKGNAME__", "MSDP Hitroll", "msdp.HITROLL",
     function()
-        Player.Hitroll = msdp.HITROLL
+        Player.Hitroll = tonumber(msdp.HITROLL)
     end
 )
 
 -- Gravity
 registerNamedEventHandler("__PKGNAME__", "MSDP Gravity", "msdp.MAX_GRAVITY",
     function()
-        Player.MaxGravity = msdp.MAX_GRAVITY
+        Player.MaxGravity = tonumber(msdp.MAX_GRAVITY)
     end
 )
 registerNamedEventHandler("__PKGNAME__", "MSDP Room Gravity", "msdp.ROOM_GRAVITY",
     function()
-        Room.Gravity = msdp.ROOM_GRAVITY
+        Room.Gravity = tonumber(msdp.ROOM_GRAVITY)
     end
 )
 
 -- Zenni
 registerNamedEventHandler("__PKGNAME__", "MSDP Zenni", "msdp.ZENNI",
     function()
-        Player.Zenni = msdp.ZENNI
+        Player.Zenni = tonumber(msdp.ZENNI)
     end
 )
 
@@ -128,49 +128,49 @@ registerNamedEventHandler("__PKGNAME__", "MSDP Zenni", "msdp.ZENNI",
 for _, stat in ipairs(("INT WIS STR SPD"):split(" ")) do
     registerNamedEventHandler("__PKGNAME__", f "MSDP {stat}", f "msdp.{stat}",
         function()
-            Player.Stats[stat] = msdp[stat]
+            Player.Stats[stat] = tonumber(msdp[stat])
         end
     )
     registerNamedEventHandler("__PKGNAME__", f "MSDP {stat}_BASE", f "msdp.{stat}_BASE",
         function()
-            Player.BaseStats[stat] = msdp[f "{stat}_BASE"]
+            Player.BaseStats[stat] = tonumber(msdp[f "{stat}_BASE"])
         end
     )
 end
 
 registerNamedEventHandler("__PKGNAME__", "MSDP Dark Energy", "msdp.DARK_ENERGY",
     function()
-        Player.DarkEnergy = msdp.DARK_ENERGY
+        Player.DarkEnergy = tonumber(msdp.DARK_ENERGY)
     end
 )
 
 registerNamedEventHandler("__PKGNAME__", "MSDP Armor", "msdp.ARMOR",
     function()
-        Player.Armor = msdp.ARMOR
+        Player.Armor = tonumber(msdp.ARMOR)
     end
 )
 
 registerNamedEventHandler("__PKGNAME__", "MSDP Tokens", "msdp.TOKENS",
     function()
-        Player.Tokens = msdp.TOKENS
+        Player.Tokens = tonumber(msdp.TOKENS)
     end
 )
 
 registerNamedEventHandler("__PKGNAME__", "MSDP E-Points", "msdp.EPOINTS",
     function()
-        Player.EPoints = msdp.EPOINTS
+        Player.EPoints = tonumber(msdp.EPOINTS)
     end
 )
 
 registerNamedEventHandler("__PKGNAME__", "MSDP Hunger", "msdp.HUNGER",
     function()
-        Player.Hunger = msdp.HUNGER
+        Player.Hunger = tonumber(msdp.HUNGER)
     end
 )
 
 registerNamedEventHandler("__PKGNAME__", "MSDP Thirst", "msdp.THIRST",
     function()
-        Player.Thirst = msdp.THIRST
+        Player.Thirst = tonumber(msdp.THIRST)
     end
 )
 
@@ -187,19 +187,19 @@ registerNamedEventHandler("__PKGNAME__", "MSDP Room Name", "msdp.ROOM_NAME",
 )
 registerNamedEventHandler("__PKGNAME__", "MSDP Room VNUM", "msdp.ROOM_VNUM",
     function()
-        Room.vnum = msdp.ROOM_VNUM
+        Room.vnum = tonumber(msdp.ROOM_VNUM)
     end
 )
 
 -- OPPONENT STUFF
 registerNamedEventHandler("__PKGNAME__", "MSDP Target Health", "msdp.OPPONENT_HEALTH",
     function()
-        Target.Health = msdp.OPPONENT_HEALTH
+        Target.Health = tonumber(msdp.OPPONENT_HEALTH)
     end
 )
 registerNamedEventHandler("__PKGNAME__", "MSDP Target Max Health", "msdp.OPPONENT_HEALTH_MAX",
     function()
-        Target.MaxHealth = msdp.OPPONENT_HEALTH_MAX
+        Target.MaxHealth = tonumber(msdp.OPPONENT_HEALTH_MAX)
     end
 )
 registerNamedEventHandler("__PKGNAME__", "MSDP Target Name", "msdp.OPPONENT_NAME",
@@ -209,7 +209,7 @@ registerNamedEventHandler("__PKGNAME__", "MSDP Target Name", "msdp.OPPONENT_NAME
 )
 registerNamedEventHandler("__PKGNAME__", "MSDP Target Level", "msdp.OPPONENT_LEVEL",
     function()
-        Target.level = msdp.OPPONENT_LEVEL
+        Target.level = tonumber(msdp.OPPONENT_LEVEL)
     end
 )
 
