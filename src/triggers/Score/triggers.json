@@ -27,70 +27,6 @@
                             "script": "gagLine()"
                      },
                      {
-                            "name": "Race Scrape",
-                            "multiline": "yes",
-                            "multilineDelta": "0",
-                            "patterns": [
-                                   {
-                                          "pattern": "Race: ",
-                                          "type": "startOfLine"
-                                   },
-                                   {
-                                          "pattern": "^Race: (.+)",
-                                          "type": "regex"
-                                   }
-                            ],
-                            "script": "CK.API:setRace(multimatches[2][2]:trim())"
-                     },
-                     {
-                            "name": "MaxPl Scrape",
-                            "multiline": "yes",
-                            "multilineDelta": "0",
-                            "patterns": [
-                                   {
-                                          "pattern": "Powerlevel:",
-                                          "type": "startOfLine"
-                                   },
-                                   {
-                                          "pattern": "^Powerlevel: [0-9,]+ / ([0-9,]+)",
-                                          "type": "regex"
-                                   }
-                            ],
-                            "script": "CK.Player.MaxPl = tonumber(multimatches[2][2]:gsub(',', ''):trim())"
-                     },
-                     {
-                            "name": "BasePl Scrape",
-                            "multiline": "yes",
-                            "multilineDelta": "0",
-                            "patterns": [
-                                   {
-                                          "pattern": "Base PL:",
-                                          "type": "startOfLine"
-                                   },
-                                   {
-                                          "pattern": "^Base PL:\\s*([0-9,]+)",
-                                          "type": "regex"
-                                   }
-                            ],
-                            "script": "CK.Player.BasePl = tonumber(multimatches[2][2]:gsub(',', ''):trim())"
-                     },
-                                          {
-                            "name": "BasePl Android",
-                            "multiline": "yes",
-                            "multilineDelta": "0",
-                            "patterns": [
-                                   {
-                                          "pattern": "Reactor:",
-                                          "type": "startOfLine"
-                                   },
-                                   {
-                                          "pattern": "^Reactor:\\s*([0-9,]+) / (?:[0-9,]+|Unlimited)",
-                                          "type": "regex"
-                                   }
-                            ],
-                            "script": "CK.Player.BasePl = tonumber(multimatches[2][2]:gsub(',', ''):trim())"
-                     },
-                     {
                             "name": "Biomass and Regen",
                             "multiline": "yes",
                             "multilineDelta": "0",
@@ -106,62 +42,31 @@
                             ]
                      },
                      {
-                            "name": "Hitroll and Damroll",
+                            "name": "UBS",
                             "multiline": "yes",
                             "multilineDelta": 0,
                             "patterns": [
                                    {
-                                          "pattern": "Hitroll",
-                                          "type": "startOfLine"
+                                          "pattern": "Upper Body Strength:",
+                                          "type": "substring"
                                    },
                                    {
-                                          "pattern": "^Hitroll:\\s*([0-9]+)\\s*Damroll:\\s*([0-9]+)\\s*$",
-                                          "type": "regex"
-                                   }
-                            ],
-                            "script": "local matches = multimatches[2]\nCK.Player.Hitroll=tonumber(matches[2]:trim())\nCK.Player.Damroll=tonumber(matches[3]:trim())"
-                     },
-                     {
-                            "name": "Strength and Speed",
-                            "multiline": "yes",
-                            "multilineDelta": 0,
-                            "patterns": [
-                                   {
-                                          "pattern": "Strength:",
-                                          "type": "startOfLine"
-                                   },
-                                   {
-                                          "pattern": "^Strength:\\s*([0-9,]+)\\[\\s*([0-9,]+)\\]\\s*Speed:\\s*([0-9,]+)\\[\\s*([0-9,]+)\\]",
+                                          "pattern": "Upper Body Strength:\\s+([0-9]+)",
                                           "type": "regex"
                                    }
                             ]
                      },
                      {
-                            "name": "Wisdom and UBS",
+                            "name": "LBS",
                             "multiline": "yes",
                             "multilineDelta": 0,
                             "patterns": [
                                    {
-                                          "pattern": "Wisdom:",
-                                          "type": "startOfLine"
+                                          "pattern": "Lower Body Strength:",
+                                          "type": "substring"
                                    },
                                    {
-                                          "pattern": "^Wisdom:\\s*([0-9,]+)\\[\\s*([0-9,]+)\\]\\s*Upper Body Strength:\\s+([0-9]+)",
-                                          "type": "regex"
-                                   }
-                            ]
-                     },
-                     {
-                            "name": "Intellect and LBS",
-                            "multiline": "yes",
-                            "multilineDelta": 0,
-                            "patterns": [
-                                   {
-                                          "pattern": "Intellect:",
-                                          "type": "startOfLine"
-                                   },
-                                   {
-                                          "pattern": "^Intellect:\\s*([0-9,]+)\\[\\s*([0-9,]+)\\]\\s*Lower Body Strength:\\s+([0-9]+)",
+                                          "pattern": "Lower Body Strength:\\s+([0-9]+)",
                                           "type": "regex"
                                    }
                             ]

@@ -71,7 +71,7 @@
                 "type": "exactMatch"
             }
         ],
-        "script": "send(\"gogogo\\n\") send(\"\\n\\n\") send(\"status\") send(\"score\") send(\"learn\")"
+        "script": "send(\"gogogo\\n\") send(\"\\n\\n\") send(\"learn\")"
     },
     {
         "name": "Eat Fruit on 6x donation",

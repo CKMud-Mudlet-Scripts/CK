@@ -12,6 +12,18 @@ local Mode = ck:get_table("API.Mode")
 ck:define_constant("name", "???")
 ck:define_feature("auto_unravel", true)
 
+function Player:get_health()
+    return math.floor(Player.Pl / Player.MaxPl * 100)
+end
+
+function Player:get_energy()
+    return math.floor(Player.Ki / Player.MaxKi * 100)
+end
+
+function Player:get_stamina()
+    return math.floor(Player.Fatigue / Player.MaxFatigue * 100)
+end
+
 function API:RESET_ALL()
     State:set(State.ALLSTOP)
     API.SendQueue:clear()
@@ -46,18 +58,7 @@ function API:get_gravity(training)
 end
 
 function API:status_ok()
-    -- Maybe a better system is needed, but this check means you are OK, not great but not bad state
-    -- Good for AOE and scouter prechecks
-    local race = self:constant("race")
-    local health = (Player.Health or 100) >= 50
-    if self:isBioDroid(race) then
-        return health and Player.Biomass >= 50
-    elseif self:isAndroid(race) then
-        return health and Player.Heat <= 60
-    else
-        -- Everyone else
-        return health and Player.Ki > 50 and Player.Fatigue <= 60
-    end
+    return Player:get_health() >= 50 and Player:get_energy() >= 50 and Player:get_stamina() >= 50
 end
 
 function API:constant(name)

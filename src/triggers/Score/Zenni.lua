@@ -1,7 +1,6 @@
 local matches = multimatches[2]
 local Player = CK.Player
 
-Player.Zenni = tonumber(matches[2]:gsub(",", ""):trim())
 if not CK.Toggles.hide_score then
 cecho(
     string.format(

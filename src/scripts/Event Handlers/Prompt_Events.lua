@@ -127,15 +127,10 @@ local function onNotFightingPrompt()
         send("status", false)
         Times:reset("status")  -- Prevent immediate re-entry next prompt
     end
-    if State:check(State.NORMAL, true) and Times:last("score") > 300 then
+    if State:check(State.NORMAL, true) and Times:last("score") > 900 then
         Toggles.hide_score = true
         send("score", false)
         Times:reset("score")
-    end
-    if State:check(State.NORMAL, true) and API:status_ok() and Times:last("scouterself") > 900 then
-        -- status_green depends on the race
-        send("analyze self")
-        Times:reset("scouterself")
     end
     -- Handle Send Queue
     ck:get_table("API.SendQueue"):trySendNow()

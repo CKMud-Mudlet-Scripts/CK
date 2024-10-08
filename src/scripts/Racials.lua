@@ -34,8 +34,8 @@ function Racial:Android_getConfigure()
 end
 
 function API:has_fatigue(_race)
-  local race = _race or self.getRace()
-  return (self.isAndroid(race) or self.isBioDroid(race))
+  local race = _race or self:getRace()
+  return (self:isAndroid(race) or self:isBioDroid(race))
 end
 
 function API:getRace()

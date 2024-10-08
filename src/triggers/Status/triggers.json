@@ -27,21 +27,6 @@
                             "script": "gagLine()"
                      },
                      {
-                            "name": "scrape max gravity",
-                            "multiline": "yes",
-                            "multilineDelta": "0",
-                            "patterns": [
-                                   {
-                                          "pattern": "You are able to withstand",
-                                          "type": "substring"
-                                   },
-                                   {
-                                          "pattern": "You are able to withstand (\\d+)x gravity.",
-                                          "type": "regex"
-                                   }
-                            ]
-                     },
-                     {
                             "name": "close Status scrape",
                             "patterns": [
                                    {

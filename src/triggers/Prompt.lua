@@ -1,5 +1,5 @@
 local matches = multimatches[2]
-local metrics = matches.Metrics
+--local metrics = matches.Metrics
 local forms = matches.Forms
 local Player = CK.Player
 local Toggles = CK.Toggles
@@ -8,6 +8,7 @@ Player.Pl = tonumber(matches.PL:gsub(",", ""):trim())
 Player.Status = {}
 
 -- Handle Metrics
+--[[  Obsolete by MSDP
 for _, raw_metric in ipairs(metrics:split(" | ")) do
   local parts = raw_metric:split(": ")
   local name = parts[1]
@@ -17,6 +18,7 @@ for _, raw_metric in ipairs(metrics:split(" | ")) do
   end
   Player[name] = tonumber(value)
 end
+]]
 
 -- Handle States [HT] [FLY] [UI]
 for _, form in ipairs(forms:split(" ")) do
@@ -37,14 +39,16 @@ end
 local sup = Player.Status.SUPPRESSED == true
 
 -- Handle Max GK
+--[[ Obsolete by MSDP
 if Player.GK then
 Player.MaxGK = 500 + 50 * (Player.RemortLevel or 0)
 end
 
+
 if not sup and Player.MaxPl then
 Player.Health = math.floor((Player.Pl / Player.MaxPl) * 100)
 end
-
+]]
 -- Toggle this
 cecho(f"[<green>{CK.API.State:toString()}<white>]")
 cecho(f"[<red>{(CK.Player.MaxGravity or '???')}x G<white>]")
@@ -56,20 +60,19 @@ end
 -- Inject Health % after PL 
 -- toggle this
 selectString("|", 1)
-if Player.Health then
+local health = Player:get_health()
   -- 100%     75%       50%       25%
   -- green -> yellow -> orange -> red
-  if Player.Health > 75 then
+  if health > 75 then
     fg("green")
-  elseif Player.Health > 50 then
+  elseif health > 50 then
     fg("yellow")
-  elseif Player.Health > 25 then
+  elseif health > 25 then
     fg("orange")
   else
     fg("red")
   end
-end
-replace(f"{Player.Health}% |")
+replace(f"{health}% |")
 selectString("|", 1)
 fg("ansiLightBlack")
 deselect()
