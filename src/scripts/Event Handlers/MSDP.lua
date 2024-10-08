@@ -8,7 +8,7 @@ local names = { "LEVEL", "RACE", "POWERLEVEL", "POWERLEVEL_MAX", "KI", "KI_MAX",
     "GODKI_MAX", "DARK_ENERGY", "AFFECTS", "ZENNI", "TOKENS", "EPOINTS", "MAX_GRAVITY", "HITROLL", "DAMROLL",
     "ARMOR", "STR", "INT", "WIS", "SPD", "CON", "STR_BASE", "INT_BASE", "WIS_BASE", "SPD_BASE", "CON_BASE",
     "OPPONENT_HEALTH", "OPPONENT_HEALTH_MAX", "OPPONENT_LEVEL", "OPPONENT_NAME", "AREA_NAME", "ROOM_EXITS",
-    "ROOM_NAME", "ROOM_VNUM", "CHARACTER_NAME", "THIRST", "HUNGER", "ROOM_GRAVITY", "BASE_PL" }
+    "ROOM_NAME", "ROOM_VNUM", "CHARACTER_NAME", "THIRST", "HUNGER", "ROOM_GRAVITY", "BASE_PL", "UBS", "LBS" }
 
 
 -- Report all the names to the server to request updates on them
@@ -87,7 +87,7 @@ registerNamedEventHandler("__PKGNAME__", "MSDP GK", "msdp.GODKI",
         Player.GK = tonumber(msdp.GODKI)
     end
 )
-registerNamedEventHandler("__PKGNAME__", "MSDP MAX KI", "msdp.GODKI_MAX",
+registerNamedEventHandler("__PKGNAME__", "MSDP MAX GK", "msdp.GODKI_MAX",
     function()
         Player.MaxGK = tonumber(msdp.GODKI_MAX)
     end
@@ -137,6 +137,17 @@ for _, stat in ipairs(("INT WIS STR SPD"):split(" ")) do
         end
     )
 end
+
+registerNamedEventHandler("__PKGNAME__", "MSDP UBS", "msdp.UBS",
+    function()
+        Player.UBS = tonumber(msdp.UBS)
+    end
+)
+registerNamedEventHandler("__PKGNAME__", "MSDP LBS", "msdp.LBS",
+    function()
+        Player.LBS = tonumber(msdp.LBS)
+    end
+)
 
 registerNamedEventHandler("__PKGNAME__", "MSDP Dark Energy", "msdp.DARK_ENERGY",
     function()

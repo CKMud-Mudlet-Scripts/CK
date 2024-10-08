@@ -42,36 +42,6 @@
                             ]
                      },
                      {
-                            "name": "UBS",
-                            "multiline": "yes",
-                            "multilineDelta": 0,
-                            "patterns": [
-                                   {
-                                          "pattern": "Upper Body Strength:",
-                                          "type": "substring"
-                                   },
-                                   {
-                                          "pattern": "Upper Body Strength:\\s+([0-9]+)",
-                                          "type": "regex"
-                                   }
-                            ]
-                     },
-                     {
-                            "name": "LBS",
-                            "multiline": "yes",
-                            "multilineDelta": 0,
-                            "patterns": [
-                                   {
-                                          "pattern": "Lower Body Strength:",
-                                          "type": "substring"
-                                   },
-                                   {
-                                          "pattern": "Lower Body Strength:\\s+([0-9]+)",
-                                          "type": "regex"
-                                   }
-                            ]
-                     },
-                     {
                             "name": "Zenni",
                             "multiline": "yes",
                             "multilineDelta": 0,
