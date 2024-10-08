@@ -12,16 +12,18 @@ After installation `CK update` alias will take care of updating the script.
 
 ## Usage
 
+You must turn on `msdp` in settings to use this script.  Also while you are there disable MSSP and GMCP
+
 This script should figure out who and what you are and be able to automaticlly configure itself and help you with the following
 
 1. Automatic Buff Handling
 2. Zetabot - Like autobot but better faster more insane
 
-The script will from time to time issue the following commands so its aware of the various states of your character 
+The script will from time to time issue the following commands so its aware of the various states of your character, though most comes from MSDP
 
 1. score
 2. status
-3. anylaze self
+
 
 # Aliases
 
