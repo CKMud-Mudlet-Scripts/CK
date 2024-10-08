@@ -21,8 +21,7 @@ This script should figure out who and what you are and be able to automaticlly c
 
 The script will from time to time issue the following commands so its aware of the various states of your character, though most comes from MSDP
 
-1. score
-2. status
+1. status
 
 
 # Aliases
