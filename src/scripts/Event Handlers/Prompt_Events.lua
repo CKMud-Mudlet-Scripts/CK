@@ -19,15 +19,6 @@ ck:define_feature("auto_fight", true)
 
 local function PlayerLoad()
     if API:is_connected(true) then
-        local race = ck:constant("face")
-        send("score")
-        send("status")
-        if API:isBioDroid(race) then
-            send("analyze self")
-        elseif API:isAndroid(race) then
-            send("upgrade")
-        end
-
         raiseEvent("CK.onPlayerReload")
     end
 end
@@ -76,10 +67,6 @@ registerNamedTimer("__PKGNAME__", "CK:LastPrompt", 8, LastPrompt, true)
 local function onPrompt()
     Times:reset("prompt")
     Toggles.firstprompt = true
-
-    if Player.Health == nil or CK.Player.MaxGravity == nil then
-        PlayerLoad()
-    end
 
     if not PromptFlags.Kaioken then
         Player.Kaioken = 0
