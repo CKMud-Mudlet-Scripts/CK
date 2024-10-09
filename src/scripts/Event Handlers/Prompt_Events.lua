@@ -19,7 +19,7 @@ ck:define_feature("auto_fight", true)
 
 local function PlayerLoad()
     if API:is_connected(true) then
-        race = ck:constant("face")
+        local race = ck:constant("face")
         send("score")
         send("status")
         if API:isBioDroid(race) then

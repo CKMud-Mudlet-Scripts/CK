@@ -5,6 +5,7 @@ local raw_value = matches[3]
 if constant == nil then
   return
 end
+---@diagnostic disable-next-line: undefined-field
 if not table.contains(constant_list, constant) then
   echo(f("No Such Constant: {constant}\n"))
   return

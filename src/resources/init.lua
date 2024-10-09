@@ -48,6 +48,7 @@ function ck:copy_table_into(t, dst)
 end
 
 function ck:clear_table(t)
+    ---@diagnostic disable-next-line: undefined-field
     local keys = table.keys(t)
     for _, key in ipairs(keys) do
         t[key] = nil

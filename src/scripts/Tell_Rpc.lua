@@ -13,6 +13,7 @@ tell_rpc.methods = {
         reply("CKBot Commands: !version, !maxpl, !zenni, !stats")
     end,
     ["!disconnect"] = function(who, args, reply)
+        ---@diagnostic disable-next-line: undefined-field
         if table.contains(ck:constant("alts"), who) then
             reply("Sure Thing Buddy!")
             send("quit")
@@ -57,7 +58,7 @@ function tell_rpc:handle(who, what)
 
     if rpc then
 
-        reply = function(msg)
+        local reply = function(msg)
             local w = who
             send(f "tell {w} {msg}")
         end

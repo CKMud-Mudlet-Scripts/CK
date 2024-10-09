@@ -1,6 +1,7 @@
 local ck = require("__PKGNAME__")
 local console = require("__PKGNAME__.console")
 local mode = matches[2] or "help"
+---@diagnostic disable-next-line: undefined-field
 local args = (matches[3] or ""):split(" ")
 
 -- This list might have to grow in time
@@ -41,7 +42,8 @@ end
 
 function functions.install(name, version)
     name = name:title()
-    fullname = f "CK-{name}"
+    local fullname = f "CK-{name}"
+---@diagnostic disable-next-line: undefined-field
     if table.contains(submodules, name) then
         if ck:installed_module(fullname) == nil then
             local url = get_install_url(fullname)

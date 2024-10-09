@@ -125,6 +125,7 @@ registerNamedEventHandler("__PKGNAME__", "MSDP Zenni", "msdp.ZENNI",
 )
 
 -- Stats
+---@diagnostic disable-next-line: undefined-field
 for _, stat in ipairs(("INT WIS STR SPD"):split(" ")) do
     registerNamedEventHandler("__PKGNAME__", f "MSDP {stat}", f "msdp.{stat}",
         function()
