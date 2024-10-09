@@ -1,7 +1,7 @@
 local matches = multimatches[2]
 local Player = CK.Player
 
-if not CK.Toggles.hide_score and Player.MaxBiomass then -- Is it known
+if Player.MaxBiomass then -- Is it known
     local bm = math.floor(matches[2] / 100 * Player.MaxBiomass)
     local regen = math.floor(Player.MaxBiomass * matches[3] / 100)
     gagLine()

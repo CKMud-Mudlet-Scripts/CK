@@ -1,6 +1,6 @@
 [
        {
-              "name": "Score Scrape",
+              "name": "Score Inject",
               "multiline": "yes",
               "multilineDelta": "0",
               "fireLength": "25",
@@ -14,18 +14,7 @@
                             "type": "regex"
                      }
               ],
-              "script": "CK.API:setName(multimatches[2][2]:trim())\nCK.API.Times:reset(\"score\")\nif CK.Toggles.hide_score then\ngagLine()\nend",
               "children": [
-                     {
-                            "name": "gagLine",
-                            "patterns": [
-                                   {
-                                          "pattern": "return CK.Toggles.hide_score",
-                                          "type": "lua"
-                                   }
-                            ],
-                            "script": "gagLine()"
-                     },
                      {
                             "name": "Biomass and Regen",
                             "multiline": "yes",
@@ -72,7 +61,8 @@
                                           "pattern": "See 'Status', 'Train', and 'Traits' for more information.",
                                           "type": "startOfLine"
                                    }
-                            ]
+                            ],
+                            "script": "setTriggerStayOpen(\"Score Inject\", 0)"
                      }
               ]
        }
