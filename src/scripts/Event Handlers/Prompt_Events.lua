@@ -13,8 +13,6 @@ local Status = ck:get_table("Player.Status")
 
 Times:create("fight")
 Times:create("fightfinished")
-Times:create("scouterself")
-Times:create("score")
 Times:create("status")
 Times:create("prompt")
 ck:define_feature("auto_fight", true)
