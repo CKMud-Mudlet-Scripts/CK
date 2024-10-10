@@ -80,15 +80,20 @@ local function onPrompt()
     if not Status.HT then
         Toggles.NEXTHT = nil
     end
-    -- Things that had not been set since last prompt maybe we can clear
-    if Toggles.fighting and not isPromptCounterActive('fighting') then
+
+    if PromptFlags.Target then
+        -- How long to wait until we start doing notfighting events
+        PromptCounters.fighting = 3
+        raiseEvent("CK.onFightingPrompt")
+    end
+
+    if Toggles.fighting and not PromptFlags.Target then
+        -- We just stopped a fight
         Toggles.fighting = false
         raiseEvent("CK.onFinishedFighting")
     end
-    -- Lets handle fighting and non fighting stuff
-    if Toggles.fighting then
-        raiseEvent("CK.onFightingPrompt")
-    elseif API:not_fighting() then
+    -- We haven't been in combat for quite a while
+    if API:not_fighting() then
         -- Only when we are damn sure we are not fighting
         raiseEvent("CK.onNotFightingPrompt")
     end

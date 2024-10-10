@@ -86,16 +86,9 @@ registerNamedEventHandler("__PKGNAME__", "CK:CompactDB", "sysExitEvent", functio
     compact_featuredb()
 end)
 
-function API:iThinkWeFighting()
-    -- If we have two prompts with not fight messages its safe to say fighting is over
-    PromptCounters.fighting = 4
-    Toggles.fighting = true
-    PromptFlags.fighting = true
-end
-
 function API:not_fighting()
     -- If we haven't been fighting for 3 prompts then we are not fighting
-    return PromptCounters.fighting == nil and Toggles.fighting ~= true
+    return not PromptCounters.fighting and not Toggles.fighting and not PromptFlags.Target
 end
 
 function API:is_connected(ignore_prompt)

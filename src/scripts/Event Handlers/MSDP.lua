@@ -216,7 +216,14 @@ registerNamedEventHandler("__PKGNAME__", "MSDP Target Max Health", "msdp.OPPONEN
 )
 registerNamedEventHandler("__PKGNAME__", "MSDP Target Name", "msdp.OPPONENT_NAME",
     function()
-        Target.name = msdp.OPPONENT_NAME
+        local name = msdp.OPPONENT_NAME
+        Target.name = name
+        -- short is the last word
+        if not name == "" then
+            Target.short = table.remove(name:split())
+        else
+            Target.short = ""
+        end
     end
 )
 registerNamedEventHandler("__PKGNAME__", "MSDP Target Level", "msdp.OPPONENT_LEVEL",

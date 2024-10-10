@@ -39,7 +39,7 @@
                 "type": "substring"
             },
             {
-                "pattern": "\\[Target: ([^\\]]+)]\\s?]",
+                "pattern": "\\[Target: ([^\\]]+)\\s?]",
                 "type": "regex"
             }
         ]
