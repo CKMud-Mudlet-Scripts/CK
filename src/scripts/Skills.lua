@@ -4,6 +4,7 @@ local Data = ck:get_table("Player.Skills", {
     Mastered = {},
     Boosted = {},
     Supreme = {},
+    Ultimate = {},
     Sections = {
         AoE = {},
         Focus = {},
@@ -20,6 +21,7 @@ function Skills:clear()
     Data.Mastered = {}
     Data.Boosted = {}
     Data.Supreme = {}
+    Data.Ultimate = {}
     Data.Sections = {
         AoE = {},
         Focus = {},
@@ -184,6 +186,7 @@ function Skills:heals()
     local alist = {}
     local words = { "revitalize", "restoration" }
     for _, v in ipairs(Data.Sections.Focus) do
+        ---@diagnostic disable-next-line: undefined-field
         if table.contains(words, v) or v:find("heal", 1, true) then
             table.insert(alist, v)
         end
@@ -194,6 +197,7 @@ end
 function Skills:buffs()
     local alist = {}
     for _, v in ipairs(Data.Sections.Focus) do
+        ---@diagnostic disable-next-line: undefined-field
         if table.contains(known_buffs, v) then
             table.insert(alist, v)
         end

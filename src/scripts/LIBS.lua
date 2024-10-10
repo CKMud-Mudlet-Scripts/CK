@@ -202,3 +202,11 @@ function API:get_train()
         return "jog"
     end
 end
+
+function API:add_attack(name, cost, dmg, is_ubs, cooldown, count, extra)
+    local extra_dict = {}
+    for _, k in ipairs(extra or {}) do
+        extra_dict[k] = true
+    end
+    Player.Attacks[name] = { cost, dmg, is_ubs, cooldown or 1, count or 1, extra_dict }
+end
