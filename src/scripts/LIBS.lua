@@ -88,7 +88,7 @@ end)
 
 function API:iThinkWeFighting()
     -- If we have two prompts with not fight messages its safe to say fighting is over
-    PromptCounters.fighting = 3
+    PromptCounters.fighting = 4
     Toggles.fighting = true
     PromptFlags.fighting = true
 end
