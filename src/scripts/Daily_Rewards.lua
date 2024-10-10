@@ -52,7 +52,7 @@ local function start()
 end
 
 -- Start this thing
-if ck.feature("auto_daily") then
+if ck:feature("auto_daily") then
     start()
 end
 
