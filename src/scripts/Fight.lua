@@ -52,3 +52,37 @@ function API:get_attack_dpr(name)
   -- This is average DPS per round
   return (adj_dmg * avg_count) / avg_cooldown
 end
+
+function API:can_use_energy_attack(attack)
+    local data = Attacks[attack]
+    if data == nil then
+        cecho(f"<red>can_use_energy_attack: Unknown Attack {attack}!!!")
+        return false
+    end
+    if data[3] ~= nil then
+        cecho(f"<red>can_use_energy_attack: Error Attack {attack} is a meleee attack!!!")
+        return false
+    end
+    return data[1] > Player.Ki
+end
+
+function API:can_use_melee_attack(attack)
+    local data = Attacks[attack]
+    if data == nil then
+        cecho(f"<red>can_use_melee_attack: Unknown Melee {attack}!!!")
+        return false
+    end
+    if data[3] == nil then
+        cecho(f"<red>can_use_melee_attack: Error Attack {attack} is a energy attack!!!")
+        return false
+    end
+    local cost = data[1]
+    if API:has_fatigue() then
+        return cost < Player.Fatigue
+    else
+        -- bio androids might have different formula 
+        return cost * 2 < Player.Ki
+    end
+end
+
+-- { cost, dmg, is_ubs, cooldown or 1, count or 1, extra_dict }

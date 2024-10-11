@@ -8,11 +8,11 @@ ck:define_constant("race:android.configure", "defense 50")
 
 -- Figure out something better
 function API:isAndroid(race)
-    return race == "Android"
+    return (race or self:getRace()) == "Android"
 end
 
 function API:isBioDroid(race)
-    return race == "Bio-Android"
+    return (race or self:getRace()) == "Bio-Android"
 end
 
 function API:setRace(race)
