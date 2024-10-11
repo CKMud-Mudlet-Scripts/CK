@@ -1,7 +1,5 @@
 local ck = require("__PKGNAME__")
 local API = ck:get_table("API")
-local Attacks = ck:get_table("Player.Attacks")
-
 local UBS = true
 local LBS = false
 
@@ -19,7 +17,7 @@ end
   Use daze for stun
   and bleed for burn
 ]]
-local Extras = ck:make_enum("Extras", {"knockdown", "bleed", "daze", "fast", "piercing", "fast30", "shock"})
+local Extras = ck:get_table("API.Attacks.Extras", ck:make_enum("Extras", {"knockdown", "bleed", "daze", "fast", "piercing", "fast30", "shock"}))
 -- % damage  * (1+([UBS or LBS] / 100) / 4)
 
 --
