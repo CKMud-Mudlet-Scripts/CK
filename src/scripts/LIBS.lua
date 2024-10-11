@@ -13,7 +13,10 @@ ck:define_constant("name", "???")
 ck:define_feature("auto_unravel", true)
 
 function Player:get_health()
-    return math.floor(Player.Pl / Player.MaxPl * 100)
+    if Player.Pl and Player.MaxPl then
+        return math.floor(Player.Pl / Player.MaxPl * 100)
+    end
+    return 100 -- Lie So prompt works on first login
 end
 
 function Player:get_energy()
