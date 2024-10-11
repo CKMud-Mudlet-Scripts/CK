@@ -51,7 +51,7 @@ end
 ]]
 -- Toggle this
 cecho(f"[<green>{CK.API.State:toString()}<white>]")
-cecho(f"[<red>{(CK.Player.MaxGravity or '???')}x G<white>]")
+cecho(f"[<red>{CK.Room.Gravity}<white> / <red>{CK.Player.MaxGravity}x G<white>]")
 
 if not CK.API.Mode:is(CK.API.Mode.Interactive) then
   cecho(f"[<green>{CK.API.Mode:toString()}<white>]")
