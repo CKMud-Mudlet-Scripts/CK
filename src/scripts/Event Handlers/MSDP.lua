@@ -11,11 +11,24 @@ local names = { "LEVEL", "RACE", "POWERLEVEL", "POWERLEVEL_MAX", "KI", "KI_MAX",
     "ROOM_NAME", "ROOM_VNUM", "CHARACTER_NAME", "THIRST", "HUNGER", "ROOM_GRAVITY", "BASE_PL", "UBS", "LBS" }
 
 
+local function report_names()
+    sendMSDP("REPORT", unpack(names))
+end
+
+-- On Copy Over Re-Report
+if not msdp.trigger then
+    msdp.trigger = tempExactMatchTrigger(
+        "It would appear your universe has been spared ...",
+        report_names()
+    )
+end
+
+-- Every 6 hours
+registerNamedTimer("__PKGNAME__", "MSDP Re-Report", 3600*6, report_names(), true)
+
 -- Report all the names to the server to request updates on them
 registerNamedEventHandler("__PKGNAME__", "MSDP REPORT", "sysConnectionEvent",
-    function()
-        sendMSDP("REPORT", unpack(names))
-    end
+    report_names()
 )
 
 -- Track Name
