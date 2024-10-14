@@ -159,7 +159,7 @@ end
 
 function ck.db:read_constant(name)
     local rec = db:fetch(self.schema.Constants, db:eq(self.schema.Constants.name, name))
-    if not rec[1] then
+    if not rec or not rec[1] then
         return nil
     end
     return rec[1].value
@@ -181,7 +181,7 @@ end
 
 function ck.db:read_toggle(name)
     local rec = db:fetch(self.schema.Toggles, db:eq(self.schema.Toggles.name, name))
-    if not rec[1] then
+    if not rec or not rec[1] then
         return nil
     end
     return rec[1].value == 1
