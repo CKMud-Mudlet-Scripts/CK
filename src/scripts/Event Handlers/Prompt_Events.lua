@@ -98,7 +98,7 @@ local function onPrompt()
         raiseEvent("CK.onNotFightingPrompt")
     end
     -- Handle Buffs before we clear flags
-    if PromptFlags.affects and State:check(State.NORMAL, true) then
+    if PromptFlags.affects and State:check(State.NORMAL, true) and ck:feature("auto_buff") then
         Affects:rebuff(PromptFlags.affects)
     end
     -- All flags since last prompt should be cleared so next prompt we can take action

@@ -7,7 +7,7 @@
                             "type": "exactMatch"
                      }
               ],
-              "script":"CK.API:safeSend(\"focus 'energy'\")"
+              "script":"CK.API:auto_rebuff(\"energy\")"
        },
        {
               "name": "Zanzoken",
@@ -17,7 +17,7 @@
                             "type": "exactMatch"
                      }
               ],
-              "script":"CK.API:safeSend(\"focus 'zanzoken'\")"
+              "script":"CK.API:auto_rebuff(\"zanzoken\")"
        },
        {
               "name": "Regenerate",
@@ -27,7 +27,7 @@
                             "type": "exactMatch"
                      }
               ],
-              "script": "CK.API:safeSend(\"focus 'regenerate'\")"
+              "script": "CK.API:auto_rebuff(\"regenerate\")"
        },
        {
               "name": "Swiftness",
@@ -37,7 +37,7 @@
                             "type": "exactMatch"
                      }
               ],
-              "script": "CK.API:safeSend(\"focus 'swiftness'\")"
+              "script": "CK.API:auto_rebuff(\"swiftness\")"
        },
        {
               "name": "Gigantification",
@@ -47,7 +47,7 @@
                             "type": "exactMatch"
                      }
               ],
-              "script": "CK.API:safeSend(\"focus 'gigantification'\")"
+              "script": "CK.API:auto_rebuff(\"gigantification\")"
        },
        {
               "name": "Hasshuken",
@@ -57,7 +57,7 @@
                             "type": "exactMatch"
                      }
               ],
-              "script":"CK.API:safeSend(\"focus 'hasshuken'\")"
+              "script":"CK.API:auto_rebuff(\"hasshuken\")"
        },
        {
               "name": "Herculean Force",
@@ -67,7 +67,7 @@
                             "type": "exactMatch"
                      }
               ],
-              "script": "CK.API:safeSend(\"focus 'herc'\")"
+              "script": "CK.API:auto_rebuff(\"herc\")"
        },
        {
               "name": "Resonance",
@@ -77,7 +77,7 @@
                             "type": "exactMatch"
                      }
               ],
-              "script": "CK.API:safeSend(\"focus 'resonance'\")"
+              "script": "CK.API:auto_rebuff(\"resonance\")"
        },
        {
               "name": "Hakai Barrier",
@@ -87,7 +87,7 @@
                             "type": "exactMatch"
                      }
               ],
-              "script": "if CK.API:feature(\"auto_hakai\") then CK.API:safeSend(\"focus 'hakai'\") end"
+              "script": "if CK.API:feature(\"auto_hakai\") then CK.API:auto_rebuff(\"hakai\") end"
        },
        {
               "name": "Forcefield",
@@ -97,7 +97,7 @@
                             "type": "exactMatch"
                      }
               ],
-              "script":"CK.API:safeSend(\"focus 'forcefield'\")"
+              "script":"CK.API:auto_rebuff(\"forcefield\")"
        },       
        {
               "name": "Barrier",
@@ -107,7 +107,7 @@
                             "type": "exactMatch"
                      }
               ],
-              "script": "CK.API:safeSend(\"focus 'barrier'\")"
+              "script": "CK.API:auto_rebuff(\"barrier\")"
        },
        {
               "name": "Infravision",
@@ -117,7 +117,7 @@
                             "type": "exactMatch"
                      }
               ],
-              "script":"CK.API:safeSend(\"focus 'infravision'\")"
+              "script":"CK.API:auto_rebuff(\"infravision\")"
        },
        {
               "name": "Invigorate",
@@ -127,7 +127,7 @@
                             "type": "exactMatch"
                      }
               ],
-              "script": "CK.API:safeSend(\"focus 'invigorate'\")"
+              "script": "CK.API:auto_rebuff(\"invigorate\")"
        },
        {
               "name": "Kino Tsurugi",
@@ -137,7 +137,7 @@
                             "type": "exactMatch"
                      }
               ],
-              "script": "CK.API:safeSend(\"focus 'kino tsurugi'\")"
+              "script": "CK.API:auto_rebuff(\"kino tsurugi\")"
        },
        {
               "name": "Wrathful Fury",
@@ -151,7 +151,7 @@
                             "type": "exactMatch"
                      }
               ],
-              "script": "CK.API:safeSend(\"focus 'wrath'\")"
+              "script": "CK.API:auto_rebuff(\"wrath\")"
        },
        {
               "name": "Demonic Will",
@@ -161,7 +161,7 @@
                             "type": "exactMatch"
                      }
               ],
-              "script": "CK.API:safeSend(\"focus 'demonic'\")"
+              "script": "CK.API:auto_rebuff(\"demonic\")"
        },
        {
               "name": "Celestial Shield",
@@ -171,7 +171,7 @@
                             "type": "exactMatch"
                      }
               ],
-              "script":"CK.API:safeSend(\"focus 'celestial shield'\")"
+              "script":"CK.API:auto_rebuff(\"celestial shield\")"
        },
        {
               "name": "Divine Judgement",
@@ -181,7 +181,7 @@
                             "type": "exactMatch"
                      }
               ],
-              "script":"CK.API:safeSend(\"focus 'divine judgement'\")"
+              "script":"CK.API:auto_rebuff(\"divine judgement\")"
        },
        {
               "name": "Celestial Drain",
@@ -191,7 +191,7 @@
                             "type": "exactMatch"
                      }
               ],
-              "script":"CK.API:safeSend(\"focus 'celestial drain'\")"
+              "script":"CK.API:auto_rebuff(\"celestial drain\")"
        },
        {
               "name": "Tremor Pulse",
@@ -201,6 +201,6 @@
                             "type": "exactMatch"
                      }
               ],
-              "script":"CK.API:safeSend(\"focus 'tremor'\")"
+              "script":"CK.API:auto_rebuff(\"tremor\")"
        }
 ]
