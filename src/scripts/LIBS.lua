@@ -226,6 +226,7 @@ function API:check_msdp_mudlet_settings()
         end
     end
     if changes and self:is_connected(true) then
+        cecho("<red>!<yellow>!<red>!<yellow>!<white> Reconnecting to fix Mudlet Protocol Settings <yellow>!<red>!<yellow>!<red>!")
         reconnect()
     end
     return changes
