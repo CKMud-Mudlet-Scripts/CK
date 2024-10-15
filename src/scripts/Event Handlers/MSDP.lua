@@ -4,6 +4,7 @@ local Room = ck:get_table("Room")
 local Target = ck:get_table("Target")
 local API = ck:get_table("API")
 local MSDP = ck:get_table("API.MSDP")
+local Toggles = ck:get_table("Toggles")
 
 local names = {"LEVEL", "RACE", "POWERLEVEL", "POWERLEVEL_MAX", "KI", "KI_MAX", "FATIGUE", "FATIGUE_MAX", "GODKI",
                "GODKI_MAX", "DARK_ENERGY", "AFFECTS", "ZENNI", "TOKENS", "EPOINTS", "MAX_GRAVITY", "HITROLL", "DAMROLL",
@@ -12,19 +13,27 @@ local names = {"LEVEL", "RACE", "POWERLEVEL", "POWERLEVEL_MAX", "KI", "KI_MAX", 
                "ROOM_NAME", "ROOM_VNUM", "CHARACTER_NAME", "THIRST", "HUNGER", "ROOM_GRAVITY", "BASE_PL", "UBS", "LBS",
                "UPDATE_EPOCH"}
 
+
+function MSDP:last_update()
+    return getEpoch() - (msdp.UPDATE_EPOCH or 0)
+end
+
 function MSDP:report_names()
     sendMSDP("REPORT", unpack(names))
 end
 
--- On Copy Over Re-Report
-if not msdp.trigger then
-    msdp.trigger = tempExactMatchTrigger("It would appear your universe has been spared ...", function()
-        MSDP:report_names()
-    end)
-end
+-- Track Updates, fire off a CK.tick event for hud to hook into. 
+registerNamedEventHandler("__PKGNAME__", "MSDP UPDATE_EPOCH", "msdp.UPDATE_EPOCH", function()
+    if not Toggles.ticked_once then
+        cecho(f"<yellow>Received MSDP Update from {msdp.SERVER_ID}...\n")
+    end
+    Toggles.ticked_once = true
+    raiseEvent("CK.tick")
+end)
 
 -- Report all the names to the server to request updates on them
 registerNamedEventHandler("__PKGNAME__", "MSDP REPORT", "sysConnectionEvent", function()
+    Toggles.ticked_once = false
     MSDP:report_names()
 end)
 

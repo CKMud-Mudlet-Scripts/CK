@@ -9,7 +9,7 @@ local Affects = ck:get_table("API.Affects")
 local Toggles = ck:get_table("Toggles")
 local Times = ck:get_table("API.Times")
 local Status = ck:get_table("Player.Status")
-
+local MSDP = ck:get_table("API.MSDP")
 
 Times:create("fight")
 Times:create("fightfinished")
@@ -66,6 +66,21 @@ registerNamedTimer("__PKGNAME__", "CK:LastPrompt", 8, LastPrompt, true)
 
 local function onPrompt()
     Times:reset("prompt")
+
+    -- Lets check if MSDP is up2date 
+    local last_update = MSDP:last_update()
+    if Toggles.ticked_once then
+        if last_update > 60 then
+            cecho("<red>!<yellow>!<red>!<yellow>!<white> Reconnecting to fix CKMud MSDP feed <yellow>!<red>!<yellow>!<red>!\n")
+            reconnect()
+            Toggles.ticked_once = false
+        elseif last_update > 5 then
+            cecho("<red>!<yellow>!<red>!<yellow>!<white> Re-Subscribing to MSDP events<yellow>!<red>!<yellow>!<red>!\n")
+            MSDP:report_names()
+            Toggles.ticked_once = false
+        end
+    end
+
     Toggles.firstprompt = true
 
     if not PromptFlags.Kaioken then
@@ -115,7 +130,7 @@ local function onNotFightingPrompt()
     if State:check(State.NORMAL, true) and Times:last("status") > 120 then
         Toggles.hide_status = true
         send("status", false)
-        Times:reset("status")  -- Prevent immediate re-entry next prompt
+        Times:reset("status") -- Prevent immediate re-entry next prompt
     end
     -- Handle Send Queue
     ck:get_table("API.SendQueue"):trySendNow()
@@ -128,7 +143,7 @@ local function onFightingPrompt(val)
     if ck:feature("auto_fight") then
         if Times:last("fight") > 2 and PromptFlags.fighting then
             if not Toggles.no_fight then
-                --API:cmd_fight(nil)
+                -- API:cmd_fight(nil)
             end
         end
     end
