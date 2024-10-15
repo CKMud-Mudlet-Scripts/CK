@@ -21,7 +21,7 @@ function API:setRace(race)
   if old_race == "???" then
     ck:set_constant("race", race)
   elseif old_race ~= race then
-    cecho(f " <Red>Error: Race Change from {old_race}, use `lua CK constant race={race}`")
+    cecho(f " <Red>Error: Race Change from {old_race}, use `CK constant race=\"{race}\"`")
   end
 end
 

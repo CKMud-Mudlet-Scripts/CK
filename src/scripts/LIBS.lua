@@ -40,7 +40,7 @@ function API:setName(name)
     if old_name == "???" then
         ck:set_constant("name", name)
     elseif old_name ~= name then
-        cecho(f " <Red>Error: Named Changed from {old_race}, use `lua CK constant name={name}`")
+        cecho(f " <Red>Error: Named Changed from {old_race}, use `CK constant name=\"{name}\"`")
     end
 end
 
