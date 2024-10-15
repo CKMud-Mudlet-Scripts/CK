@@ -1,7 +1,7 @@
 {
        "package": "CK",
        "title": "The CKMud Script to end all scripts",
-       "version": "24.10.14",
+       "version": "24.10.15",
        "author": "fried",
        "icon": "shenron.png",
        "outputFile": true
