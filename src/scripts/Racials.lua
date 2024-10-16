@@ -35,7 +35,7 @@ end
 
 function API:has_fatigue(_race)
   local race = _race or self:getRace()
-  return (self:isAndroid(race) or self:isBioDroid(race))
+  return not (self:isAndroid(race) or self:isBioDroid(race))
 end
 
 function API:getRace()
