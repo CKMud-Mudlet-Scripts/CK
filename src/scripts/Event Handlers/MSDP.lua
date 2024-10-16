@@ -13,7 +13,6 @@ local names = {"LEVEL", "RACE", "POWERLEVEL", "POWERLEVEL_MAX", "KI", "KI_MAX", 
                "ROOM_NAME", "ROOM_VNUM", "CHARACTER_NAME", "THIRST", "HUNGER", "ROOM_GRAVITY", "BASE_PL", "UBS", "LBS",
                "UPDATE_EPOCH"}
 
-
 function MSDP:last_update()
     return getEpoch() - (msdp.UPDATE_EPOCH or 0)
 end
@@ -25,7 +24,7 @@ end
 -- Track Updates, fire off a CK.tick event for hud to hook into. 
 registerNamedEventHandler("__PKGNAME__", "MSDP UPDATE_EPOCH", "msdp.UPDATE_EPOCH", function()
     if not Toggles.ticked_once then
-        cecho(f"<yellow>Received MSDP Update from {msdp.SERVER_ID}...\n")
+        cecho(f "<yellow>Received MSDP Update from {msdp.SERVER_ID}...\n")
     end
     Toggles.ticked_once = true
     raiseEvent("CK.tick")
@@ -33,6 +32,11 @@ end)
 
 -- Report all the names to the server to request updates on them
 registerNamedEventHandler("__PKGNAME__", "MSDP REPORT", "sysConnectionEvent", function()
+    Toggles.ticked_once = false
+    MSDP:report_names()
+end)
+
+registerNamedEventHandler("__PKGNAME__", "MSDP Player Reload", "CK.onPlayerReload", function()
     Toggles.ticked_once = false
     MSDP:report_names()
 end)
