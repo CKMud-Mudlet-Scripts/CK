@@ -5,7 +5,7 @@ local mode = matches[2] or "help"
 local args = (matches[3] or ""):split(" ")
 
 -- This list might have to grow in time
-local submodules = {"Chat", "Map", "Hub"}
+local submodules = {"Chat", "Map", "Hud"}
 
 local function get_install_url(fullname)
     local shortname = fullname
@@ -21,8 +21,8 @@ local functions = {}
 
 function functions.help()
     print("CK pkg install <chat|map> - install extra like map/chat")
-    print("CK pkg upgrade <name> - upgrade a named package")
-    print("CK pkg upgrade all - upgrade all packages")
+    print("CK pkg update <name> - update a named package")
+    print("CK pkg update all - update all packages")
     print("CK pkg versions - list all packages")
 end
 
