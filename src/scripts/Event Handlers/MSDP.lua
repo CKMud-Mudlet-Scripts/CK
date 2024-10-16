@@ -14,7 +14,7 @@ local names = {"LEVEL", "RACE", "POWERLEVEL", "POWERLEVEL_MAX", "KI", "KI_MAX", 
                "UPDATE_EPOCH", "SERVER_ID"}
 
 function MSDP:last_update()
-    return getEpoch() - (msdp.UPDATE_EPOCH or 0)
+    return getEpoch() - ((msdp or {}).UPDATE_EPOCH or 0)
 end
 
 function MSDP:report_names()

@@ -68,8 +68,8 @@ local function onPrompt()
     Times:reset("prompt")
 
     -- Lets check if MSDP is up2date 
-    local last_update = MSDP:last_update()
     if Toggles.ticked_once then
+        local last_update = MSDP:last_update()
         if last_update > 60 then
             cecho("<red>!<yellow>!<red>!<yellow>!<white> Reconnecting to fix CKMud MSDP feed <yellow>!<red>!<yellow>!<red>!\n")
             reconnect()
