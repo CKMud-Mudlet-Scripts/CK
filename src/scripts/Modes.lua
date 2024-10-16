@@ -10,7 +10,7 @@ local Mode = ck:get_table("API.Mode",  ck:make_enum(
           }
 ))
 local API = ck:get_table("API")
-local _mode = ck:get_table("API._mode", {mode=Mode.Interactive, string="", exit_func=nil})
+local _mode = ck:get_table("API._mode", {mode=Mode.Interactive, string="Interactive", exit_func=nil})
 
 function Mode:switch(new_mode, exit_func)
     new_mode = new_mode or Mode.Interactive
