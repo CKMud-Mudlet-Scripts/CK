@@ -5,7 +5,7 @@ local mode = matches[2] or "help"
 local args = (matches[3] or ""):split(" ")
 
 -- This list might have to grow in time
-local submodules = {"Chat", "Map"}
+local submodules = {"Chat", "Map", "Hub"}
 
 local function get_install_url(fullname)
     local shortname = fullname
