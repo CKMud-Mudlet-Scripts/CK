@@ -80,7 +80,8 @@ deselect()
 -- Toggle this
 if Toggles.EnemyLineComboTest then
   Player.COMBO = nil
-else
+end
+if Player.COMBO then
   cecho("[<red>IN COMBO<white>]")
 end
 
