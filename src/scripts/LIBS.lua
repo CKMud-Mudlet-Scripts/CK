@@ -44,6 +44,10 @@ function API:setName(name)
     end
 end
 
+function API:getName()
+    return Player.name or ck:constant("name")
+end
+
 function API:auto_unravel(target)
     if ck:feature("auto_unravel") and Skills:learned("unravel") then
         send(f "focus 'unravel' {target}")
@@ -204,19 +208,19 @@ function API:add_attack(name, cost, dmg, is_ubs, cooldown, count, extra)
     for _, k in ipairs(extra or {}) do
         extra_dict[k] = true
     end
-    Player.Attacks[name] = { cost, dmg, is_ubs, cooldown or 1, count or 1, extra_dict }
+    Player.Attacks[name] = {cost, dmg, is_ubs, cooldown or 1, count or 1, extra_dict}
 end
 
 function API:check_msdp_mudlet_settings()
     local options = getConfig()
     local changes = false
     local wanted = {
-          enableGMCP = false,
-          enableMNES = true,
-          enableMSDP = true,
-          enableMSP = false,
-          enableMSSP = false,
-          enableMTTS = true,
+        enableGMCP = false,
+        enableMNES = true,
+        enableMSDP = true,
+        enableMSP = false,
+        enableMSSP = false,
+        enableMTTS = true
     }
 
     for name, value in pairs(wanted) do
@@ -226,17 +230,16 @@ function API:check_msdp_mudlet_settings()
         end
     end
     if changes and self:is_connected(true) then
-        cecho("<red>!<yellow>!<red>!<yellow>!<white> Reconnecting to fix Mudlet Protocol Settings <yellow>!<red>!<yellow>!<red>!\n")
+        cecho(
+            "<red>!<yellow>!<red>!<yellow>!<white> Reconnecting to fix Mudlet Protocol Settings <yellow>!<red>!<yellow>!<red>!\n")
         reconnect()
     end
     return changes
 end
 
-registerNamedEventHandler("__PKGNAME__", "Enforce Protocols", "sysConnectionEvent",
-    function()
-        API:check_msdp_mudlet_settings()
-    end
-)
+registerNamedEventHandler("__PKGNAME__", "Enforce Protocols", "sysConnectionEvent", function()
+    API:check_msdp_mudlet_settings()
+end)
 
 registerNamedEventHandler("__PKGNAME__", "Enforce Protocols on Install", "sysInstall", function(event, name)
     if name == "__PKGNAME__" then
