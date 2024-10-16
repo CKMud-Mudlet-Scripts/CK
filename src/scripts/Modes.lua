@@ -23,7 +23,7 @@ function Mode:switch(new_mode, exit_func)
 
     -- Remove this shit later
     if new_mode == Mode.Interactive then
-        _mode.string = ""
+        _mode.string = "Interactive"
         Toggles.botmode = false
         Toggles.training = false
         Toggles.learning = false
