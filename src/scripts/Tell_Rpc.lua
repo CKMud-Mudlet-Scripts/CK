@@ -34,8 +34,8 @@ tell_rpc.methods = {
     ["!stats"] = function(who, args, reply)
         reply(string.format(
             "Hitroll: %d  Damroll: %d; UBS/LBS: %d/%d; Strength: %d (%d)  Speed: %d (%d)  Wisdom: %d (%d)  Intellect: %d (%d)",
-            Player.HITROLL, Player.DAMROLL, Player.UBS, Player.LBS, Player.Stats.BaseSTR, Player.Stats.STR,
-            Player.Stats.BaseSPD, Player.Stats.SPD, Player.Stats.BaseWIS, Player.Stats.WIS, Player.Stats.BaseINT,
+            Player.HITROLL, Player.DAMROLL, Player.UBS, Player.LBS, Player.BaseStats.Base, Player.Stats.STR,
+            Player.BaseStats.SPD, Player.Stats.SPD, Player.BaseStats.WIS, Player.Stats.WIS, Player.BaseStats.INT,
             Player.Stats.INT))
     end,
     ["!auction"] = function(who, args, reply)
