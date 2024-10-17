@@ -4,7 +4,7 @@ local forms = matches.Forms
 local Player = CK.Player
 local Toggles = CK.Toggles
 
-Player.Pl = tonumber(matches.PL:gsub(",", ""):trim())
+-- Player.Pl = tonumber(matches.PL:gsub(",", ""):trim())
 Player.Status = {}
 
 -- Handle Metrics

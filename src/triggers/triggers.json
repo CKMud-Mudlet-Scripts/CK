@@ -9,7 +9,7 @@
                 "type": "substring"
             },
             {
-                "pattern": "^\\[Pl: (?<PL>[0-9,]+) \\| (?<Metrics>[^]]+)]\\s?(?<Forms>.+)?$",
+                "pattern": "^\\[Pl: (?<PL>[0-9,]+) \\| [^]]+]\\s?(?<Forms>.+)?$",
                 "type": "regex"
             }
         ]
