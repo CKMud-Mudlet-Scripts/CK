@@ -63,6 +63,9 @@ function ck:define_feature(name, default_value)
 end
 
 function ck:feature(name)
+    if Features[name] == nil then
+        error(f"unknown feature name: {name}")
+    end
     local val = ck.db:read_toggle(name)
     if val == nil then
         return Features[name]
@@ -93,6 +96,9 @@ function ck:define_constant(name, default_value)
 end
 
 function ck:constant(name)
+    if Constants[name] == nil then
+        error(f"unknown constant name: {name}")
+    end
     local val = ck.db:read_constant(name)
     if val == nil then
         return Constants[name] and Constants[name][1] or nil
