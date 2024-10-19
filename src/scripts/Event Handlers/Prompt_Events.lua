@@ -45,16 +45,6 @@ local function LastPrompt()
     local last = Times:last("prompt")
     local force = false
     if API:is_connected() then
-        if API.Mode:is(API.Mode.Interactive) then
-            force = last > 30
-        else
-            force = last > 8
-        end
-
-        if force then
-            send("\n")
-        end
-
         if API.Times:last("prompt") > 3600 then
             cecho("<red>!!!!!Prompt is not parsing file a bug!!!!!")
         end
