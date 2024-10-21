@@ -87,7 +87,7 @@
                 "type": "regex"
             }
         ],
-        "script": "send(\"--\") send(\"eat fruit all\")"
+        "script": "if CK.API:feature(\"auto_fruit\") then\nsend(\"--\")\nsend(\"eat fruit all\")\nend"
     },
     {
         "name": "Eat Fruit on 6x bestowed",
@@ -103,7 +103,7 @@
                 "type": "regex"
             }
         ],
-        "script": "send(\"--\") send(\"eat fruit all\")"
+        "script": "if CK.API:feature(\"auto_fruit\") then\nsend(\"--\")\nsend(\"eat fruit all\")\nend"
     },
     {
         "name": "Auto Unravel Gauntlet",

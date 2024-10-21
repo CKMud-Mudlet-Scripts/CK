@@ -11,6 +11,7 @@ local Mode = ck:get_table("API.Mode")
 
 ck:define_constant("name", "???")
 ck:define_feature("auto_unravel", true)
+ck:define_feature("auto_fruit", true)
 
 function Player:get_health()
     if Player.Pl and Player.MaxPl then
@@ -181,15 +182,7 @@ end
 function API:get_train()
     local stat = self:lowest_stat()
     if stat == "STR" then
-        if Player.UBS < 100 or Player.LBS < 100 then
-            -- Try to balance UBS/LBS
-            if Player.UBS < Player.LBS then
-                return "pushup"
-            else
-                return "situp"
-            end
-        elseif math.random() < 0.5 then
-            -- pick random if UBS/LBS are balanced
+        if math.random() < 0.5 then
             return "situp"
         else
             return "pushup"
