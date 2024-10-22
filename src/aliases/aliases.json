@@ -52,5 +52,10 @@
     {
         "name": "Redeem All",
         "regex": "^redeem all$"
+    },
+    {
+        "name": "unravel",
+        "regex": "^unravel$",
+        "script": "send(f\"focus 'unravel' {CK.Target.short}\")"
     }
 ]
