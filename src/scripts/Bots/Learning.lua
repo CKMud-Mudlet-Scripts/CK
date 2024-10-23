@@ -126,7 +126,7 @@ local function do_learning()
         end
 
         -- If we didn't do anything we are probably done.
-    elseif State:is(State.Rest) then
+    elseif State:is(State.REST) then
         -- WE are resting
         -- If we are a android do nothing, the triggers will take us out of rest
         if not API:isAndroid() and API:is_rested() then
