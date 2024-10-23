@@ -13,6 +13,22 @@ local Skills = ck:get_table("API.Skills")
 
 local instant_targets = { "gine", "roshi", "teragon", "malak", "bubbles", "cypher" }
 
+local function aoe_ok()
+    return API:status_ok()
+end
+
+local function heal_ok()
+    return API:status_ok()
+end
+
+local function buff_ok()
+    return API:status_ok()
+end
+
+local function ultra_ok()
+    return Player.GK >= 25
+end
+
 ---@diagnostic disable-next-line: unused-function
 local function do_learning()
     if not API:is_connected() then
@@ -23,29 +39,82 @@ local function do_learning()
     local target = learn.target
 
     if State:is(State.NORMAL) then
+        local sent = false
         local to_learn = learn.to_learn
         local learned = learn:setup_skills()
         if learned then
             -- Handle Primary Skills
-            if #(to_learn.energy) and has_energy(to_learn.energy[1]) then
+            if #(to_learn.energy) and API:can_use_energy_attack(to_learn.energy[1]) then
                 send(f "{to_learn.energy[1]} {target}")
-            elseif #(to_learn.melee) and has_fatigue(to_learn.melee[1]) then
+                sent = true
+            elseif #(to_learn.melee) and API:can_use_melee_attack(to_learn.melee[1]) then
                 send(f "{to_learn.melee[1]} {target}")
+                sent = true
             elseif #(to_learn.aoe) and aoe_ok() then
                 send(f "{to_learn.aoe[1]}")
+                sent = true
             elseif #(to_learn.buffs) and buff_ok() then
                 send(f "focus '{to_learn.buffs[1]}'")
+                sent = true
             elseif #(to_learn.heals) and heal_ok() then
                 send(f "focus '{to_learn.heals[1]}'")
+                sent = true
             elseif #(to_learn.ultras) and ultra_ok() then
                 send(f "focus '{to_learn.ultras[1]}'")
+                sent = true
+            elseif #(to_learn.learnable) and API:status_ok() then
+                send(f "{to_learn.learnable[1]} {target}")
+                sent = true
             end
+        elseif learn:need_to_master("powersense") and API:status_ok() then
+            send(f "powersense {target}")
+            sent = true
+        elseif learn:need_to_master("powerdown") or learn:need_to_master("powerup") and API:status_ok() then
+            send("powerdown")
+            send("powerup")  
+            sent = true
+        elseif learn:need_to_master("scan") and API:status_ok() then
+            send("scan")
+            sent = true
+        elseif learn:need_to_master("portal") and Player.Ki > (Player.MaxKi * .10) then
+            local ptarget = table.sample_items(instant_targets)
+            send(f"focus 'portal' {ptarget}")
+            sent = true
+        elseif learn:need_to_master("instant") and Player.Ki > 500 then
+            local itarget = table.sample_items(instant_targets)
+            send(f"focus 'instant' {itarget}")
+            sent = true
+        elseif Skills:mastered("machpunch") and Player.UBS < 100 and API:can_use_melee_attack("machpunch") then
+            send(f"machpunch {target}")
+            sent = true
+        elseif Skills:mastered("machkick") and Player.LBS < 100 and API:can_use_melee_attack("machkick") then
+            send(f"machkick {target}")
+            sent = true
         else
-            -- check learnables
-            -- check powersense/suppress/etc
-            -- check portal/instant 
+            State:set(State.Rest)
+            if API:isAndroid() then
+                send("vent")
+                send("repair")
+            else
+                -- speedwalk and sleep
+            end
         end
-        -- We should be training a skill
+
+        local others = {"powersense", "powerup", "powerdown", "portal", "instant", "scan"}
+        if sent == false and learned == 0 and Player.UBS == 100 and Player.LBS == 100 then
+            -- check others
+            local all_done = true
+            for _, v in ipairs(others) do
+                if learn:need_to_master(v) then
+                    all_done = false
+                end
+            end
+            if all_done then
+                -- Lets turn on zeta on the target
+            end
+        end
+        
+        -- If we didn't do anything we are probably done. 
     elseif State:is(State.Rest) then
         -- WE are resting
         -- If we are a android do nothing, the triggers will take us out of rest
@@ -92,8 +161,14 @@ function learn:setup_skills()
     to_learn.buffs = Skills:filter_mastered(Skills:buffs())
     to_learn.heals = Skills:filter_mastered(Skills:heals())
     to_learn.ultras = Skills:filter_mastered(Skills:ultras())
+    to_learn.learnable = Skills:learnable()
 
     return self:count_to_learn()
+end
+
+function learn:need_to_master(name)
+    -- If its learned and not mastered
+    return Skills:learned(name) and not Skills:mastered(name)
 end
 
 function learn:count_to_learn()
@@ -106,6 +181,7 @@ function learn:count_to_learn()
             + #(to_learn.buffs)
             + #(to_learn.heals)
             + #(to_learn.ultras)
+            + #(to_learn.learnable)
         )
     end
     return -1
