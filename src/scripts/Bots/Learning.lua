@@ -12,6 +12,7 @@ local State = ck:get_table("API.State")
 local Mode = ck:get_table("API.Mode")
 local PromptCounters = ck:get_table("PromptCounters")
 local Skills = ck:get_table("API.Skills")
+local Room = ck:get_table("Room")
 
 local instant_targets = {"gine", "roshi", "teragon", "malak", "bubbles", "cypher"}
 
@@ -44,6 +45,7 @@ local function do_learning()
         local sent = false
         local to_learn = learn.to_learn
         local learned = learn:setup_skills()
+        learn:maybe_adjust_gravity()
         if learned > 0 then
             -- Handle Primary Skills
             if #(to_learn.energy) > 0 and API:can_use_energy_attack(to_learn.energy[1]) then
@@ -167,9 +169,8 @@ end
 
 function learn:maybe_adjust_gravity()
     local new_grav = API:get_gravity()
-    if self.gravity < new_grav then
+    if Room.Gravity < new_grav then
         send(f "adjust {new_grav}")
-        self.gravity = new_grav
     end
 end
 
