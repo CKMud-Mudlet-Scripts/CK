@@ -2,7 +2,9 @@ local ck = require("__PKGNAME__")
 local Player = ck:get_table("Player")
 local Toggles = ck:get_table("Toggles")
 local learn = ck:get_table("API.Learning", {
-    triggers = {}, gravity = 0, to_learn = {}
+    triggers = {},
+    gravity = 0,
+    to_learn = {}
 })
 local Times = ck:get_table("API.Times")
 local API = ck:get_table("API")
@@ -11,7 +13,7 @@ local Mode = ck:get_table("API.Mode")
 local PromptCounters = ck:get_table("PromptCounters")
 local Skills = ck:get_table("API.Skills")
 
-local instant_targets = { "gine", "roshi", "teragon", "malak", "bubbles", "cypher" }
+local instant_targets = {"gine", "roshi", "teragon", "malak", "bubbles", "cypher"}
 
 local function aoe_ok()
     return API:status_ok()
@@ -90,8 +92,9 @@ local function do_learning()
         elseif Skills:mastered("machkick") and Player.LBS < 100 and API:can_use_melee_attack("machkick") then
             send(f "machkick {target}")
             sent = true
-        elseif not API:is_rested() then
-            
+        end
+
+        if sent == false and not API:is_rested() then
             -- Try to Rest
             if API:isAndroid() then
                 State:set(State.REST)
@@ -99,20 +102,16 @@ local function do_learning()
                 send("repair")
             else
                 State:set(State.SPEEDWALK)
-                registerAnonymousEventHandler(
-                    "sysSpeedwalkFinished",
-                    function()
-                        State:set(State.REST)
-                        send("sleep")
-                    end,
-                    true
-                )
+                registerAnonymousEventHandler("sysSpeedwalkFinished", function()
+                    State:set(State.REST)
+                    send("sleep")
+                end, true)
                 speedwalk(speedwalk_path, false, 0.5)
             end
             return
         end
 
-        local others = { "powersense", "powerup", "powerdown", "portal", "instant", "scan" }
+        local others = {"powersense", "powerup", "powerdown", "portal", "instant", "scan"}
         if sent == false and learned == 0 and Player.UBS == 100 and Player.LBS == 100 then
             -- check others
             local all_done = true
@@ -133,13 +132,9 @@ local function do_learning()
         if not API:isAndroid() and API:is_rested() then
             State:set(State.SPEEDWALK)
             send("wake")
-            registerAnonymousEventHandler(
-                "sysSpeedwalkFinished",
-                function()
-                  State:set(State.NORMAL)
-                end,
-                true
-              )
+            registerAnonymousEventHandler("sysSpeedwalkFinished", function()
+                State:set(State.NORMAL)
+            end, true)
             speedwalk(speedwalk_path, true, 0.5)
         end
     end
@@ -161,7 +156,9 @@ local function enter()
     Mode:switch(Mode.Learning, exit)
     -- Clear out all state
     learn.state = {}
-    learn.to_learn = { set = false }
+    learn.to_learn = {
+        set = false
+    }
     learn.gravity = 0
 
     -- Install a timer
@@ -199,15 +196,8 @@ end
 function learn:count_to_learn()
     local to_learn = self.to_learn
     if to_learn.set then
-        return (
-            #(to_learn.energy)
-            + #(to_learn.melee)
-            + #(to_learn.aoe)
-            + #(to_learn.buffs)
-            + #(to_learn.heals)
-            + #(to_learn.ultras)
-            + #(to_learn.learnable)
-        )
+        return (#(to_learn.energy) + #(to_learn.melee) + #(to_learn.aoe) + #(to_learn.buffs) + #(to_learn.heals) +
+                   #(to_learn.ultras) + #(to_learn.learnable))
     end
     return -1
 end
