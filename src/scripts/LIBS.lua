@@ -78,6 +78,18 @@ function API:is_rested()
     )
 end
 
+function API:auto_rest()
+    if State:is(State.NORMAL) and Mode:is(Mode.Interactive) then
+        State:set(State.REST)
+    end
+end
+
+function API:auto_wake()
+    if State:is(State.REST) and Mode:is(Mode.Interactive) then
+        State:set(State.NORMAL)
+    end
+end
+
 function API:constant(name)
     return ck:constant(name)
 end

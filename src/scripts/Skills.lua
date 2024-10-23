@@ -13,7 +13,6 @@ local Data = ck:get_table("Player.Skills", {
         Physical = {}
     }
 })
-local Attacks = ck:get_table("Player.Attacks")
 local Skills = ck:get_table("API.Skills") -- CK.API.Skills:mastered
 local Player = ck:get_table("Player")
 

@@ -156,5 +156,25 @@
             }
         ],
         "script": "send(\"castout\")"
+    },
+    {
+        "name": "Sleep State Watch",
+        "patterns": [
+            {
+            "pattern": "You lie down and drift into slumber.",
+            "type": "exactMatch"
+            }
+        ],
+        "script": "CK.API:auto_rest()"
+    },
+    {
+        "name": "Wake State Watch",
+        "patterns": [
+            {
+            "pattern": "You awaken, and stand up.",
+            "type": "exactMatch"
+            }
+        ],
+        "script": "CK.API:auto_wake()"
     }
 ]
