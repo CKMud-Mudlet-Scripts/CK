@@ -13,6 +13,10 @@ local Mode = ck:get_table("API.Mode")
 local PromptCounters = ck:get_table("PromptCounters")
 local Skills = ck:get_table("API.Skills")
 local Room = ck:get_table("Room")
+local Target = ck:get_table("Target")
+
+ck:define_feature("learning.use_zeta", false)
+
 
 local instant_targets = {"gine", "roshi", "teragon", "malak", "bubbles", "cypher"}
 
@@ -96,7 +100,7 @@ local function do_learning()
             sent = true
         end
 
-        if sent == false and not API:is_rested() then
+        if sent == false and not API:is_rested() and Target.level == 0 then
             -- Try to Rest
             if API:isAndroid() then
                 State:set(State.REST)
@@ -169,7 +173,7 @@ end
 
 function learn:maybe_adjust_gravity()
     local new_grav = API:get_gravity()
-    if Room.Gravity < new_grav then
+    if Room.Gravity < new_grav and ck:feature("learning.use_zeta") then
         send(f "adjust {new_grav}")
     end
 end
