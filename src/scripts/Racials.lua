@@ -12,7 +12,7 @@ function API:isAndroid(race)
 end
 
 function API:isBioDroid(race)
-    return (race or self:getRace()) == "Bio-Android"
+    return (race or self:getRace()) == "BioAndroid"
 end
 
 function API:setRace(race)
