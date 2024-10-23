@@ -13,6 +13,7 @@ local Data = ck:get_table("Player.Skills", {
         Physical = {}
     }
 })
+local Attacks = ck:get_table("Player.Attacks")
 local Skills = ck:get_table("API.Skills") -- CK.API.Skills:mastered
 local Player = ck:get_table("Player")
 
@@ -72,10 +73,12 @@ local fullname_to_cmd = {
     ["perfect spirit bomb"] = "pgenki"
 }
 
-local known_buffs = { "demonic will", "energy shield", "barrier", "hasshuken", "herculean force", "resonance",
-    "zanzoken", "kino tsurugi", "regenerate", "forcefield", "infravision", "celestial shield",
-    "celestial drain", "invigorate", "swiftness", "gigantification", "wrathful fury",
-    "divine judgement", "hakai barrier", "tremor pulse" }
+local known_buffs = {"demonic will", "energy shield", "barrier", "hasshuken", "herculean force", "resonance",
+                     "zanzoken", "kino tsurugi", "regenerate", "forcefield", "infravision", "celestial shield",
+                     "celestial drain", "invigorate", "swiftness", "gigantification", "wrathful fury",
+                     "divine judgement", "hakai barrier", "tremor pulse"}
+
+local learnable_aoe = {"final", "scatter", "whirl"}
 
 function Skills:translate(raw)
     -- Get the short_name from long name
@@ -105,21 +108,20 @@ end
 
 function Skills:learnable()
     race = API:getRace()
-    local adict =
-    {
-        ["scatter"] = { "kishot" },
-        ["warp"] = { "superk", "instant" },
-        ["superbb"] = { "bigbang" },
-        ["superk"] = { "kame" },
-        ["machpunch"] = { "punch" },
-        ["machkick"] = { "kick" },
+    local adict = {
+        ["scatter"] = {"kishot"},
+        ["warp"] = {"superk", "instant"},
+        ["superbb"] = {"bigbang"},
+        ["superk"] = {"kame"},
+        ["machpunch"] = {"punch"},
+        ["machkick"] = {"kick"}
     }
     if Player.BasePl > 125000000 then
-        adict["finalk"] = { "warp", "final" }
-        adict["justice"] = { "cyclone", "dynamite", "rage" }
-        adict["supergodfist"] = { "godfist", "wolf", "dpunch" }
-        adict["accel"] = { "justice", "instant", "whirl" }
-        adict["eclipse"] = { "finalk", "disrupt" }
+        adict["finalk"] = {"warp", "final"}
+        adict["justice"] = {"cyclone", "dynamite", "rage"}
+        adict["supergodfist"] = {"godfist", "wolf", "dpunch"}
+        adict["accel"] = {"justice", "instant", "whirl"}
+        adict["eclipse"] = {"finalk", "disrupt"}
     end
 
     if API:isBioDroid(race) then
@@ -190,7 +192,7 @@ end)
 
 function Skills:heals()
     local alist = {}
-    local words = { "revitalize", "restoration" }
+    local words = {"revitalize", "restoration"}
     for _, v in ipairs(Data.Sections.Focus) do
         ---@diagnostic disable-next-line: undefined-field
         if table.contains(words, v) or v:find("heal", 1, true) then
@@ -202,9 +204,8 @@ end
 
 function Skills:buffs()
     local alist = {}
-    for _, v in ipairs(Data.Sections.Focus) do
-        ---@diagnostic disable-next-line: undefined-field
-        if table.contains(known_buffs, v) then
+    for _, v in ipairs(known_buffs) do
+        if self:learned(v) then
             table.insert(alist, v)
         end
     end
@@ -212,15 +213,33 @@ function Skills:buffs()
 end
 
 function Skills:AoE()
-    return Data.Sections.AoE
+    local ret = {}
+    for _, v in ipairs(learnable_aoe) do
+        if self:learned(v) then
+            table.insert(ret, v)
+        end
+    end
+    return table.n_union(ret, Data.Sections.AoE)
 end
 
 function Skills:energy_attacks()
-    return Data.Sections.Ki
+    local ret = {}
+    for k, v in pairs(Player.Attacks) do
+        if self:learned(k) and v[3] == nil then
+            table.insert(ret, k)
+        end
+    end
+    return table.n_union(ret, Data.Sections.Ki)
 end
 
 function Skills:melee_attacks()
-    return Data.Sections.Physical
+    local ret = {}
+    for k, v in pairs(Player.Attacks) do
+        if self:learned(k) and v[3] ~= nil then
+            table.insert(ret, k)
+        end
+    end
+    return table.n_union(ret, Data.Sections.Physical)
 end
 
 function Skills:ultras()
