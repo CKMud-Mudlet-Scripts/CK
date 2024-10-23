@@ -43,6 +43,7 @@
 			"sendMSDP",
 			"setConfig",
 			"setTriggerStayOpen",
+			"speedwalk",
 			"tempExactMatchTrigger",
 			"tempLineTrigger",
 			"tempTimer",

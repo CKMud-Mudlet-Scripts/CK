@@ -69,6 +69,15 @@ function API:status_ok()
     return Player:get_health() >= 50 and Player:get_energy() >= 50 and Player:get_stamina() >= 50
 end
 
+function API:is_rested()
+    return (
+        Player.GK == Player.MaxGK and 
+        Player.Ki == Player.MaxKi and 
+        Player.Fatigue == Player.MaxFatigue and
+        Player.Pl == Player.MaxPl
+    )
+end
+
 function API:constant(name)
     return ck:constant(name)
 end

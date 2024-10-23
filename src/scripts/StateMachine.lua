@@ -11,6 +11,7 @@ local State = ck:get_table("API.State",  ck:make_enum(
             'NORMAL',
             'BUFFING',
             'CRAFTING',
+            'SPEEDWALK',
             'ALLSTOP'
           }
 ))
@@ -52,6 +53,8 @@ function State:toString()
     return "NORMAL"
   elseif state == State.SENSE then
     return "SENSE"
+  elseif state == State.SPEEDWALK then
+    return "SPEEDWALK"
   elseif state == State.BUFFING then
     return "<yellow>BUFFING"
   elseif state == State.CRAFTING then

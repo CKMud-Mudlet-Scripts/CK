@@ -35,7 +35,7 @@ local function do_learning()
         -- Don't do anything unless we are connected and have a prompt
         return
     end
-    local speedwalk = learn.speedwalk
+    local speedwalk_path = learn.speedwalk
     local target = learn.target
 
     if State:is(State.NORMAL) then
@@ -71,36 +71,46 @@ local function do_learning()
             sent = true
         elseif learn:need_to_master("powerdown") or learn:need_to_master("powerup") and API:status_ok() then
             send("powerdown")
-            send("powerup")  
+            send("powerup")
             sent = true
         elseif learn:need_to_master("scan") and API:status_ok() then
             send("scan")
             sent = true
         elseif learn:need_to_master("portal") and Player.Ki > (Player.MaxKi * .10) then
             local ptarget = table.sample_items(instant_targets)
-            send(f"focus 'portal' {ptarget}")
+            send(f "focus 'portal' {ptarget}")
             sent = true
         elseif learn:need_to_master("instant") and Player.Ki > 500 then
             local itarget = table.sample_items(instant_targets)
-            send(f"focus 'instant' {itarget}")
+            send(f "focus 'instant' {itarget}")
             sent = true
         elseif Skills:mastered("machpunch") and Player.UBS < 100 and API:can_use_melee_attack("machpunch") then
-            send(f"machpunch {target}")
+            send(f "machpunch {target}")
             sent = true
         elseif Skills:mastered("machkick") and Player.LBS < 100 and API:can_use_melee_attack("machkick") then
-            send(f"machkick {target}")
+            send(f "machkick {target}")
             sent = true
         else
-            State:set(State.Rest)
+            -- Try to Rest
             if API:isAndroid() then
+                State:set(State.REST)
                 send("vent")
                 send("repair")
             else
-                -- speedwalk and sleep
+                State:set(State.SPEEDWALK)
+                registerAnonymousEventHandler(
+                    "sysSpeedwalkFinished",
+                    function()
+                        State:set(State.REST)
+                        send("sleep")
+                    end,
+                    true
+                )
+                speedwalk(speedwalk_path, false, 0.5)
             end
         end
 
-        local others = {"powersense", "powerup", "powerdown", "portal", "instant", "scan"}
+        local others = { "powersense", "powerup", "powerdown", "portal", "instant", "scan" }
         if sent == false and learned == 0 and Player.UBS == 100 and Player.LBS == 100 then
             -- check others
             local all_done = true
@@ -113,11 +123,23 @@ local function do_learning()
                 -- Lets turn on zeta on the target
             end
         end
-        
-        -- If we didn't do anything we are probably done. 
+
+        -- If we didn't do anything we are probably done.
     elseif State:is(State.Rest) then
         -- WE are resting
         -- If we are a android do nothing, the triggers will take us out of rest
+        if not API:isAndroid() and API:is_rested() then
+            State:set(State.SPEEDWALK)
+            send("wake")
+            registerAnonymousEventHandler(
+                "sysSpeedwalkFinished",
+                function()
+                  State:set(State.NORMAL)
+                end,
+                true
+              )
+            speedwalk(speedwalk_path, true, 0.5)
+        end
     end
 end
 
@@ -194,7 +216,7 @@ function learn:toggle(target, path)
         Mode:switch(Mode.Interactive)
         print("Learning Mode Disabled!!!")
     else -- Its off
-        local is_android = API:isAndroid(ck:constant("race"))
+        local is_android = API:isAndroid()
         if target == nil or (path == nil and not is_android) then
             if is_android then
                 print("Learning mode requires a target argument!")
