@@ -42,27 +42,27 @@ local function do_learning()
         local sent = false
         local to_learn = learn.to_learn
         local learned = learn:setup_skills()
-        if learned then
+        if learned > 0 then
             -- Handle Primary Skills
-            if #(to_learn.energy) and API:can_use_energy_attack(to_learn.energy[1]) then
+            if #(to_learn.energy) > 0 and API:can_use_energy_attack(to_learn.energy[1]) then
                 send(f "{to_learn.energy[1]} {target}")
                 sent = true
-            elseif #(to_learn.melee) and API:can_use_melee_attack(to_learn.melee[1]) then
+            elseif #(to_learn.melee) > 0 and API:can_use_melee_attack(to_learn.melee[1]) then
                 send(f "{to_learn.melee[1]} {target}")
                 sent = true
-            elseif #(to_learn.aoe) and aoe_ok() then
+            elseif #(to_learn.aoe) > 0 and aoe_ok() then
                 send(f "{to_learn.aoe[1]}")
                 sent = true
-            elseif #(to_learn.buffs) and buff_ok() then
+            elseif #(to_learn.buffs) > 0 and buff_ok() then
                 send(f "focus '{to_learn.buffs[1]}'")
                 sent = true
-            elseif #(to_learn.heals) and heal_ok() then
+            elseif #(to_learn.heals) > 0 and heal_ok() then
                 send(f "focus '{to_learn.heals[1]}'")
                 sent = true
-            elseif #(to_learn.ultras) and ultra_ok() then
+            elseif #(to_learn.ultras) > 0 and ultra_ok() then
                 send(f "focus '{to_learn.ultras[1]}'")
                 sent = true
-            elseif #(to_learn.learnable) and API:status_ok() then
+            elseif #(to_learn.learnable) > 0 and API:status_ok() then
                 send(f "{to_learn.learnable[1]} {target}")
                 sent = true
             end
@@ -90,7 +90,8 @@ local function do_learning()
         elseif Skills:mastered("machkick") and Player.LBS < 100 and API:can_use_melee_attack("machkick") then
             send(f "machkick {target}")
             sent = true
-        else
+        elseif not API:is_rested() then
+            
             -- Try to Rest
             if API:isAndroid() then
                 State:set(State.REST)
@@ -108,6 +109,7 @@ local function do_learning()
                 )
                 speedwalk(speedwalk_path, false, 0.5)
             end
+            return
         end
 
         local others = { "powersense", "powerup", "powerdown", "portal", "instant", "scan" }
@@ -154,6 +156,7 @@ local function exit()
 end
 
 local function enter()
+    send("learn")
     -- Change Mode
     Mode:switch(Mode.Learning, exit)
     -- Clear out all state
@@ -162,7 +165,7 @@ local function enter()
     learn.gravity = 0
 
     -- Install a timer
-    registerNamedTimer("__PKGNAME__", "CK:Learning", 0.5, do_learning, true)
+    registerNamedTimer("__PKGNAME__", "CK:Learning", 4, do_learning, true)
 end
 
 function learn:maybe_adjust_gravity()
@@ -179,7 +182,7 @@ function learn:setup_skills()
     to_learn.set = true
     to_learn.energy = Skills:filter_mastered(Skills:energy_attacks())
     to_learn.melee = Skills:filter_mastered(Skills:melee_attacks())
-    to_learn.aoe = Skills:filter_mastered(Skills:Aoe())
+    to_learn.aoe = Skills:filter_mastered(Skills:AoE())
     to_learn.buffs = Skills:filter_mastered(Skills:buffs())
     to_learn.heals = Skills:filter_mastered(Skills:heals())
     to_learn.ultras = Skills:filter_mastered(Skills:ultras())
