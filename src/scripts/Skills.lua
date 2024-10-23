@@ -15,6 +15,7 @@ local Data = ck:get_table("Player.Skills", {
 })
 local Skills = ck:get_table("API.Skills") -- CK.API.Skills:mastered
 local Player = ck:get_table("Player")
+local API = ck:get_table("API")
 
 function Skills:clear()
     Data.Learned = {}
