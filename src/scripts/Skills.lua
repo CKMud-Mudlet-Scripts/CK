@@ -68,7 +68,8 @@ local fullname_to_cmd = {
     ["evil blast"] = "evilblast",
     ["perfect kamehameha"] = "perfect",
     ["galick gun"] = "galick",
-    ["destruction sphere"] = "dsphere"
+    ["destruction sphere"] = "dsphere",
+    ["perfect spirit bomb"] = "pgenki"
 }
 
 local known_buffs = { "demonic will", "energy shield", "barrier", "hasshuken", "herculean force", "resonance",
@@ -103,6 +104,7 @@ function Skills:supreme(skill)
 end
 
 function Skills:learnable()
+    race = API:getRace()
     local adict =
     {
         ["scatter"] = { "kishot" },
@@ -118,6 +120,10 @@ function Skills:learnable()
         adict["supergodfist"] = { "godfist", "wolf", "dpunch" }
         adict["accel"] = { "justice", "instant", "whirl" }
         adict["eclipse"] = { "finalk", "disrupt" }
+    end
+
+    if API:isBioDroid(race) then
+        adict["pgenki"] = {"genki", "finalk", "perfect"}
     end
 
     local Mastered = Data.Mastered

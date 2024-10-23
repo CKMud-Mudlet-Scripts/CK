@@ -86,3 +86,4 @@ add_energy("eclipse", 250, 1.5, 2, 1, {Extras.shock})
 -- BioDroid Racial KI
 add_energy("deathbeam", 4, 0.3, 1, 1, {Extras.fast, Extras.piercing})
 add_energy("perfect", 60, 0.7, 1)
+add_energy("pgenki", 500, 0.8, 2, 5, {Extras.piercing})
