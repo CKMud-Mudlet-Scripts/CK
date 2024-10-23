@@ -8,6 +8,7 @@ if feature == nil then
     return
 end
 
+---@diagnostic disable-next-line: undefined-field
 if not table.contains(feature_list, feature) then
     cecho(f"<red>No Such Feature: {feature}\n")
     return

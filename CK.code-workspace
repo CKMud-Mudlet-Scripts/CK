@@ -20,6 +20,7 @@
 			"f",
 			"fg",
 			"gagLine",
+			"getEpoch",
 			"getFgColor",
 			"getConfig",
 			"getConnectionInfo",
