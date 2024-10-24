@@ -11,7 +11,7 @@ local names = {"LEVEL", "RACE", "POWERLEVEL", "POWERLEVEL_MAX", "KI", "KI_MAX", 
                "ARMOR", "STR", "INT", "WIS", "SPD", "CON", "STR_BASE", "INT_BASE", "WIS_BASE", "SPD_BASE", "CON_BASE",
                "OPPONENT_HEALTH", "OPPONENT_HEALTH_MAX", "OPPONENT_LEVEL", "OPPONENT_NAME", "AREA_NAME", "ROOM_EXITS",
                "ROOM_NAME", "ROOM_VNUM", "CHARACTER_NAME", "THIRST", "HUNGER", "ROOM_GRAVITY", "BASE_PL", "UBS", "LBS",
-               "UPDATE_EPOCH"}
+               "UPDATE_EPOCH", "MAX_DENERGY"}
 
 function MSDP:last_update()
     return getEpoch() - ((msdp or {}).UPDATE_EPOCH or 0)
@@ -135,6 +135,10 @@ end)
 
 registerNamedEventHandler("__PKGNAME__", "MSDP Dark Energy", "msdp.DARK_ENERGY", function()
     Player.DarkEnergy = tonumber(msdp.DARK_ENERGY)
+end)
+
+registerNamedEventHandler("__PKGNAME__", "MSDP Max Dark Energy", "msdp.MAX_DENERGY", function()
+    Player.MaxDarkEnergy = tonumber(msdp.MAX_DENERGY)
 end)
 
 registerNamedEventHandler("__PKGNAME__", "MSDP Armor", "msdp.ARMOR", function()
