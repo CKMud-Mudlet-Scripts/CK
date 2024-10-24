@@ -94,3 +94,20 @@ function API:can_use_melee_attack(attack)
 end
 
 -- { cost, dmg, is_ubs, cooldown or 1, count or 1, extra_dict }
+
+local Extras = ck:get_table("API.Attacks.Extras") 
+
+function API:cmd_fight(target, kws)
+    -- options = { cheapest, energy, physical, extras }
+    local defaults = {cheapest=false, energy=true, physical=true, extras = {}}
+    local options = table.update(defaults, kws)
+    
+end
+
+function API:cmd_blast(target)
+    self:cmd_fight(target, {physical=false})
+end
+
+function API:cmd_strike(target)
+    self:cmd_fight(rarget, {energy=false})
+end
