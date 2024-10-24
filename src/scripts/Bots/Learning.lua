@@ -4,7 +4,8 @@ local Toggles = ck:get_table("Toggles")
 local learn = ck:get_table("API.Learning", {
     triggers = {},
     gravity = 0,
-    to_learn = {}
+    to_learn = {},
+    rest_from_portal = false
 })
 local Times = ck:get_table("API.Times")
 local API = ck:get_table("API")
@@ -16,9 +17,10 @@ local Room = ck:get_table("Room")
 local Target = ck:get_table("Target")
 
 ck:define_feature("learning.use_zeta", false)
+ck:define_constant("learning.return_to_target", "")
+ck:define_constant("learning.recall_isolation", "")
 
-
-local instant_targets = {"gine", "roshi", "teragon", "malak", "bubbles", "cypher"}
+local instant_targets = {"gine", "roshi", "teragon", "malak", "bubbles", "cypher", "dende"}
 
 local function aoe_ok()
     return API:status_ok()
@@ -46,6 +48,8 @@ local function do_learning()
     local target = learn.target
 
     if State:is(State.NORMAL) then
+        learn.rest_from_portal = false
+        local portal = false
         local sent = false
         local to_learn = learn.to_learn
         local learned = learn:setup_skills()
@@ -86,8 +90,8 @@ local function do_learning()
             send("sup")
             sent = true
         elseif learn:need_to_master("unravel") and API:status_ok() then
-            send(f"focus 'unravel' {target}")
-            sent - true
+            send(f "focus 'unravel' {target}")
+            sent = true
         elseif learn:need_to_master("scan") and API:status_ok() then
             send("scan")
             sent = true
@@ -95,10 +99,12 @@ local function do_learning()
             local ptarget = table.sample_items(instant_targets)
             send(f "focus 'portal' {ptarget}")
             sent = true
+            portal = true
         elseif learn:need_to_master("instant") and Player.Ki > 500 then
             local itarget = table.sample_items(instant_targets)
             send(f "focus 'instant' {itarget}")
             sent = true
+            portal = true
         elseif Skills:mastered("machpunch") and Player.UBS < 100 and API:can_use_melee_attack("machpunch") then
             send(f "machpunch {target}")
             sent = true
@@ -115,11 +121,21 @@ local function do_learning()
                 send("repair")
             else
                 State:set(State.SPEEDWALK)
-                registerAnonymousEventHandler("sysSpeedwalkFinished", function()
+                if portal then
+                    learn.rest_from_portal = true
+                    local where_rest = ck:constant("learning.recall_isolation")
+                    if where_rest ~= "" then
+                        API:send_multi(where_rest)
+                    end
                     State:set(State.REST)
                     send("sleep")
-                end, true)
-                speedwalk(speedwalk_path, false, 0.5)
+                else
+                    registerAnonymousEventHandler("sysSpeedwalkFinished", function()
+                        State:set(State.REST)
+                        send("sleep")
+                    end, true)
+                    speedwalk(speedwalk_path, false, 0.5)
+                end
             end
             return
         end
@@ -145,10 +161,18 @@ local function do_learning()
         if not API:isAndroid() and API:is_rested() then
             State:set(State.SPEEDWALK)
             send("wake")
-            registerAnonymousEventHandler("sysSpeedwalkFinished", function()
+            if learn.rest_from_portal then
+                local how_get_back = ck:constant("learning.return_to_target")
+                if how_get_back ~= "" then
+                    API:send_multi(how_get_back)
+                end
                 State:set(State.NORMAL)
-            end, true)
-            speedwalk(speedwalk_path, true, 0.5)
+            else
+                registerAnonymousEventHandler("sysSpeedwalkFinished", function()
+                    State:set(State.NORMAL)
+                end, true)
+                speedwalk(speedwalk_path, true, 0.5)
+            end
         end
     end
 end

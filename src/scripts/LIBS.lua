@@ -260,3 +260,9 @@ registerNamedEventHandler("__PKGNAME__", "Enforce Protocols on Install", "sysIns
         API:check_msdp_mudlet_settings()
     end
 end)
+
+function API:send_multi(cmds)
+    for _, cmd in ipairs(cmds:split(";")) do
+        send(cmd)
+    end
+end
