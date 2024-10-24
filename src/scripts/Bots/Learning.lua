@@ -89,7 +89,7 @@ local function do_learning()
             send("sup 69")
             send("sup")
             sent = true
-        elseif learn:need_to_master("unravel") and API:status_ok() then
+        elseif learn:need_to_master("unravel defense") and API:status_ok() then
             send(f "focus 'unravel' {target}")
             sent = true
         elseif learn:need_to_master("scan") and API:status_ok() then
