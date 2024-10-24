@@ -81,6 +81,12 @@ local function do_learning()
             send("powerdown")
             send("powerup")
             sent = true
+        elseif learn:need_to_master("sup") and API:status_ok() then
+            send("sup 69")
+            send("sup")
+            send = true
+        elseif learn:need_to_master("unravel") and API:status_ok() then
+            send(f"focus 'unravel' {target}")
         elseif learn:need_to_master("scan") and API:status_ok() then
             send("scan")
             sent = true
