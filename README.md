@@ -18,6 +18,7 @@ This script should figure out who and what you are and be able to automaticlly c
 
 1. Automatic Buff Handling
 2. Zetabot - Like autobot but better faster more insane
+3. Auto Learning - Master all those skills, and learn news skills if you have all the pre-req skills. 
 
 The script will from time to time issue the following commands so its aware of the various states of your character, though most comes from MSDP
 
@@ -27,6 +28,12 @@ The script will from time to time issue the following commands so its aware of t
 # Aliases
 
 `zetabot <aoe> <target>` - Start the zetabot, you don't need to be in the room of the target to start, and you don't have to the aoe mastered. If you have a Zeta it will automaticlly use it based on your Max Gravity from `status`
+
+`autolearn <target> <speedwalk_to_isolation>` - Start the auto learn process using <target> to train every skill until its mastered.  Androids can ignore the speedwalk argument. 
+The following CK constants should be used by organics 
+
+1. `learning.recall_isolation` this will get you to an isolation tank from any location on the mud. Mine is "recall;s;w;enter vort;s"
+2. `learning.return_to_target` this will get you back to the original target from the recall_isolation constant.  Mine is "crecall;n;n;n;e;n" this will change based on target
 
 `redeem all` - Redeem all loot boxes until you have no more
 
