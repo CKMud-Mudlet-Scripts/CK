@@ -70,7 +70,8 @@ local fullname_to_cmd = {
     ["perfect kamehameha"] = "perfect",
     ["galick gun"] = "galick",
     ["destruction sphere"] = "dsphere",
-    ["perfect spirit bomb"] = "pgenki"
+    ["perfect spirit bomb"] = "pgenki",
+    ["spirit cannon"] = "spiritcannon",
 }
 
 local known_buffs = {"demonic will", "energy shield", "barrier", "hasshuken", "herculean force", "resonance",
