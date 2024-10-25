@@ -90,3 +90,4 @@ add_energy("pgenki", 500, 0.8, 2, 5, {Extras.piercing})
 
 -- BioDroid Absorb
 add_energy("spiritcannon", 100, 0.4, 1, 1, {Extras.heal})
+add_energy("dsphere", 100, 0.90)
