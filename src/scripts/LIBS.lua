@@ -50,7 +50,7 @@ function API:getName()
 end
 
 function API:auto_unravel(target)
-    if ck:feature("auto_unravel") and Skills:learned("unravel") then
+    if ck:feature("auto_unravel") and Skills:learned("unravel defense") then
         send(f "focus 'unravel' {target}")
     end
 end
