@@ -2,7 +2,7 @@ local matches = multimatches[2]
 local Player = CK.Player
 
 if Player.MaxKi then -- Is it known
-    local bm = math.floor(matches[2] / 100 * Player.MaxKi)
+    local bm = Player.Ki
     local regen = math.floor(Player.MaxKi * matches[3] / 100)
     Player.KiRegen = regen
     gagLine()

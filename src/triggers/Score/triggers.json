@@ -29,6 +29,36 @@
                                           "type": "regex"
                                    }
                             ]
+                     },                     
+                     {
+                            "name": "Ki and Regen",
+                            "multiline": "yes",
+                            "multilineDelta": "0",
+                            "patterns": [
+                                   {
+                                          "pattern": "Ki:",
+                                          "type": "startOfLine"
+                                   },
+                                   {
+                                          "pattern": "^Ki:\\s*(\\d+)%\\s*KI REGEN: (\\d+)%\\s*$",
+                                          "type": "regex"
+                                   }
+                            ]
+                     },                     
+                     {
+                            "name": "Heat and Dissipation",
+                            "multiline": "yes",
+                            "multilineDelta": "0",
+                            "patterns": [
+                                   {
+                                          "pattern": "Heat:",
+                                          "type": "startOfLine"
+                                   },
+                                   {
+                                          "pattern": "^Heat:\\s*(\\d+)%\\s*Dissipation: (\\d+)%\\s*$",
+                                          "type": "regex"
+                                   }
+                            ]
                      },
                      {
                             "name": "Zenni",
