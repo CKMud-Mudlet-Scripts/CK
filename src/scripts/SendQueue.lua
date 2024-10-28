@@ -9,6 +9,13 @@ local API = ck:get_table("API")
 
 
 function SendQueue:push(value)
+  -- Lets attempt to do unique queues
+  for i = self.first, self.last do
+    if self[i] == value then
+      return
+    end
+  end
+
   local last = self.last + 1
   self.last = last
   self[last] = value
