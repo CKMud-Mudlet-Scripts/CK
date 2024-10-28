@@ -1,5 +1,6 @@
 local ck = require("__PKGNAME__")
 local Data = ck:get_table("Player.Skills", {
+    Level = {},
     Learned = {},
     Mastered = {},
     Boosted = {},
@@ -18,6 +19,7 @@ local Player = ck:get_table("Player")
 local API = ck:get_table("API")
 
 function Skills:clear()
+    Data.Level = {}
     Data.Learned = {}
     Data.Mastered = {}
     Data.Boosted = {}
@@ -107,8 +109,12 @@ function Skills:supreme(skill)
     return Data.Supreme[skill] == true
 end
 
+function Skills:level(skill)
+    return Data.Level[skill]
+end
+
 function Skills:learnable()
-    race = API:getRace()
+    local race = API:getRace()
     local adict = {
         ["scatter"] = {"kishot"},
         ["warp"] = {"superk", "instant"},
@@ -220,6 +226,7 @@ function Skills:AoE()
             table.insert(ret, v)
         end
     end
+    ---@diagnostic disable-next-line: undefined-field
     return table.n_union(ret, Data.Sections.AoE)
 end
 
@@ -230,6 +237,7 @@ function Skills:energy_attacks()
             table.insert(ret, k)
         end
     end
+    ---@diagnostic disable-next-line: undefined-field
     return table.n_union(ret, Data.Sections.Ki)
 end
 
@@ -240,6 +248,7 @@ function Skills:melee_attacks()
             table.insert(ret, k)
         end
     end
+    ---@diagnostic disable-next-line: undefined-field
     return table.n_union(ret, Data.Sections.Physical)
 end
 

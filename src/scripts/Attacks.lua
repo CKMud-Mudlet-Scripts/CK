@@ -60,7 +60,7 @@ add_melee("accel", 8, 0.60, LBS, 2, 3, {Extras.piercing})
 add_energy("kishot", 2, 0.2, 1, 1, {Extras.fast})
 
 -- Mentor Ki Attacks
-add_energy("eyebeam", 3, 0.2, 1, 1, {Extras.fast30})
+add_energy("eyebeam", 3, 0.2, 1, 1, {Extras.fast30, Extras.fast})
 add_energy("kame", 20, 0.35)
 add_energy("kienzan", 30, 0.5)
 add_energy("bigbang", 60, 0.65, 2, 4)

@@ -5,6 +5,7 @@ local Supreme = Data.Supreme
 local Boosted = Data.Boosted
 local Ultimate = Data.Ultimate
 local section = Data.section
+local Level = Data.Level
 -- API
 local sapi = CK.API.Skills
 
@@ -17,7 +18,12 @@ for _, o in ipairs({0, 3}) do
     ---@diagnostic disable-next-line: undefined-field
     if table.contains({"Mastered", "Boosted", "Supreme", "Ultimate"}, status) then
       Mastered[tskill] = true
+      Level[tskill] = 100
+    elseif status:ends("%") then
+      Level[tskill] = tonumber(status:sub(1, -2))
     end 
+
+
     local higher_status = false
     if status == "Ultimate" then
       Ultimate[tskill] = true
