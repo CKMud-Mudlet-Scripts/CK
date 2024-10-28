@@ -56,6 +56,6 @@
     {
         "name": "unravel",
         "regex": "^unravel$",
-        "script": "send(f\"focus 'unravel' {CK.Target.short}\")"
+        "script": "send(f\"focus 'unravel' {CK.Target.name}\")"
     }
 ]
