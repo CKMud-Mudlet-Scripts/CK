@@ -176,5 +176,22 @@
             }
         ],
         "script": "CK.API:auto_wake()"
+    },
+    {
+        "name": "autolearn no target",
+        "isActive": "no",
+        "multiline": "yes",
+        "multilineDelta": "0",
+        "patterns": [
+            {
+                "pattern": "who?",
+                "type": "substring"
+            },
+            {
+                "pattern": "^(\\w+(?: \\w+(?: \\w+)?)?) who\\?$",
+                "type": "regex"
+            }
+        ],
+        "script": "CK.API.Learning:find_target(multimatches[2][2])"
     }
 ]

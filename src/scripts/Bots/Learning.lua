@@ -185,6 +185,7 @@ local function exit()
         killTrigger(id)
     end
     learn.triggers = {}
+    disableTrigger("autolearn no target")
 end
 
 local function enter()
@@ -197,9 +198,23 @@ local function enter()
         set = false
     }
     learn.gravity = 0
+    if ck:constant("learning.return_to_target") then
+        enableTrigger("autolearn no target")
+    end
 
     -- Install a timer
     registerNamedTimer("__PKGNAME__", "CK:Learning", 4, do_learning, true)
+end
+
+function learn:find_target(ability)
+    if not Mode:is(Mode.Learning) then
+        disableTrigger("autolearn no target")
+        return
+    end
+    local return_to_target = ck:constant("learning.return_to_target")
+    if State:is(State.NORMAL) and return_to_target ~= "" then
+        API:send_multi(return_to_target)
+    end
 end
 
 function learn:maybe_adjust_gravity()
