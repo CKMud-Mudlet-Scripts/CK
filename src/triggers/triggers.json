@@ -119,7 +119,7 @@
                 "type": "regex"
             }
         ],
-        "script": "CK.API.auto_unravel(multimatches[2][2])"
+        "script": "CK.API:auto_unravel(multimatches[2][2])"
     },
     {
         "name": "Auto Unravel Rival",
@@ -135,7 +135,7 @@
                 "type": "regex"
             }
         ],
-        "script": "CK.API.auto_unravel(multimatches[2][2])"
+        "script": "CK.API:auto_unravel(multimatches[2][2])"
     },
     {
         "name": "Auto Fish Reelin",
