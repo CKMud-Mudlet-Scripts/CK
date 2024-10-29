@@ -42,7 +42,7 @@ add_melee("dynamite", 5, 0.60, LBS, 2)
 add_melee("wolf", 6, 0.10, UBS, 2, 8)
 
 -- Mentor taught
-add_melee("heal", 6, 0.80, LBS, 2, 1, {Extras.daze})
+add_melee("heel", 6, 0.80, LBS, 2, 1, {Extras.daze})
 add_melee("braver", 6, 0.80, UBS, 2, 1, {Extras.bleed})
 add_melee("cyclone", 6, 0.40, LBS, 2, 3, {Extras.daze})
 add_melee("rage", 8, 0.50, UBS, 2, 4, {Extras.bleed})
