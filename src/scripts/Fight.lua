@@ -55,6 +55,15 @@ function API:get_attack_dpr(name)
     -- Lets just sat its a 5% boost since it reduces the targets armor, which might not
     -- be a whole lot
     local pbonus = 1.07
+    if extra[Extras.piercing_minor] then
+      pbonus = pbonus - 0.025
+    end
+    if extra[Extras.piercing_major] then
+      pbonus = pbonus + 0.025
+    end
+    if extra[Extras.deep_penetration] then
+      pbonus = pbonus + 0.05
+    end
     if Skills:boosted(name) then
       pbonus = pbonus + 0.025
     end
@@ -235,7 +244,7 @@ function API:cmd_fight(target, kws)
     kws = {}
   end
   -- options = { cheapest, energy, physical, extras }
-  local options = { free_only = false, energy = true, physical = true, extras = {}}
+  local options = { free_only = false, energy = true, physical = true, extras = {} }
   -- Overwrite options with kws
   ck:copy_table_into(kws, options)
   local race = API:getRace()

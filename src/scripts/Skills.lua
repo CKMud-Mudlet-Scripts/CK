@@ -76,14 +76,22 @@ local fullname_to_cmd = {
     ["spirit cannon"] = "spiritcannon",
     ["special beam blast"] = "special",
     ["hellfire blitz"] = "hellfire",
+    ["bio impact"] = "bioimp",
+    ["nether fist"] = "nether",
+    ["vanishingball"] = "vanish",
+    ["cataclysmic orb"] = "cataclysmic",
+    ["super vanishing ball"] = "supervb",
+    ["hakai blast"] = "hakai",
+    ["shadow strike"] = "shadow",
+    ["soul reaver"] = "soulreaver",
 }
 
-local known_buffs = {"demonic will", "energy shield", "barrier", "hasshuken", "herculean force", "resonance",
-                     "zanzoken", "kino tsurugi", "regenerate", "forcefield", "infravision", "celestial shield",
-                     "celestial drain", "invigorate", "swiftness", "gigantification", "wrathful fury",
-                     "divine judgement", "hakai barrier", "tremor pulse"}
+local known_buffs = { "demonic will", "energy shield", "barrier", "hasshuken", "herculean force", "resonance",
+    "zanzoken", "kino tsurugi", "regenerate", "forcefield", "infravision", "celestial shield",
+    "celestial drain", "invigorate", "swiftness", "gigantification", "wrathful fury",
+    "divine judgement", "hakai barrier", "tremor pulse" }
 
-local learnable_aoe = {"final", "scatter", "whirl"}
+local learnable_aoe = { "final", "scatter", "whirl" }
 
 function Skills:translate(raw)
     -- Get the short_name from long name
@@ -122,24 +130,32 @@ end
 function Skills:learnable()
     local race = API:getRace()
     local adict = {
-        ["scatter"] = {"kishot"},
-        ["warp"] = {"superk", "instant"},
-        ["superbb"] = {"bigbang"},
-        ["superk"] = {"kame"},
-        ["machpunch"] = {"punch"},
-        ["machkick"] = {"kick"}
+        scatter = { "kishot" },
+        warp = { "superk", "instant" },
+        superbb = { "bigbang" },
+        superk = { "kame" },
+        machpunch = { "punch" },
+        machkick = { "kick" },
+        supervb = { "vanish" },
+        shadow = {"nether", "soulreaver", "portal"},
+        hellfire = {"finalk", "justice", "shadow"},
+        eclipse = { "finalk", "disrupt" }, 
+        accel= { "justice", "instant", "whirl" },
     }
     if Player.BasePl > 125000000 then
-        adict["finalk"] = {"warp", "final"}
-        adict["justice"] = {"cyclone", "dynamite", "rage"}
-        adict["supergodfist"] = {"godfist", "wolf", "dpunch"}
-        adict["accel"] = {"justice", "instant", "whirl"}
-        adict["eclipse"] = {"finalk", "disrupt"}
+        adict["finalk"] = { "warp", "final" }
+        adict["justice"] = { "cyclone", "dynamite", "rage" }
+        adict["supergodfist"] = { "godfist", "wolf", "dpunch" }
     end
 
     if API:isBioDroid(race) then
-        adict["pgenki"] = {"genki", "finalk", "perfect"}
+        adict["pgenki"] = { "genki", "finalk", "perfect" }
+        adict["bioimp"] = { "supergodfist", "nether" }
     end
+
+    if API:isGodRace(race) then
+        adict["hakai"] = {"finalk", "hakai barrier"}
+     end
 
     local Mastered = Data.Mastered
     local Learned = Data.Learned
@@ -205,7 +221,7 @@ end)
 
 function Skills:heals()
     local alist = {}
-    local words = {"revitalize", "restoration"}
+    local words = { "revitalize", "restoration" }
     for _, v in ipairs(Data.Sections.Focus) do
         ---@diagnostic disable-next-line: undefined-field
         if table.contains(words, v) or v:find("heal", 1, true) then

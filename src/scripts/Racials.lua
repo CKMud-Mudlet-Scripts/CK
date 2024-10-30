@@ -41,3 +41,8 @@ end
 function API:getRace()
   return Player.race or ck:constant("race")
 end
+
+function API:isGodRace(_race)
+  local race = _race or self:getRace()
+  return table.contains({"Demon", "Kaio", "Sphinxian", "Angel"}, race)
+end
