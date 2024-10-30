@@ -46,6 +46,21 @@
                             ]
                      },                     
                      {
+                            "name": "GodKi and Regen",
+                            "multiline": "yes",
+                            "multilineDelta": "0",
+                            "patterns": [
+                                   {
+                                          "pattern": "GodKi:",
+                                          "type": "startOfLine"
+                                   },
+                                   {
+                                          "pattern": "^GodKi:\\s*(\\d+)%\\s*GODKI REGEN: (\\d+)%\\s*$",
+                                          "type": "regex"
+                                   }
+                            ]
+                     },                     
+                     {
                             "name": "Heat and Dissipation",
                             "multiline": "yes",
                             "multilineDelta": "0",
