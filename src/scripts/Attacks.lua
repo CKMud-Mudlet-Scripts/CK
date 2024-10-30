@@ -15,9 +15,8 @@ end
   piercing - ignore 20% armor
   
   Use daze for stun
-  and bleed for burn
 ]]
-local Extras = ck:get_table("API.Attacks.Extras", ck:make_enum("Extras", {"knockdown", "bleed", "daze", "fast", "piercing", "fast30", "shock", "heal"}))
+local Extras = ck:get_table("API.Attacks.Extras", ck:make_enum("Extras", {"knockdown", "burn", "bleed", "daze", "fast", "piercing", "fast30", "shock", "heal", "poison"}))
 -- % damage  * (1+([UBS or LBS] / 100) / 4)
 
 --
@@ -77,6 +76,13 @@ add_energy("finalk", 1000, 3.0, 2)
 
 -- Mob Taught
 add_energy("galick", 30, 0.50)
+
+-- Namekian Racial Ki
+add_energy("special", 250, 1.25, 2, 3, {Extras.piercing})
+
+-- Demon Racial Ki
+add_energy("evilblast", 50, 0.5, 1, 1, {Extras.burn})
+add_energy("hellfire", 300, 1.15, 2, 4, {Extras.burn, Extras.piercing})
 
 -- Android Racial Ki
 add_energy("photon", 40, 0.55)

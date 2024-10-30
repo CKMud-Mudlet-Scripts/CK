@@ -74,6 +74,8 @@ local fullname_to_cmd = {
     ["destruction sphere"] = "dsphere",
     ["perfect spirit bomb"] = "pgenki",
     ["spirit cannon"] = "spiritcannon",
+    ["special beam blast"] = "special",
+    ["hellfire blitz"] = "hellfire",
 }
 
 local known_buffs = {"demonic will", "energy shield", "barrier", "hasshuken", "herculean force", "resonance",
@@ -107,6 +109,10 @@ end
 
 function Skills:supreme(skill)
     return Data.Supreme[skill] == true
+end
+
+function Skills:ultimate(skill)
+    return Data.Ultimate[skill] == true
 end
 
 function Skills:level(skill)

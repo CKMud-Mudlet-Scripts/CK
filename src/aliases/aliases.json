@@ -57,5 +57,15 @@
         "name": "unravel",
         "regex": "^unravel$",
         "script": "send(f\"focus 'unravel' {CK.Target.name}\")"
+    },
+    {
+        "name": "blast",
+        "regex": "^blast(?: ([A-Za-z0-9]+))?$",
+        "script": "CK.API:cmd_blast(matches[2])"
+    },
+    {
+        "name": "strike",
+        "regex": "^strike(?: ([A-Za-z0-9]+))?$",
+        "script": "CK.API:cmd_strike(matches[2])"
     }
 ]

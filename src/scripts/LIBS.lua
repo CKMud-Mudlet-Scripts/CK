@@ -4,7 +4,7 @@ local Toggles = ck:get_table("Toggles")
 local API = ck:get_table("API")
 local PromptCounters = ck:get_table("PromptCounters")
 local PromptFlags = ck:get_table("PromptFlags")
-local Player = ck:get_table("Player")
+local Player = ck:get_table("Player", { Attacks = {} })
 local Skills = ck:get_table("API.Skills")
 local State = ck:get_table("API.State")
 local Mode = ck:get_table("API.Mode")
@@ -71,8 +71,8 @@ end
 
 function API:is_rested()
     return (
-        Player.GK == Player.MaxGK and 
-        Player.Ki == Player.MaxKi and 
+        Player.GK == Player.MaxGK and
+        Player.Ki == Player.MaxKi and
         Player.Fatigue == Player.MaxFatigue and
         Player.Pl == Player.MaxPl
     )
@@ -144,6 +144,18 @@ end
 
 function math.format(i)
     return tostring(i):reverse():gsub("%d%d%d", "%1,"):reverse():gsub("^,", "")
+end
+
+if table.unpack == nil then
+    -- At some point table.unpack is included in lua
+    ---@diagnostic disable-next-line: duplicate-set-field
+    function table.unpack(t, i, j)
+        return unpack(t, i, j)
+    end
+end
+
+function table.sub(t, i, j)
+    return {table.unpack(t, i, j)}
 end
 
 function table.sample_keys(tb)
@@ -222,7 +234,7 @@ function API:add_attack(name, cost, dmg, is_ubs, cooldown, count, extra)
     for _, k in ipairs(extra or {}) do
         extra_dict[k] = true
     end
-    Player.Attacks[name] = {cost, dmg, is_ubs, cooldown or 1, count or 1, extra_dict}
+    Player.Attacks[name] = { cost, dmg, is_ubs, cooldown or 1, count or 1, extra_dict }
 end
 
 function API:check_msdp_mudlet_settings()
