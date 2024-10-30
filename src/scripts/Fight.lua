@@ -156,27 +156,24 @@ end
 
 -- Filter by Extras (takes list of attacks and extras list)
 local function filter_by_extra(attacks, extras)
-  local function has_extras(a_extras)
+  if #extras == 0 then
+    return attacks
+  end
+
+  local function has_extras(attack)
+    local data = Attacks[attack]
     for _, extra in ipairs(extras) do
-      if not a_extras[extra] then
+      if not data[6][extra] then
         return false
       end
     end
     return true
   end
 
-  if #extras == 0 then
-    return attacks
-  end
-
-  local ntable = {}
-  for _, name in ipairs(attacks) do
-    local data = Attacks[name]
-    if has_extras(data[6]) then
-      table.insert(ntable, name)
-    end
-  end
-  return ntable
+  ---@diagnostic disable-next-line: undefined-field
+  return table.n_filter(
+    attacks, has_extras
+  )
 end
 
 -- Filter by energy/physical
@@ -237,9 +234,9 @@ function API:cmd_fight(target, kws)
     kws = {}
   end
   -- options = { cheapest, energy, physical, extras }
-  local defaults = { free_only = false, energy = true, physical = true, extras = {}, cost_effective = false }
-  ---@diagnostic disable-next-line: undefined-field
-  local options = table.update(defaults, kws)
+  local options = { free_only = false, energy = true, physical = true, extras = {}}
+  -- Overwrite options with kws
+  ck:copy_table_into(kws, options)
   local race = API:getRace()
 
   if options.free_only and Player.KiRegen == nil then
@@ -285,8 +282,15 @@ function API:cmd_fight(target, kws)
     return attack_dpr[name1] > attack_dpr[name2]
   end
   table.sort(attacks, by_dpr)
+  ---@diagnostic disable-next-line: undefined-field
   attacks = table.sub(attacks, 1, 3)
   local attack = table.sample_items(attacks)
+
+  if attack == nil then
+    cecho("<red> there are no attacks matching constraints: \n")
+    display(options)
+    return
+  end
   if target == nil then
     send(attack)
   else
