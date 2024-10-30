@@ -9,13 +9,16 @@ local Affects = ck:get_table("API.Affects")
 local Toggles = ck:get_table("Toggles")
 local Times = ck:get_table("API.Times")
 local Status = ck:get_table("Player.Status")
+local Mode = ck:get_table("API.Mode")
 local MSDP = ck:get_table("API.MSDP")
+
 
 Times:create("fight")
 Times:create("fightfinished")
 Times:create("status")
 Times:create("prompt")
 ck:define_feature("auto_fight", true)
+ck:define_constant("auto_fight.delay", 6)
 
 local function PlayerLoad()
     if API:is_connected(true) then
@@ -130,10 +133,10 @@ end
 registerNamedEventHandler("__PKGNAME__", "onNotFightingPrompt", "CK.onNotFightingPrompt", onNotFightingPrompt)
 
 local function onFightingPrompt(val)
-    if ck:feature("auto_fight") then
-        if Times:last("fight") > 2 and PromptFlags.fighting then
+    if ck:feature("auto_fight") and Mode:is(Mode.Interactive) then
+        if Times:last("fight") > ck:constant("auto_fight.delay") and PromptFlags.fighting then
             if not Toggles.no_fight then
-                -- API:cmd_fight(nil)
+                API:cmd_fight(nil, {free_only=true})
             end
         end
     end

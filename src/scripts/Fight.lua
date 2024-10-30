@@ -4,6 +4,7 @@ local Skills = ck:get_table("API.Skills")
 local Player = ck:get_table("Player")
 local API = ck:get_table("API")
 local Extras = ck:get_table("API.Attacks.Extras")
+local Times = ck:get_table("API.Times")
 
 function API:get_attack_dpr(name)
   -- Boil down each attack into a single metric so we can sort them
@@ -296,6 +297,7 @@ function API:cmd_fight(target, kws)
   else
     send(f "{attack} {target}")
   end
+  Times:reset("fight")
 end
 
 function API:cmd_blast(target)

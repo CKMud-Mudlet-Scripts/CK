@@ -3,5 +3,10 @@
               "name": "RESET ALL",
               "keys": "F12",
               "script": "CK.API:RESET_ALL()"
+       },
+       {
+              "name": "NO FIGHT",
+              "keys": "F10",
+              "scripts": "CK.Toggles.no_fight = not CK.Toggles.no_fight;\nprint(f\"no_fight set to {CK.Toggles.no_fight}\")"
        }
 ]
