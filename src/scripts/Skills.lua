@@ -84,6 +84,8 @@ local fullname_to_cmd = {
     ["hakai blast"] = "hakai",
     ["shadow strike"] = "shadow",
     ["soul reaver"] = "soulreaver",
+    ["accel driver"] = "accel",
+    ["eclipse bomb"] = "eclipse",
 }
 
 local known_buffs = { "demonic will", "energy shield", "barrier", "hasshuken", "herculean force", "resonance",
