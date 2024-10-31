@@ -2,10 +2,6 @@ local ck = require("__PKGNAME__")
 local Player = ck:get_table("Player")
 local API = ck:get_table("API")
 
-ck:get_table("Player.Stats")
-ck:get_table("Player.BaseStats")
-
-
 local function dam(stat1, stat2, supreme, boosted, ultimate)
     local supreme_multi = supreme and 7500 or 5000
     if ultimate then

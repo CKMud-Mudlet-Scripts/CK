@@ -204,7 +204,7 @@ end
 function API:lowest_stat()
     -- Find the smallest stat
     local stat = nil
-    for id, value in pairs(CK.Player.BaseStats) do
+    for id, value in pairs(Player.BaseStats) do
         if not stat or Player.BaseStats[stat] > Player.BaseStats[id] then
             stat = id
         end

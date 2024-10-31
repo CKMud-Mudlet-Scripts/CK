@@ -108,14 +108,13 @@ function train:adjust_gravity()
 end
 
 function train:get_exercise()
-    if CK:feature("training.UBS_LBS") and Player.UBS < 75 or Player.LBS < 75 then
+    if ck:feature("training.UBS_LBS") and Player.UBS < 75 or Player.LBS < 75 then
         if Player.UBS < Player.LBS then
             return table.sample_items({ "pushup", "situp" })
-        else
-            return "jog"
         end
+        return "jog"
     end
-    local stat = self:lowest_stat()
+    local stat = API:lowest_stat()
     if stat == "STR" then
         return table.sample_items({ "pushup", "situp" })
     elseif stat == "WIS" then

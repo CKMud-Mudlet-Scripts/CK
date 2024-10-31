@@ -6,6 +6,10 @@ local API = ck:get_table("API")
 local MSDP = ck:get_table("API.MSDP")
 local Toggles = ck:get_table("Toggles")
 
+-- So they will be there for msdp
+ck:get_table("Player.Stats")
+ck:get_table("Player.BaseStats")
+
 local names = {"LEVEL", "RACE", "POWERLEVEL", "POWERLEVEL_MAX", "KI", "KI_MAX", "FATIGUE", "FATIGUE_MAX", "GODKI",
                "GODKI_MAX", "DARK_ENERGY", "AFFECTS", "ZENNI", "TOKENS", "EPOINTS", "MAX_GRAVITY", "HITROLL", "DAMROLL",
                "ARMOR", "STR", "INT", "WIS", "SPD", "CON", "STR_BASE", "INT_BASE", "WIS_BASE", "SPD_BASE", "CON_BASE",
@@ -118,10 +122,12 @@ end)
 -- Stats
 ---@diagnostic disable-next-line: undefined-field
 for _, stat in ipairs(("INT WIS STR SPD"):split(" ")) do
-    registerNamedEventHandler("__PKGNAME__", f "MSDP {stat}", f "msdp.{stat}", function()
+    registerNamedEventHandler("__PKGNAME__", f "MSDP {stat}", f "msdp.{stat}", function(event)
+        local stat = event:sub(6):sub(0, 3)
         Player.Stats[stat] = tonumber(msdp[stat])
     end)
-    registerNamedEventHandler("__PKGNAME__", f "MSDP {stat}_BASE", f "msdp.{stat}_BASE", function()
+    registerNamedEventHandler("__PKGNAME__", f "MSDP {stat}_BASE", f "msdp.{stat}_BASE", function(event)
+        local stat = event:sub(6):sub(0, 3)
         Player.BaseStats[stat] = tonumber(msdp[f "{stat}_BASE"])
     end)
 end
