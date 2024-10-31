@@ -118,7 +118,6 @@ add_energy("hellfire", 300, 1.15, 2, 4, { Extras.burn, Extras.piercing })
 
 -- Android Racial Ki
 add_energy("photon", 40, 0.55)
-h
 add_energy("disrupt", 100, 0.75, 1, 1, { Extras.daze })
 add_energy("eclipse", 250, 1.5, 2, 1, { Extras.shock })
 
