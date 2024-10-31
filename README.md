@@ -19,6 +19,7 @@ This script should figure out who and what you are and be able to automaticlly c
 1. Automatic Buff Handling
 2. Zetabot - Like autobot but better faster more insane
 3. Auto Learning - Master all those skills, and learn news skills if you have all the pre-req skills. 
+4. Auto Training - Train up your stats, and rest and train again
 
 The script will from time to time issue the following commands so its aware of the various states of your character, though most comes from MSDP
 
@@ -34,6 +35,12 @@ The following CK constants should be used by organics
 
 1. `learning.recall_isolation` this will get you to an isolation tank from any location on the mud. Mine is "recall;s;w;enter vort;s"
 2. `learning.return_to_target` this will get you back to the original target from the recall_isolation constant.  Mine is "crecall;n;n;n;e;n" this will change based on target
+
+`autotrain <speedwalk_to_isolation> [<exercise>]` - Start training using exercise, if no exercise is specified then pick on based on current stats.  
+
+`strike <target>` - Strike a target using a Physical attack you can currently afford
+
+`blast <target>` - Blast a target using a Ki Attack you can currently afford
 
 `redeem all` - Redeem all loot boxes until you have no more
 

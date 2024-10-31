@@ -212,23 +212,6 @@ function API:lowest_stat()
     return stat
 end
 
-function API:get_train()
-    local stat = self:lowest_stat()
-    if stat == "STR" then
-        if math.random() < 0.5 then
-            return "situp"
-        else
-            return "pushup"
-        end
-    elseif stat == "WIS" then
-        return "meditate"
-    elseif stat == "INT" then
-        return "study"
-    elseif stat == "SPD" then
-        return "jog"
-    end
-end
-
 function API:add_attack(name, cost, dmg, is_ubs, cooldown, count, extra)
     local extra_dict = {}
     for _, k in ipairs(extra or {}) do

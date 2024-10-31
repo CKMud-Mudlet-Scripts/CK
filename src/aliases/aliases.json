@@ -35,9 +35,13 @@
         "script": "CK.API.Learning:toggle(matches[2], matches[3])"
     },
     {
-        "name": "CK",
-        "regex": "^CK$",
-        "script": "print('CK feature - see feature toggles\\nCK feature toggle - set a feature on/off\\nCK constants - see constant values\\nCK constant set - set a constant value\\nCK pkg -- Manage CK Packages\\nzetabot - autobot but better')"
+        "name": "training",
+        "regex": "^autotrain(?: ([A-Za-z0-9]+)(?: (.+))?)?$",
+        "script": "CK.API.Training:toggle(matches[2], matches[3])"
+    },
+    {
+        "name": "CK Help",
+        "regex": "^CK$"
     },
     {
         "name": "CK update",
