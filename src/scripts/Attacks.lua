@@ -68,6 +68,9 @@ add_melee("bioimp", 8, 0.85, UBS, 1, 1, { Extras.daze })
 add_melee("nether", 6, 1.00, UBS, 2, 1, { Extras.heal })
 add_melee("shadow", 5, 0.75, UBS, 1, 1, { Extras.piercing, Extras.deep_penetration })
 
+-- Majin Racial
+add_melee("mysticb", 8, 0.45, UBS, 2, 6, {Extras.piercing, Extras.piercing_major})
+
 --
 -- KI Attacks - add_energy(name, cost, dmg, cooldown, count, extra)
 --
@@ -100,6 +103,8 @@ add_energy("noxious", 100, 0.75, 1, 1, { Extras.poison })
 -- Majin Racial Ki
 add_energy("vanish", 60, 0.70)
 add_energy("supervb", 160, 0.85, 2, 3)
+add_energy("chocolate", 20, 0.35, 1)
+add_energy("calamity", 250, 1.0, 2, 1, {Extras.burn})
 
 -- Sphinxian Racial Ki
 add_energy("cataclysmic", 25, 0.5, 1, 1, { Extras.piercing, Extras.piercing_major })

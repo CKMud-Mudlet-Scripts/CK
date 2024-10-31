@@ -78,7 +78,7 @@ local fullname_to_cmd = {
     ["hellfire blitz"] = "hellfire",
     ["bio impact"] = "bioimp",
     ["nether fist"] = "nether",
-    ["vanishingball"] = "vanish",
+    ["vanishing ball"] = "vanish",
     ["cataclysmic orb"] = "cataclysmic",
     ["super vanishing ball"] = "supervb",
     ["hakai blast"] = "hakai",
@@ -86,6 +86,11 @@ local fullname_to_cmd = {
     ["soul reaver"] = "soulreaver",
     ["accel driver"] = "accel",
     ["eclipse bomb"] = "eclipse",
+    ["chocolate beam"] = "chocolate",
+    ["extinction rain"] = "extinct",
+    ["calamity blaster"] = "calamity",
+    ["mystic ball"] = "mysticb",
+    
 }
 
 local known_buffs = { "demonic will", "energy shield", "barrier", "hasshuken", "herculean force", "resonance",
@@ -131,6 +136,7 @@ end
 
 function Skills:learnable()
     local race = API:getRace()
+    -- Dict [ Learnable Skill name ] = {How to Learn, Prereq skills}
     local adict = {
         scatter = { "kishot" },
         warp = { "superk", "instant" },
@@ -143,6 +149,7 @@ function Skills:learnable()
         hellfire = {"finalk", "justice", "shadow"},
         eclipse = { "finalk", "disrupt" }, 
         accel= { "justice", "instant", "whirl" },
+        calamity = {"finalk", "supervb"},
     }
     if Player.BasePl > 125000000 then
         adict["finalk"] = { "warp", "final" }
@@ -155,9 +162,13 @@ function Skills:learnable()
         adict["bioimp"] = { "supergodfist", "nether" }
     end
 
+    if race == "Majin" then
+        adict["mysticb"] = {"supergodfist", "justice"}        
+    end
+
     if API:isGodRace(race) then
         adict["hakai"] = {"finalk", "hakai barrier"}
-     end
+    end
 
     local Mastered = Data.Mastered
     local Learned = Data.Learned
