@@ -134,7 +134,7 @@ registerNamedEventHandler("__PKGNAME__", "onNotFightingPrompt", "CK.onNotFightin
 
 local function onFightingPrompt(val)
     if ck:feature("auto_fight") and Mode:is(Mode.Interactive) then
-        if Times:last("fight") > ck:constant("auto_fight.delay") and PromptFlags.fighting then
+        if Times:last("fight") > ck:constant("auto_fight.delay") then
             if not Toggles.no_fight then
                 API:cmd_fight(nil, {free_only=true})
             end
