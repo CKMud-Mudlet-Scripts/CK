@@ -1,17 +1,18 @@
 local ck = require("__PKGNAME__")
 local Toggles = ck:get_table("Toggles")
-local Mode = ck:get_table("API.Mode",  ck:make_enum(
-          "Mode",
-          {
-            'Learning',
-            'Training',
-            'Zetabot',
-            'Kaioken',
-            'Interactive'
-          }
+local Mode = ck:get_table("API.Mode", ck:make_enum(
+    "Mode",
+    {
+        'Learning',
+        'Training',
+        'Zetabot',
+        'Kaioken',
+        'Gauntlet',
+        'Interactive'
+    }
 ))
 local API = ck:get_table("API")
-local _mode = ck:get_table("API._mode", {mode=Mode.Interactive, string="Interactive", exit_func=nil})
+local _mode = ck:get_table("API._mode", { mode = Mode.Interactive, string = "Interactive", exit_func = nil })
 
 function Mode:switch(new_mode, exit_func)
     new_mode = new_mode or Mode.Interactive
@@ -46,6 +47,8 @@ function Mode:switch(new_mode, exit_func)
         Toggles.learning = false
     elseif new_mode == Mode.Kaioken then
         _mode.String = "Kaioken"
+    elseif new_mode == Mode.Gauntlet then
+        _mode.String = "Gauntlet"
     end
     _mode.mode = new_mode
     _mode.exit_func = exit_func

@@ -3,7 +3,8 @@ Some basic functionality so I don't have to worry about init order or
 script load order
 
 local ck = require("__PKGNAME__")
-]] local ck = {}
+]] 
+local ck = {}
 -- Global Data Prefix
 local PREFIX = "CK"
 local WAS_SET = "__ck_defaults_WAS_SET"
@@ -22,6 +23,7 @@ end
 function ck:get_table(name, default)
     -- get a data table, with possible "default"
     local head = _G
+    local ck_id = ck:get_table_id(ck)
     -- Prefix all names with out PREFIX
     name = table.concat({PREFIX, name}, ".")
     -- Loop over words in name split by .
@@ -29,12 +31,16 @@ function ck:get_table(name, default)
         head[w] = head[w] or {}
         head = head[w]
     end
-    if default and not head[WAS_SET] then
+    if default and head[WAS_SET] ~= ck_id then
         ck:copy_table_into(default, head)
         -- prevent the defaults from being copied again on script save. 
-        head[WAS_SET] = true
+        head[WAS_SET] = ck_id
     end
     return head
+end
+
+function ck:get_table_id(t)
+    return (f"{t}"):split(": ")[2]
 end
 
 function ck:copy_table_into(t, dst)
