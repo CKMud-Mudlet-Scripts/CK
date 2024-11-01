@@ -25,18 +25,15 @@ local function do_kaioken()
             send(f "kaioken {goal}")
             echo("You have mastered Kaioken completely!\n")
             Mode:switch(Mode.Interactive)
-        elseif Player.Kaioken < target then
-            -- Raise the kaioken
-            send(f "kaioken {target}")
-        end
-        if Player.Thirst < 40 then
-            send("drink fountain")
-        end
-
-        if Player.Fatigue / Player.MaxFatigue < 0.20 then
+        elseif Player.Fatigue / Player.MaxFatigue < 0.20 then
             State:set(State.REST)
             send("kaioken")
             send("sleep")
+        elseif Player.Kaioken < target then
+            -- Raise the kaioken
+            send(f "kaioken {target}")
+        elseif Player.Thirst < 40 then
+            send("drink fountain")
         end
     elseif State:is(State.REST) then
         if API:is_rested() then
