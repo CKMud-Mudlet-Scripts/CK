@@ -69,7 +69,7 @@ add_melee("nether", 6, 1.00, UBS, 2, 1, { Extras.heal })
 add_melee("shadow", 5, 0.75, UBS, 1, 1, { Extras.piercing, Extras.deep_penetration })
 
 -- Majin Racial
-add_melee("mysticb", 8, 0.45, UBS, 2, 6, {Extras.piercing, Extras.piercing_major})
+add_melee("mysticb", 8, 0.45, UBS, 2, 6, { Extras.piercing, Extras.piercing_major })
 
 --
 -- KI Attacks - add_energy(name, cost, dmg, cooldown, count, extra)
@@ -104,13 +104,16 @@ add_energy("noxious", 100, 0.75, 1, 1, { Extras.poison })
 add_energy("vanish", 60, 0.70)
 add_energy("supervb", 160, 0.85, 2, 3)
 add_energy("chocolate", 20, 0.35, 1)
-add_energy("calamity", 250, 1.0, 2, 1, {Extras.burn})
+add_energy("calamity", 250, 1.0, 2, 1, { Extras.burn })
 
 -- Sphinxian Racial Ki
 add_energy("cataclysmic", 25, 0.5, 1, 1, { Extras.piercing, Extras.piercing_major })
 
 -- Icer Racial Ki
 add_energy("deathsaucer", 200, 0.9, 2, 4, { Extras.bleed })
+add_energy("deathball", 60, 0.6, 2, 5)
+add_energy("emperor", 400, 1.0, 2, 5, { Extras.piercing, Extras.piercing_major, Extras.deep_penetration })
+
 
 -- Namekian Racial Ki
 add_energy("special", 250, 1.25, 2, 3, { Extras.piercing, Extras.piercing_major, Extras.deep_penetration })

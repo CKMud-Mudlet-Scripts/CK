@@ -90,7 +90,9 @@ local fullname_to_cmd = {
     ["extinction rain"] = "extinct",
     ["calamity blaster"] = "calamity",
     ["mystic ball"] = "mysticb",
-    
+    ["emperor death ball"] = "emperor", -- typo maybe
+    ["emperor deathball"] = "emperor",
+    ["death saucer"] = "deathsaucer",
 }
 
 local known_buffs = { "demonic will", "energy shield", "barrier", "hasshuken", "herculean force", "resonance",
@@ -150,6 +152,7 @@ function Skills:learnable()
         eclipse = { "finalk", "disrupt" }, 
         accel= { "justice", "instant", "whirl" },
         calamity = {"finalk", "supervb"},
+        emperor = {"deathball", "deathbeam", "deathsaucer"}
     }
     if Player.BasePl > 125000000 then
         adict["finalk"] = { "warp", "final" }
