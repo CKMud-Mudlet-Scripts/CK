@@ -35,6 +35,20 @@
                                    }
                             ],
                             "script": "setTriggerStayOpen(\"Status Scrape\", 0)"
+                     },
+                     {
+                            "name": "Status mastered kaioken",
+                            "patterns": [
+                                   {
+                                          "pattern": "You have mastered kaioken x",
+                                          "type": "substring"
+                                   },
+                                   {
+                                          "pattern": "You have mastered kaioken x([0-9]+)\\.$",
+                                          "type": "regex"
+                                   }
+                            ],
+                            "script": "CK.Player.MKaioken = tonumber(multimatches[2][2])"
                      }
               ]
        },
