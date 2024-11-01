@@ -93,6 +93,8 @@ local fullname_to_cmd = {
     ["emperor death ball"] = "emperor", -- typo maybe
     ["emperor deathball"] = "emperor",
     ["death saucer"] = "deathsaucer",
+    ["shockwave kick"] = "shockwave",
+    ["neo tri-beam"] = "neotri",
 }
 
 local known_buffs = { "demonic will", "energy shield", "barrier", "hasshuken", "herculean force", "resonance",
@@ -147,12 +149,12 @@ function Skills:learnable()
         machpunch = { "punch" },
         machkick = { "kick" },
         supervb = { "vanish" },
-        shadow = {"nether", "soulreaver", "portal"},
-        hellfire = {"finalk", "justice", "shadow"},
-        eclipse = { "finalk", "disrupt" }, 
-        accel= { "justice", "instant", "whirl" },
-        calamity = {"finalk", "supervb"},
-        emperor = {"deathball", "deathbeam", "deathsaucer"}
+        shadow = { "nether", "soulreaver", "portal" },
+        hellfire = { "finalk", "justice", "shadow" },
+        eclipse = { "finalk", "disrupt" },
+        accel = { "justice", "instant", "whirl" },
+        calamity = { "finalk", "supervb" },
+        emperor = { "deathball", "deathbeam", "deathsaucer" }
     }
     if Player.BasePl > 125000000 then
         adict["finalk"] = { "warp", "final" }
@@ -166,11 +168,16 @@ function Skills:learnable()
     end
 
     if race == "Majin" then
-        adict["mysticb"] = {"supergodfist", "justice"}        
+        adict["mysticb"] = { "supergodfist", "justice" }
+    end
+
+    if race == "Human" then
+        adict["shockwave"] = { "justice", "roundhouse" }
+        adict["neotri"] = { 'finalk', 'kikoho' }
     end
 
     if API:isGodRace(race) then
-        adict["hakai"] = {"finalk", "hakai barrier"}
+        adict["hakai"] = { "finalk", "hakai barrier" }
     end
 
     local Mastered = Data.Mastered

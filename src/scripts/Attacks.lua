@@ -71,6 +71,9 @@ add_melee("shadow", 5, 0.75, UBS, 1, 1, { Extras.piercing, Extras.deep_penetrati
 -- Majin Racial
 add_melee("mysticb", 8, 0.45, UBS, 2, 6, { Extras.piercing, Extras.piercing_major })
 
+-- Human Racial
+add_melee("shockwave", 8, 1.25, LBS, 2, 1, {Extras.shock})
+
 --
 -- KI Attacks - add_energy(name, cost, dmg, cooldown, count, extra)
 --
@@ -138,3 +141,6 @@ add_energy("pgenki", 500, 0.8, 2, 5, { Extras.piercing, Extras.piercing_major, E
 add_energy("spiritcannon", 100, 0.4, 1, 1, { Extras.heal })
 add_energy("dsphere", 100, 0.90)
 add_energy("doublesunday", 30, 0.6, 1, 1, { Extras.daze })
+
+-- Human Racial
+add_energy("neotri", 250, 1.5, 2, 1, {Extras.burn})
