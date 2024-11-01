@@ -272,6 +272,12 @@ registerNamedEventHandler(PREFIX, "sysUninstall", "sysUninstall", function(event
     if name:starts(PREFIX) then
         versions[name] = nil
     end
+
+    if name == "CK" then
+        -- Unload all our packages
+        package.loaded["CK"] = nil
+        package.loaded["CK.console"] = nil
+    end
 end)
 
 return ck
