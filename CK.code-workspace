@@ -56,5 +56,10 @@
 		"Lua.workspace.library": [
 			"src/resources"
 		],
+		"Lua.workspace.ignoreDir": [
+			".vscode",
+			"build",
+			".github"
+		],
 	}
 }
