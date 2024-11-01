@@ -14,6 +14,7 @@ strike              - Use a melee attack
 blase               - Use a ki attack
 redeem all          - Redeem all loot boxes in inventory
 unravel             - Unravel Defenses of the current fighting target
+kaioken train       - toggle kaioken auto training
 ]]
 
 print(helpscreen)
