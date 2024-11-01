@@ -6,6 +6,7 @@ local Mode = ck:get_table("API.Mode",  ck:make_enum(
             'Learning',
             'Training',
             'Zetabot',
+            'Kaioken',
             'Interactive'
           }
 ))
@@ -16,6 +17,7 @@ function Mode:switch(new_mode, exit_func)
     new_mode = new_mode or Mode.Interactive
     API.State:set(API.State.NORMAL)
 
+    local _mode = _mode
     -- So we can go from one mode to another easily
     if _mode.mode ~= Mode.Interactive and _mode.exit_func then
         _mode.exit_func()
@@ -42,6 +44,8 @@ function Mode:switch(new_mode, exit_func)
         Toggles.training = false
         Toggles.botmode = true
         Toggles.learning = false
+    elseif new_mode == Mode.Kaioken then
+        _mode.String = "Kaioken"
     end
     _mode.mode = new_mode
     _mode.exit_func = exit_func

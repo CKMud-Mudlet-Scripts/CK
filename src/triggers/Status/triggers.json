@@ -38,6 +38,8 @@
                      },
                      {
                             "name": "Status mastered kaioken",
+                            "multiline": "yes",
+                            "multilineDelta": "0",
                             "patterns": [
                                    {
                                           "pattern": "You have mastered kaioken x",

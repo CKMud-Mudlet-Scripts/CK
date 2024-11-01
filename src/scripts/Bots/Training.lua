@@ -137,6 +137,7 @@ function train:toggle(path, target)
             error("A speed walk is required argument, for finding the isolation chamber")
             return
         end
+        ---@diagnostic disable-next-line: undefined-field
         if target and not table.contains({ "study", "exercise", "jog", "meditate", "pushup", "situp" }, target) then
             error(f"Unknown exercise {target}. Not enabling training mode")
             return

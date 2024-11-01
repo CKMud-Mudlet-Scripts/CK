@@ -48,6 +48,7 @@
 			"speedwalk",
 			"tempExactMatchTrigger",
 			"tempLineTrigger",
+			"tempRegexTrigger",
 			"tempTimer",
 			"tempTrigger",
 			"uninstallPackage",
