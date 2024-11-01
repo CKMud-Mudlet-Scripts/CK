@@ -29,6 +29,20 @@ local function do_kaioken()
             -- Raise the kaioken
             send(f "kaioken {target}")
         end
+        if Player.Thirst < 40 then
+            send("drink fountain")
+        end
+
+        if Player.Fatigue / Player.MaxFatigue < 0.20 then
+            State:set(State.REST)
+            send("kaioken")
+            send("sleep")
+        end
+    elseif State:is(State.REST) then
+        if API:is_rested() then
+            send("wake")
+            State:set(State.NORMAL)
+        end
     end
 end
 
