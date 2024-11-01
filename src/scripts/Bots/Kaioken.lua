@@ -10,6 +10,17 @@ local Mode = ck:get_table("API.Mode")
 local Toggles = ck:get_table("Toggles")
 local Times = ck:get_table("API.Times")
 
+local function exit()
+    -- Delete timer
+    deleteNamedTimer("__PKGNAME__", "CK:Kaioken")
+    -- Kill Triggers
+    for _, id in ipairs(kaio.triggers) do
+        killTrigger(id)
+    end
+    kaio.triggers = {}
+    print("Kaioken Training Mode Disabled!!!")
+end
+
 ---@diagnostic disable-next-line: unused-function
 local function do_kaioken()
     if not API:is_connected() then
@@ -25,6 +36,7 @@ local function do_kaioken()
             send(f "kaioken {goal}")
             echo("You have mastered Kaioken completely!\n")
             Mode:switch(Mode.Interactive)
+            exit()
         elseif Player.Fatigue / Player.MaxFatigue < 0.20 then
             State:set(State.REST)
             send("kaioken")
@@ -43,16 +55,7 @@ local function do_kaioken()
     end
 end
 
-local function exit()
-    -- Delete timer
-    deleteNamedTimer("__PKGNAME__", "CK:Kaioken")
-    -- Kill Triggers
-    for _, id in ipairs(kaio.triggers) do
-        killTrigger(id)
-    end
-    kaio.triggers = {}
-    print("Kaioken Training Mode Disabled!!!")
-end
+
 
 local function enter()
     -- one time trigger to catch the max kaioken possible for character
