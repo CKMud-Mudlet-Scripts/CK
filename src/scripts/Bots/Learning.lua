@@ -81,7 +81,7 @@ local function do_learning()
         elseif learn:need_to_master("powersense") and API:status_ok() then
             send(f "powersense {target}")
             sent = true
-        elseif learn:need_to_master("powerdown") or learn:need_to_master("powerup") and API:status_ok() then
+        elseif (learn:need_to_master("powerdown") or learn:need_to_master("powerup")) and API:status_ok() then
             send("powerdown")
             send("powerup")
             sent = true
