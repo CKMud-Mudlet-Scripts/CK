@@ -1,19 +1,20 @@
 local ck = require("__PKGNAME__")
-local Attacks = ck:get_table("Player.Attacks")
 local Skills = ck:get_table("API.Skills")
 local Player = ck:get_table("Player")
 local API = ck:get_table("API")
 local Extras = ck:get_table("API.Attacks.Extras")
+local Kind = ck:get_table("API.Skills.Kind")
 local Times = ck:get_table("API.Times")
 
 function API:get_attack_dpr(name)
   -- Boil down each attack into a single metric so we can sort them
-  local data = Attacks[name]
+  local data = Skills:get_skill(name)
   if data == nil then
     return nil
   end
   local adj_dmg
-  local is_melee = data[3] ~= nil
+  local is_melee = data[1] == Kind.PHYSICAL
+  data = table.sub(data, 2) -- Strip off the kind so the rest of the lookups just work.
   if is_melee then
     local phy_dam = API:phy_dam(Skills:supreme(name), Skills:boosted(name), Skills:ultimate(name)) * data[2]
     local body = Player.LBS
@@ -84,17 +85,17 @@ function API:get_attack_dpr(name)
 end
 
 local function energy_cost(attack, _race)
-  local data = Attacks[attack]
+  local data = Skills:get_skill(attack)
   if data == nil then
     cecho(f "<red>can_use_energy_attack: Unknown Attack {attack}!!!")
     return 100000000
   end
-  if data[3] ~= nil then
+  if data[1] ~= Kind.KI then
     cecho(f "<red>can_use_energy_attack: Error Attack {attack} is a meleee attack!!!")
     return 100000000
   end
 
-  local cost = data[1]
+  local cost = Skills:get_cost(attack)
   if Skills:ultimate(attack) then
     cost = cost * 4
   end
@@ -106,16 +107,16 @@ end
 
 local function melee_cost(attack, _race)
   local race = _race or API:getRace()
-  local data = Attacks[attack]
+  local data = Skills:get_skill(attack)
   if data == nil then
     cecho(f "<red>can_use_melee_attack: Unknown Melee {attack}!!!")
     return 10000000000
   end
-  if data[3] == nil then
+  if data[1] ~= Kind.PHYSICAL then
     cecho(f "<red>can_use_melee_attack: Error Attack {attack} is a energy attack!!!")
     return 10000000000
   end
-  local cost = data[1]
+  local cost = Skills:get_cost(attack)
   if Skills:ultimate(attack) then
     cost = cost * 2.1875
   end
@@ -130,8 +131,8 @@ end
 
 function API:get_cost(attack, _race)
   local race = _race or API:getRace()
-  local data = Attacks[attack]
-  if data[3] == nil then
+  local kind = Skills:get_kind(attack)
+  if kind == Kind.KI then
     return energy_cost(attack, race)
   else
     return melee_cost(attack, race)
@@ -154,8 +155,8 @@ function API:can_use_melee_attack(attack)
 end
 
 function API:can_use_attack(attack)
-  local data = Attacks[attack]
-  if data[3] == nil then
+  local kind = Skills:get_kind(attack)
+  if kind == Kind.KI then
     return API:can_use_energy_attack(attack)
   else
     return API:can_use_melee_attack(attack)
@@ -171,9 +172,9 @@ local function filter_by_extra(attacks, extras)
   end
 
   local function has_extras(attack)
-    local data = Attacks[attack]
+    local data = Skills:get_skill(attack)
     for _, extra in ipairs(extras) do
-      if not data[6][extra] then
+      if not data[7][extra] then
         return false
       end
     end
@@ -199,13 +200,11 @@ local function filter_by_kind(attacks, energy, physical)
 
   local ntable = {}
   for _, name in ipairs(attacks) do
-    local data = Attacks[name]
-    local is_physical = data[3] ~= nil
-    local is_energy = data[3] == nil
-    if is_energy and energy then
+    local kind = Skills:get_kind(name)
+    if kind == Kind.KI and energy then
       table.insert(ntable, name)
     end
-    if is_physical and physical then
+    if kind == Kind.PHYSICAL and physical then
       table.insert(ntable, name)
     end
   end
@@ -267,8 +266,7 @@ function API:cmd_fight(target, kws)
     filter_by_kind(
       filter_by_extra(
         Skills:filter_unlearned(
-        ---@diagnostic disable-next-line: undefined-field
-          table.keys(Attacks)
+          Skills:get_names()
         ),
         options.extras
       ),

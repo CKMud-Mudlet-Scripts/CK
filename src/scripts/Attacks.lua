@@ -1,13 +1,14 @@
 local ck = require("__PKGNAME__")
 local API = ck:get_table("API")
+local Kind = ck:get_table("API.Skills.Kind")
 local UBS = true
 local LBS = false
 
 local function add_melee(name, cost, dmg, is_ubs, cooldown, count, extra)
-  API:add_attack(name, cost, dmg, is_ubs, cooldown, count, extra)
+  API:add_attack(name, Kind.PHYSICAL, cost, {dmg, is_ubs, cooldown, count, extra})
 end
 local function add_energy(name, cost, dmg, cooldown, count, extra)
-  API:add_attack(name, cost, dmg, nil, cooldown, count, extra)
+  API:add_attack(name, Kind.KI, cost, {dmg, nil, cooldown, count, extra})
 end
 
 --[[

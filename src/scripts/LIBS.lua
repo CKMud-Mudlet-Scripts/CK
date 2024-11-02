@@ -4,7 +4,7 @@ local Toggles = ck:get_table("Toggles")
 local API = ck:get_table("API")
 local PromptCounters = ck:get_table("PromptCounters")
 local PromptFlags = ck:get_table("PromptFlags")
-local Player = ck:get_table("Player", { Attacks = {} })
+local Player = ck:get_table("Player")
 local Skills = ck:get_table("API.Skills")
 local State = ck:get_table("API.State")
 local Mode = ck:get_table("API.Mode")
@@ -210,14 +210,6 @@ function API:lowest_stat()
         end
     end
     return stat
-end
-
-function API:add_attack(name, cost, dmg, is_ubs, cooldown, count, extra)
-    local extra_dict = {}
-    for _, k in ipairs(extra or {}) do
-        extra_dict[k] = true
-    end
-    Player.Attacks[name] = { cost, dmg, is_ubs, cooldown or 1, count or 1, extra_dict }
 end
 
 function API:check_msdp_mudlet_settings()

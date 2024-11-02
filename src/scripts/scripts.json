@@ -7,6 +7,9 @@
         "name": "LIBS"
     },
     {
+        "name": "Skills"
+    },
+    {
         "name": "Attacks"
     },
     {
@@ -26,9 +29,6 @@
     },
     {
         "name": "Affects"
-    },
-    {
-        "name": "Skills"
     },
     {
         "name": "Tell Rpc"

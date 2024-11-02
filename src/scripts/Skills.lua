@@ -12,9 +12,19 @@ local Data = ck:get_table("Player.Skills", {
         Ki = {},
         Other = {},
         Physical = {}
-    }
+    },
 })
-local Skills = ck:get_table("API.Skills") -- CK.API.Skills:mastered
+local Skills = ck:get_table("API.Skills", {Defs = {}}) -- CK.API.Skills:mastered
+local Kind = ck:get_table("API.Skills.Kind", ck:make_enum(
+          "Kind",
+          {
+            'KI',
+            'PHYSICAL',
+            'AOE',
+            'BUFF',
+            'OTHER',
+          }
+)) 
 local Player = ck:get_table("Player")
 local API = ck:get_table("API")
 
@@ -103,6 +113,47 @@ local known_buffs = { "demonic will", "energy shield", "barrier", "hasshuken", "
     "divine judgement", "hakai barrier", "tremor pulse" }
 
 local learnable_aoe = { "final", "scatter", "whirl" }
+
+function API:add_attack(name, kind, cost, data)
+    -- Turn the extras item into a dictionary 
+    local extra_dict = {}
+    for _, k in ipairs(data['extras'] or {}) do
+        extra_dict[k] = true
+    end
+    data['extras'] = extra_dict
+    Skills:add_skill(name, kind, cost, data)
+end
+
+function Skills:add_skill(name, kind, cost, data)
+    Skills.Defs[name] = {kind, cost, unpack(data)}
+end
+
+function Skills:get_skill(name)
+    return Skills.Defs[name]
+end
+
+function Skills:get_cost(name)
+    return Skills.Defs[name][2]
+end
+
+function Skills:get_kind(name)
+    return Skills.Defs[name][1]
+end
+
+function Skills:get_names()
+    ---@diagnostic disable-next-line: undefined-field
+    return table.keys(Skills.Defs)
+end
+
+function Skills:get_skills(kind)
+    local result = {}
+    for k, v in pairs(Skills.Defs) do
+        if v[2] == kind then
+            result[k] = v
+        end
+    end
+    return result
+end
 
 function Skills:translate(raw)
     -- Get the short_name from long name
@@ -277,8 +328,8 @@ end
 
 function Skills:energy_attacks()
     local ret = {}
-    for k, v in pairs(Player.Attacks) do
-        if self:learned(k) and v[3] == nil then
+    for k, v in pairs(Skills.get_skills(Kind.KI)) do
+        if self:learned(k) then
             table.insert(ret, k)
         end
     end
@@ -288,8 +339,8 @@ end
 
 function Skills:melee_attacks()
     local ret = {}
-    for k, v in pairs(Player.Attacks) do
-        if self:learned(k) and v[3] ~= nil then
+    for k, v in pairs(Player.get_skills(Kind.PHYSICAL)) do
+        if self:learned(k) then
             table.insert(ret, k)
         end
     end
