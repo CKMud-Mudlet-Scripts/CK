@@ -25,6 +25,9 @@ function Player:get_energy()
 end
 
 function Player:get_stamina()
+    if API:has_fatigue() then
+        return 100
+    end
     return math.floor(Player.Fatigue / Player.MaxFatigue * 100)
 end
 
