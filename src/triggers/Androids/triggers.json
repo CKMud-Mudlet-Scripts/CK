@@ -11,7 +11,7 @@
                 "type": "exactMatch"
             }
         ],
-        "script": "CK.API.State:set(CK.API.State.NORMAL); local conf = CK.API.Racial:Android_getConfigure(); send(f\"configure {conf}\")"
+        "script": "CK.API.State:set(CK.API.State.NORMAL)\nlocal conf = CK.API.Racial:Android_getConfigure()\nsend(f\"configure {conf}\")"
     },
     {
         "name": "Vent open",
