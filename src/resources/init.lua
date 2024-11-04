@@ -40,7 +40,7 @@ function ck:get_table(name, default)
 end
 
 function ck:get_table_id(t)
-    return (f"{t}"):split(": ")[2]
+    return tostring(t):split(": ")[2]
 end
 
 function ck:copy_table_into(t, dst)
