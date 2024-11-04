@@ -40,6 +40,7 @@ function ck:get_table(name, default)
 end
 
 function ck:get_table_id(t)
+    ---@diagnostic disable-next-line: undefined-field
     return tostring(t):split(": ")[2]
 end
 
