@@ -2,6 +2,7 @@ local ck = require("__PKGNAME__")
 local Player = ck:get_table("Player")
 local train = ck:get_table("API.Training", {
     triggers = {},
+    last_train = nil,
 })
 local API = ck:get_table("API")
 local State = ck:get_table("API.State")
@@ -19,13 +20,13 @@ local function do_training()
         return
     end
     local speedwalk_path = train.speedwalk
-    local target = train.target or train:get_exercise()
 
     if State:is(State.NORMAL) then
         if train.state.go_rest then
             -- Handle Rest
             State:set(State.SPEEDWALK)
             train.state.go_rest = false
+            train.last_train = ""
             registerAnonymousEventHandler("sysSpeedwalkFinished", function()
                 State:set(State.REST)
                 send("drink fountain")
@@ -35,7 +36,9 @@ local function do_training()
         elseif train.state.go_train then
             train.state.go_train = false
             train:adjust_gravity()
+            local target = train.target or train:get_exercise()
             send(target)
+            train.last_train = target
             if target == "jog" then
                 train.state.go_jog = true
                 send("down")
@@ -63,6 +66,7 @@ local function exit()
         killTrigger(id)
     end
     train.triggers = {}
+    send(train.last_train)
 end
 
 local function go_rest()
