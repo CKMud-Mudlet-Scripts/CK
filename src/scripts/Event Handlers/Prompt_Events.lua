@@ -11,13 +11,14 @@ local Times = ck:get_table("API.Times")
 local Status = ck:get_table("Player.Status")
 local Mode = ck:get_table("API.Mode")
 local MSDP = ck:get_table("API.MSDP")
+local Target = ck:get_table("Target")
 
 
 Times:create("fight")
 Times:create("fightfinished")
 Times:create("status")
 Times:create("prompt")
-ck:define_feature("auto_fight", true)
+ck:define_feature("auto_fight", false)
 ck:define_constant("auto_fight.delay", 6)
 
 local function PlayerLoad()
@@ -89,13 +90,13 @@ local function onPrompt()
         Toggles.NEXTHT = nil
     end
 
-    if PromptFlags.Target then
+    if PromptFlags.Target or Target.name ~= "" then
         -- How long to wait until we start doing notfighting events
         PromptCounters.fighting = 3
         raiseEvent("CK.onFightingPrompt")
     end
 
-    if Toggles.fighting and not PromptFlags.Target then
+    if Toggles.fighting and not (PromptFlags.Target or Target.name ~= "") then
         -- We just stopped a fight
         Toggles.fighting = false
         raiseEvent("CK.onFinishedFighting")
