@@ -13,20 +13,20 @@ function m.format(i)
     return tostring(i):reverse():gsub("%d%d%d", "%1,"):reverse():gsub("^,", "")
 end
 
+
+local _unpack 
+---@diagnostic disable-next-line: deprecated
 if table.unpack == nil then
     -- At some point table.unpack is included in lua
-    ---@diagnostic disable-next-line: duplicate-set-field
-    function t.unpack(t, i, j)
-        return unpack(t, i, j)
-    end
+    ---@diagnostic disable-next-line: deprecated
+    _unpack = table.unpack
 else
-    function t.unpack(t, i, j)
-        return table.unpack(t, i, j)
-    end
+    
+    _unpack = unpack
 end
 
 function t.sub(t, i, j)
-    return {t.unpack(t, i, j)}
+    return {_unpack(t, i, j)}
 end
 
 function t.sample_keys(tb)
