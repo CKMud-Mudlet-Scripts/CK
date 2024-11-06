@@ -48,8 +48,10 @@ local function do_zetabot()
             zeta.state.ok_to_sense = true
             Times:reset("zeta.sense")
         end
-        send(f("sense {target}"))
-        zeta.state.ok_to_sense = false
+        if zeta.state.ok_to_sense then
+            send(f("sense {target}"))
+            zeta.state.ok_to_sense = false
+        end
     end
 end
 
@@ -113,7 +115,7 @@ function zeta:toggle(aoe, target)
         if aoe and target then
             print(f "Zetabot Mode Swap: {aoe} {target}!")
         else
-            -- Change mode, since it will call exit 
+            -- Change mode, since it will call exit
             Mode:switch(Mode.Interactive)
             print("Zetabot Mode Disabled!!!")
         end
@@ -127,4 +129,3 @@ function zeta:toggle(aoe, target)
         end
     end
 end
-
