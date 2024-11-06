@@ -42,7 +42,7 @@ function Combo:next(combo_test)
     -- Return the next key at random
     --echo("Current Head")
     --display(head)
-    local next_attack = table.sample_keys(head)
+    local next_attack = CK.table.sample_keys(head)
     --display(next_attack)
     return string.gsub(next_attack, " ", "")
   end

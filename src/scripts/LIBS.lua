@@ -140,46 +140,6 @@ function PromptCounters:active(name)
     return PromptCounters[name] ~= nil
 end
 
--- Quality Of Life functions
-function math.round(x, n)
-    return tonumber(string.format("%." .. n .. "f", x))
-end
-
-function math.format(i)
-    return tostring(i):reverse():gsub("%d%d%d", "%1,"):reverse():gsub("^,", "")
-end
-
-if table.unpack == nil then
-    -- At some point table.unpack is included in lua
-    ---@diagnostic disable-next-line: duplicate-set-field
-    function table.unpack(t, i, j)
-        return unpack(t, i, j)
-    end
-end
-
-function table.sub(t, i, j)
-    return {table.unpack(t, i, j)}
-end
-
-function table.sample_keys(tb)
-    local keys = {}
-    for k, v in pairs(tb) do
-        table.insert(keys, k)
-    end
-    return keys[math.random(#keys)]
-end
-
-function table.sample_items(tl)
-    local pos = math.floor(math.random() * #tl) + 1
-    return tl[pos]
-end
-
-function table.extend(list, items)
-    for _, item in ipairs(items) do
-        list[#list + 1] = item
-    end
-end
-
 function API:item_tier()
     -- Thanks Vorrac
     local base_pl = Player.BasePl

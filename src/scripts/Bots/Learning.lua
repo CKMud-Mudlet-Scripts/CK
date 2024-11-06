@@ -96,12 +96,12 @@ local function do_learning()
             send("scan")
             sent = true
         elseif learn:need_to_master("portal") and Player.Ki > (Player.MaxKi * .10) then
-            local ptarget = table.sample_items(instant_targets)
+            local ptarget = CK.table.sample_items(instant_targets)
             send(f "focus 'portal' {ptarget}")
             sent = true
             portal = true
         elseif learn:need_to_master("instant") and Player.Ki > 500 then
-            local itarget = table.sample_items(instant_targets)
+            local itarget = CK.table.sample_items(instant_targets)
             send(f "focus 'instant' {itarget}")
             sent = true
             portal = true

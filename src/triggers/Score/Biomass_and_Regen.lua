@@ -7,6 +7,6 @@ if Player.MaxKi then -- Is it known
     Player.KiRegen = regen
     gagLine()
 
-    cecho(string.format('\n<dim_gray>BioMass<white>:    %-22s<dim_gray> BM REGEN<white>: %s\n', math.format(bm),
-        math.format(regen)))
+    cecho(string.format('\n<dim_gray>BioMass<white>:    %-22s<dim_gray> BM REGEN<white>: %s\n', CK.math.format(bm),
+        CK.math.format(regen)))
 end

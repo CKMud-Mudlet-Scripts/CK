@@ -293,8 +293,8 @@ function API:cmd_fight(target, kws)
   end
   table.sort(attacks, by_dpr)
   ---@diagnostic disable-next-line: undefined-field
-  attacks = table.sub(attacks, 1, 3)
-  local attack = table.sample_items(attacks)
+  attacks = CK.table.sub(attacks, 1, 3)
+  local attack = CK.table.sample_items(attacks)
 
   if attack == nil then
     cecho("<red> there are no attacks matching constraints: \n")

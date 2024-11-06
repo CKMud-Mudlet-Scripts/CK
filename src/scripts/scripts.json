@@ -4,6 +4,9 @@
         "script": "require(\"__PKGNAME__\"):register(\"__PKGNAME__\", \"__VERSION__\")"
     },
     {
+        "name": "Utils"
+    }
+    {
         "name": "LIBS"
     },
     {

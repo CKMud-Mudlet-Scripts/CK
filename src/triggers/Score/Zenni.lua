@@ -5,7 +5,7 @@ if not CK.Toggles.hide_score then
 cecho(
     string.format(
       '      <dim_gray>Gauntlet Runs:<yellow> %s\n',
-      math.format(math.floor(Player.Zenni / 25000000))
+      CK.math.format(math.floor(Player.Zenni / 25000000))
     )
   )
 end
