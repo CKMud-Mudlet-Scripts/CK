@@ -74,7 +74,7 @@ local function do_learning()
             elseif #(to_learn.ultras) > 0 and ultra_ok() then
                 send(f "focus '{to_learn.ultras[1]}'")
                 sent = true
-            elseif #(to_learn.learnable) > 0 and API:status_ok() then
+            elseif #(to_learn.learnable) > 0 and API:can_use_attack(to_learn.learnable[1]) then
                 send(f "{to_learn.learnable[1]} {target}")
                 sent = true
             end
