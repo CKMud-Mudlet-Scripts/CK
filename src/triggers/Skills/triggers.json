@@ -21,7 +21,7 @@
                             "matchall": "yes",
                             "patterns": [
                                    {
-                                          "pattern": "([^ ][a-z -]+?)\\s+(Mastered|Supreme|Boosted|Ultimate|[0-9]+%)",
+                                          "pattern": "([a-z][a-z -]+?)\\s+(Mastered|Supreme|Boosted|Ultimate|[0-9]+%)",
                                           "type": "regex"
                                    }
                             ]
