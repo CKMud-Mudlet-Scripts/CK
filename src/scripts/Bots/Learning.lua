@@ -34,8 +34,8 @@ local function buff_ok()
     return API:status_ok()
 end
 
-local function ultra_ok()
-    return Player.GK >= 35
+local function ultra_ok(skill)
+    return Player.GK >= 500 / Skills:level(skill)
 end
 
 ---@diagnostic disable-next-line: unused-function
@@ -71,8 +71,9 @@ local function do_learning()
             elseif #(to_learn.heals) > 0 and heal_ok() then
                 send(f "focus '{to_learn.heals[1]}'")
                 sent = true
-            elseif #(to_learn.ultras) > 0 and ultra_ok() then
+            elseif #(to_learn.ultras) > 0 and ultra_ok(to_learn.ultras[1]) then
                 send(f "focus '{to_learn.ultras[1]}'")
+                send("urevert")
                 sent = true
             elseif #(to_learn.learnable) > 0 and API:can_use_attack(to_learn.learnable[1]) then
                 send(f "{to_learn.learnable[1]} {target}")
@@ -103,7 +104,6 @@ local function do_learning()
         elseif learn:need_to_master("instant") and Player.Ki > 500 then
             local itarget = CK.table.sample_items(instant_targets)
             send(f "focus 'instant' {itarget}")
-            send("urevert")
             sent = true
             portal = true
         elseif Skills:mastered("punch") and Player.UBS < 100 and API:can_use_melee_attack("punch") then
