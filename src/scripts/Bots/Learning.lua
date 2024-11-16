@@ -35,7 +35,7 @@ local function buff_ok()
 end
 
 local function ultra_ok()
-    return Player.GK >= 25
+    return Player.GK >= 35
 end
 
 ---@diagnostic disable-next-line: unused-function
@@ -103,6 +103,7 @@ local function do_learning()
         elseif learn:need_to_master("instant") and Player.Ki > 500 then
             local itarget = CK.table.sample_items(instant_targets)
             send(f "focus 'instant' {itarget}")
+            send("urevert")
             sent = true
             portal = true
         elseif Skills:mastered("punch") and Player.UBS < 100 and API:can_use_melee_attack("punch") then

@@ -301,10 +301,10 @@ function Skills:ultras()
     local ultra1 = 'ultra instinct'
     local ultra2 = 'ultra ego'
     local alist = {} -- Even tho mortals can only have 1
-    if self.learned(ultra1) then
+    if self:learned(ultra1) then
         table.insert(alist, ultra1)
     end
-    if self.learned(ultra2) then
+    if self:learned(ultra2) then
         table.insert(alist, ultra2)
     end
     return alist
