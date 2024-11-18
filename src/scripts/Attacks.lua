@@ -80,7 +80,7 @@ add_melee("zephyr", 4, 0.35, UBS, 2, 5, {Extras.bleed})
 
 -- Icer Racial
 add_melee("tailwhip", 5, 0.9, LBS, 1, 1, {Extras.bleed})
-add_melee("deathstorm", 8, 0.5, LBS, 2, 6, {Extras.piercing. Extras.piercing_major})
+add_melee("deathstorm", 8, 0.5, LBS, 2, 6, {Extras.piercing, Extras.piercing_major})
 
 --
 -- KI Attacks - add_energy(name, cost, dmg, cooldown, count, extra)
