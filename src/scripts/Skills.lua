@@ -95,6 +95,9 @@ local fullname_to_cmd = {
     ["death saucer"] = "deathsaucer",
     ["shockwave kick"] = "shockwave",
     ["neo tri-beam"] = "neotri",
+    ["moonlight pierce"] = "moonlight",
+    ["zephyr slice"] = "zephyr",
+    ["nova symphony"] = "nova",
 }
 
 local known_buffs = { "demonic will", "energy shield", "barrier", "hasshuken", "herculean force", "resonance",

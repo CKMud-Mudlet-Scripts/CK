@@ -74,6 +74,10 @@ add_melee("mysticb", 8, 0.45, UBS, 2, 6, { Extras.piercing, Extras.piercing_majo
 -- Human Racial
 add_melee("shockwave", 8, 1.25, LBS, 2, 1, {Extras.shock})
 
+-- Konatsu Racial
+add_melee("moonlight", 4, 0.6, UBS, 1, 1, {Extras.piercing})
+add_melee("zephyr", 4, 0.35, UBS, 2, 5, {Extras.bleed})
+
 --
 -- KI Attacks - add_energy(name, cost, dmg, cooldown, count, extra)
 --
