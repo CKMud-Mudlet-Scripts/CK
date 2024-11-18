@@ -106,11 +106,11 @@ local function do_learning()
             send(f "focus 'instant' {itarget}")
             sent = true
             portal = true
-        elseif Skills:mastered("punch") and Player.UBS < 100 and API:can_use_melee_attack("punch") then
-            send(f "punch {target}")
-            sent = true
         elseif Skills:mastered("kick") and Player.LBS < 100 and API:can_use_melee_attack("kick") then
             send(f "kick {target}")
+            sent = true
+        elseif Skills:mastered("punch") and Player.UBS < 100 and API:can_use_melee_attack("punch") then
+            send(f "punch {target}")
             sent = true
         end
 
