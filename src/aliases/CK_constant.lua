@@ -33,4 +33,4 @@ elseif found == 0 then
     cecho(f("<red>NO CONSTANTS FOUND STARTING WITH '{constant}'\n"))
 end
 console:footer(s)
-echo(" * Use `ck constant <name> = value` to set\n")
+echo(" * Use `CK constant <name> = value` to set\n")

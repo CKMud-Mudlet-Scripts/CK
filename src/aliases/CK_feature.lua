@@ -50,4 +50,4 @@ else
     echo("NO FEATURES FOUND\n")
 end
 console:footer(s)
-echo(" * Use `ck feature <name> on/off` to toggle\n")
+echo(" * Use `CK feature <name> on/off` to toggle\n")
