@@ -87,11 +87,11 @@
                             "multilineDelta": "0",
                             "patterns": [
                                    {
-                                          "pattern": ": In affect for",
+                                          "pattern": ": In effect for",
                                           "type": "substring"
                                    },
                                    {
-                                          "pattern": "\\s*(?\u003caffect\u003e.+)\\s*: In affect for (?\u003ctime\u003e\\d+) minutes\\.$",
+                                          "pattern": "\\s*(?\u003caffect\u003e.+)\\s*: In effect for (?\u003ctime\u003e\\d+) minutes\\.$",
                                           "type": "regex"
                                    }
                             ]
