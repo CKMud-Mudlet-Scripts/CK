@@ -98,6 +98,7 @@ local fullname_to_cmd = {
     ["moonlight pierce"] = "moonlight",
     ["zephyr slice"] = "zephyr",
     ["nova symphony"] = "nova",
+    ["death storm"] = "deathstorm",
 }
 
 local known_buffs = { "demonic will", "energy shield", "barrier", "hasshuken", "herculean force", "resonance",
@@ -157,7 +158,8 @@ function Skills:learnable()
         eclipse = { "finalk", "disrupt" },
         accel = { "justice", "instant", "whirl" },
         calamity = { "finalk", "supervb" },
-        emperor = { "deathball", "deathbeam", "deathsaucer" }
+        emperor = { "deathball", "deathbeam", "deathsaucer" },
+        deathstorm = {"tailwhip", "emperor"},
     }
     if Player.BasePl > 125000000 then
         adict["finalk"] = { "warp", "final" }
