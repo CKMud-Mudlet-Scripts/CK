@@ -156,7 +156,6 @@ function Skills:learnable()
         shadow = { "nether", "soulreaver", "portal" },
         hellfire = { "finalk", "justice", "shadow" },
         eclipse = { "finalk", "disrupt" },
-        accel = { "justice", "instant", "whirl" },
         calamity = { "finalk", "supervb" },
         emperor = { "deathball", "deathbeam", "deathsaucer" },
         deathstorm = {"tailwhip", "emperor"},
@@ -165,6 +164,10 @@ function Skills:learnable()
         adict["finalk"] = { "warp", "final" }
         adict["justice"] = { "cyclone", "dynamite", "rage" }
         adict["supergodfist"] = { "godfist", "wolf", "dpunch" }
+    end
+
+    if API:isAndroid(race) then
+        adict["accel"] = { "justice", "instant", "whirl" }
     end
 
     if API:isBioDroid(race) then
