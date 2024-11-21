@@ -19,7 +19,6 @@ Times:create("fightfinished")
 Times:create("status")
 Times:create("prompt")
 ck:define_feature("auto_fight", false)
-ck:define_constant("auto_fight.delay", 6)
 
 local function PlayerLoad()
     if API:is_connected(true) then
@@ -135,14 +134,14 @@ registerNamedEventHandler("__PKGNAME__", "onNotFightingPrompt", "CK.onNotFightin
 
 local function onFightingPrompt(val)
     if ck:feature("auto_fight") and Mode:is(Mode.Interactive) and State:is(State.NORMAL) then
-        if Times:last("fight") > ck:constant("auto_fight.delay") then
+        if API:cmd_stack_empty() then
             if not Toggles.no_fight then
                 API:cmd_fight(nil, {free_only=true})
             end
         end
     end
     if State:check(State.CRAFTING, true) or State:check(State.BUFFING, true) or State:check(State.SENSE, true) then
-        State:check(State.NORMAL)
+        State:set(State.NORMAL)
     end
     raiseEvent("CK.fighting")
 end
