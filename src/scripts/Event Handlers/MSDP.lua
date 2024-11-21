@@ -34,6 +34,10 @@ registerNamedEventHandler("__PKGNAME__", "MSDP UPDATE_EPOCH", "msdp.UPDATE_EPOCH
     raiseEvent("CK.tick")
 end)
 
+registerNamedEventHandler("__PKGNAME__", "MSDP CMD_STACK", "msdp.CMD_STACK", function()
+    CK.cmd_stack = tonumber(msdp.CMD_STACK)
+end)
+
 -- Report all the names to the server to request updates on them
 registerNamedEventHandler("__PKGNAME__", "MSDP REPORT", "sysConnectionEvent", function()
     Toggles.ticked_once = false
