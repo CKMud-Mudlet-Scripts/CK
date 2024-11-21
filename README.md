@@ -44,6 +44,8 @@ The following CK constants should be used by organics
 
 `redeem all` - Redeem all loot boxes until you have no more
 
+`sell all.<thing>` - Sell all of a type of thing to a pawn shop,  `sell all.epic`
+
 `CK` - get a list of CK commands
 
 `CK update` - update the CK script from github

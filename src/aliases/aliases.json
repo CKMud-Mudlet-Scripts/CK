@@ -63,6 +63,10 @@
         "regex": "^redeem all$"
     },
     {
+        "name": "Sell All",
+        "regex": "^sell all\\.(.+)$"
+    },
+    {
         "name": "unravel",
         "regex": "^unravel$",
         "script": "send(f\"focus 'unravel' {CK.Target.name}\")"

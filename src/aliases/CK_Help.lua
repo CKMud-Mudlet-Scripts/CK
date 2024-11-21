@@ -13,6 +13,7 @@ quit                - Stop Auto Reconnect and Disconnect from the mud
 strike              - Use a melee attack
 blase               - Use a ki attack
 redeem all          - Redeem all loot boxes in inventory
+sell all.<thing>    - Sell all of an item 'all.epic'
 unravel             - Unravel Defenses of the current fighting target
 kaioken train       - toggle kaioken auto training
 ]]
