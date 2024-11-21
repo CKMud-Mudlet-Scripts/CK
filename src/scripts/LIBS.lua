@@ -68,6 +68,11 @@ function API:get_gravity(training)
     end
 end
 
+function API:cmd_stack_empty()
+    -- I might move this in the future
+    return CK.cmd_stack == 0
+end
+
 function API:status_ok()
     return Player:get_health() >= 50 and Player:get_energy() >= 50 and Player:get_stamina() >= 50
 end

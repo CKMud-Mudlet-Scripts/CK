@@ -4,8 +4,7 @@ local Toggles = ck:get_table("Toggles")
 local learn = ck:get_table("API.Learning", {
     triggers = {},
     gravity = 0,
-    to_learn = {},
-    rest_from_portal = false
+    to_learn = {}
 })
 local Times = ck:get_table("API.Times")
 local API = ck:get_table("API")
@@ -43,10 +42,9 @@ local function do_learning()
         return
     end
     local speedwalk_path = learn.speedwalk
-    local target = CK.table.sample_items(learn.target:split(","))
 
-    if State:is(State.NORMAL) then
-        learn.rest_from_portal = false
+    if State:is(State.NORMAL) and API:cmd_stack_empty() then
+        local target = CK.table.sample_items(learn.target:split(","))
         local sent = false
         local to_learn = learn.to_learn
         local learned = learn:setup_skills(target)
@@ -146,18 +144,11 @@ local function do_learning()
         if not API:isAndroid() and API:is_rested() then
             State:set(State.SPEEDWALK)
             send("wake")
-            if learn.rest_from_portal then
-                local how_get_back = ck:constant("learning.return_to_target")
-                if how_get_back ~= "" then
-                    API:send_multi(how_get_back)
-                end
+
+            registerAnonymousEventHandler("sysSpeedwalkFinished", function()
                 State:set(State.NORMAL)
-            else
-                registerAnonymousEventHandler("sysSpeedwalkFinished", function()
-                    State:set(State.NORMAL)
-                end, true)
-                speedwalk(speedwalk_path, true, 0.5)
-            end
+            end, true)
+            speedwalk(speedwalk_path, true, 0.5)
         end
     end
 end
@@ -188,7 +179,7 @@ local function enter()
     end
 
     -- Install a timer
-    registerNamedTimer("__PKGNAME__", "CK:Learning", 4, do_learning, true)
+    registerNamedTimer("__PKGNAME__", "CK:Learning", 2, do_learning, true)
 end
 
 function learn:find_target(ability)
