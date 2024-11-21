@@ -1,5 +1,6 @@
 local ck = require("__PKGNAME__")
 local Player = ck:get_table("Player")
+local API = ck:get_table("API")
 ck:define_feature("auto_daily", true)
 ck:define_constant("auto_daily.last", "000000")
 ck:define_constant("auto_daily.check_interval", 1200)
