@@ -20,7 +20,7 @@ ck:define_feature("learning.use_zeta", false)
 ck:define_constant("learning.return_to_target", "")
 ck:define_constant("learning.recall_isolation", "")
 
-local instant_targets = {"gine", "roshi", "teragon", "malak", "bubbles", "cypher", "dende"}
+local instant_targets = { "gine", "roshi", "teragon", "malak", "bubbles", "cypher", "dende" }
 
 local function aoe_ok()
     return API:status_ok()
@@ -45,14 +45,14 @@ local function do_learning()
         return
     end
     local speedwalk_path = learn.speedwalk
-    local target = learn.target
+    local target = CK.table.sample_items(learn.target:split(","))
 
     if State:is(State.NORMAL) then
         learn.rest_from_portal = false
         local portal = false
         local sent = false
         local to_learn = learn.to_learn
-        local learned = learn:setup_skills()
+        local learned = learn:setup_skills(target)
         learn:maybe_adjust_gravity()
         if learned > 0 then
             -- Handle Primary Skills
@@ -90,7 +90,7 @@ local function do_learning()
             send("sup 69")
             send("sup")
             sent = true
-        elseif learn:need_to_master("unravel defense") and API:status_ok() then
+        elseif target ~= "self" and learn:need_to_master("unravel defense") and API:status_ok() then
             send(f "focus 'unravel' {target}")
             sent = true
         elseif learn:need_to_master("scan") and API:status_ok() then
@@ -106,10 +106,10 @@ local function do_learning()
             send(f "focus 'instant' {itarget}")
             sent = true
             portal = true
-        elseif Skills:mastered("kick") and Player.LBS < 100 and API:can_use_melee_attack("kick") then
+        elseif target ~= "self" and Skills:mastered("kick") and Player.LBS < 100 and API:can_use_melee_attack("kick") then
             send(f "kick {target}")
             sent = true
-        elseif Skills:mastered("punch") and Player.UBS < 100 and API:can_use_melee_attack("punch") then
+        elseif target ~= "self" and Skills:mastered("punch") and Player.UBS < 100 and API:can_use_melee_attack("punch") then
             send(f "punch {target}")
             sent = true
         end
@@ -141,7 +141,7 @@ local function do_learning()
             return
         end
 
-        local others = {"powersense", "powerup", "powerdown", "portal", "instant", "scan"}
+        local others = { "powersense", "powerup", "powerdown", "portal", "instant", "scan" }
         if sent == false and learned == 0 and Player.UBS == 100 and Player.LBS == 100 then
             -- check others
             local all_done = true
@@ -225,18 +225,27 @@ function learn:maybe_adjust_gravity()
     end
 end
 
-function learn:setup_skills()
+function learn:setup_skills(target)
     local to_learn = self.to_learn
     -- figure out what we should learn
+    -- Clean slate
+    ck:clear_table(to_learn)
     to_learn.set = true
-    to_learn.energy = Skills:filter_mastered(Skills:energy_attacks())
-    to_learn.melee = Skills:filter_mastered(Skills:melee_attacks())
-    to_learn.aoe = Skills:filter_mastered(Skills:AoE())
+
+    if target ~= "self" then
+        to_learn.energy = Skills:filter_mastered(Skills:energy_attacks())
+        to_learn.melee = Skills:filter_mastered(Skills:melee_attacks())
+        to_learn.aoe = Skills:filter_mastered(Skills:AoE())
+        to_learn.learnable = Skills:learnable()
+    else
+        to_learn.energy = {}
+        to_learn.melee = {}
+        to_learn.aoe = {}
+        to_learn.learnable = {}
+    end
     to_learn.buffs = Skills:filter_mastered(Skills:buffs())
     to_learn.heals = Skills:filter_mastered(Skills:heals())
     to_learn.ultras = Skills:filter_mastered(Skills:ultras())
-    to_learn.learnable = Skills:learnable()
-
     return self:count_to_learn()
 end
 
@@ -249,7 +258,7 @@ function learn:count_to_learn()
     local to_learn = self.to_learn
     if to_learn.set then
         return (#(to_learn.energy) + #(to_learn.melee) + #(to_learn.aoe) + #(to_learn.buffs) + #(to_learn.heals) +
-                   #(to_learn.ultras) + #(to_learn.learnable))
+            #(to_learn.ultras) + #(to_learn.learnable))
     end
     return -1
 end

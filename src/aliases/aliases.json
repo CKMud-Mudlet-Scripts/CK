@@ -31,7 +31,7 @@
     },
     {
         "name": "learning",
-        "regex": "^autolearn(?: ([A-Za-z0-9]+)(?: (.+))?)?$",
+        "regex": "^autolearn(?: ([A-Za-z0-9,]+)(?: (.+))?)?$",
         "script": "CK.API.Learning:toggle(matches[2], matches[3])"
     },
     {
