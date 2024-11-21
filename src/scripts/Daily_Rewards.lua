@@ -17,6 +17,9 @@ local function get_now()
 end
 
 local function check_daily()
+    if not API:is_connected() then
+        return
+    end
     local last = ck:constant("auto_daily.last")
     local now = get_now()
     if Player.BasePl > 1000000 then
