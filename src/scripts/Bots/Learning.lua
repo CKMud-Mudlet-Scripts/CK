@@ -20,8 +20,6 @@ ck:define_feature("learning.use_zeta", false)
 ck:define_constant("learning.return_to_target", "")
 ck:define_constant("learning.recall_isolation", "")
 
-local instant_targets = { "gine", "roshi", "teragon", "malak", "bubbles", "cypher", "dende" }
-
 local function aoe_ok()
     return API:status_ok()
 end
@@ -49,7 +47,6 @@ local function do_learning()
 
     if State:is(State.NORMAL) then
         learn.rest_from_portal = false
-        local portal = false
         local sent = false
         local to_learn = learn.to_learn
         local learned = learn:setup_skills(target)
@@ -97,15 +94,11 @@ local function do_learning()
             send("scan")
             sent = true
         elseif learn:need_to_master("portal") and Player.Ki > (Player.MaxKi * .10) then
-            local ptarget = CK.table.sample_items(instant_targets)
-            send(f "focus 'portal' {ptarget}")
+            send(f "focus 'portal' king kai")
             sent = true
-            portal = true
         elseif learn:need_to_master("instant") and Player.Ki > 500 then
-            local itarget = CK.table.sample_items(instant_targets)
-            send(f "focus 'instant' {itarget}")
+            send(f "focus 'instant' king kai")
             sent = true
-            portal = true
         elseif target ~= "self" and Skills:mastered("kick") and Player.LBS < 100 and API:can_use_melee_attack("kick") then
             send(f "kick {target}")
             sent = true
@@ -122,21 +115,12 @@ local function do_learning()
                 send("repair")
             else
                 State:set(State.SPEEDWALK)
-                if portal then
-                    learn.rest_from_portal = true
-                    local where_rest = ck:constant("learning.recall_isolation")
-                    if where_rest ~= "" then
-                        API:send_multi(where_rest)
-                    end
+
+                registerAnonymousEventHandler("sysSpeedwalkFinished", function()
                     State:set(State.REST)
                     send("sleep")
-                else
-                    registerAnonymousEventHandler("sysSpeedwalkFinished", function()
-                        State:set(State.REST)
-                        send("sleep")
-                    end, true)
-                    speedwalk(speedwalk_path, false, 0.5)
-                end
+                end, true)
+                speedwalk(speedwalk_path, false, 0.5)
             end
             return
         end
