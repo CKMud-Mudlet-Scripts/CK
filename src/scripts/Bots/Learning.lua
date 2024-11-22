@@ -49,31 +49,30 @@ local function do_learning()
         local to_learn = learn.to_learn
         local learned = learn:setup_skills(target)
         learn:maybe_adjust_gravity()
-        if learned > 0 then
-            -- Handle Primary Skills
-            if #(to_learn.energy) > 0 and API:can_use_energy_attack(to_learn.energy[1]) then
-                send(f "{to_learn.energy[1]} {target}")
-                sent = true
-            elseif #(to_learn.melee) > 0 and API:can_use_melee_attack(to_learn.melee[1]) then
-                send(f "{to_learn.melee[1]} {target}")
-                sent = true
-            elseif #(to_learn.aoe) > 0 and aoe_ok() then
-                send(f "{to_learn.aoe[1]}")
-                sent = true
-            elseif #(to_learn.buffs) > 0 and buff_ok() then
-                send(f "focus '{to_learn.buffs[1]}'")
-                sent = true
-            elseif #(to_learn.heals) > 0 and heal_ok() then
-                send(f "focus '{to_learn.heals[1]}'")
-                sent = true
-            elseif #(to_learn.ultras) > 0 and ultra_ok(to_learn.ultras[1]) then
-                send(f "focus '{to_learn.ultras[1]}'")
-                send("urevert")
-                sent = true
-            elseif #(to_learn.learnable) > 0 and API:can_use_attack(to_learn.learnable[1]) then
-                send(f "{to_learn.learnable[1]} {target}")
-                sent = true
-            end
+
+        -- Handle Primary Skills
+        if #(to_learn.energy) > 0 and API:can_use_energy_attack(to_learn.energy[1]) then
+            send(f "{to_learn.energy[1]} {target}")
+            sent = true
+        elseif #(to_learn.melee) > 0 and API:can_use_melee_attack(to_learn.melee[1]) then
+            send(f "{to_learn.melee[1]} {target}")
+            sent = true
+        elseif #(to_learn.aoe) > 0 and aoe_ok() then
+            send(f "{to_learn.aoe[1]}")
+            sent = true
+        elseif #(to_learn.buffs) > 0 and buff_ok() then
+            send(f "focus '{to_learn.buffs[1]}'")
+            sent = true
+        elseif #(to_learn.heals) > 0 and heal_ok() then
+            send(f "focus '{to_learn.heals[1]}'")
+            sent = true
+        elseif #(to_learn.ultras) > 0 and ultra_ok(to_learn.ultras[1]) then
+            send(f "focus '{to_learn.ultras[1]}'")
+            send("urevert")
+            sent = true
+        elseif #(to_learn.learnable) > 0 and API:can_use_attack(to_learn.learnable[1]) then
+            send(f "{to_learn.learnable[1]} {target}")
+            sent = true
         elseif learn:need_to_master("powersense") and API:status_ok() then
             send(f "powersense {target}")
             sent = true
