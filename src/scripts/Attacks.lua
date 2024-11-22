@@ -72,7 +72,7 @@ add_melee("shadow", 5, 0.75, UBS, 1, 1, { Extras.piercing, Extras.deep_penetrati
 add_melee("mysticb", 8, 0.45, UBS, 2, 6, { Extras.piercing, Extras.piercing_major })
 
 -- Human Racial
-add_melee("shockwave", 8, 1.25, LBS, 2, 1, {Extras.shock})
+add_melee("shockwave", 8, 1.25, LBS, 2, 1, {Extras.shock, Extras.piercing, Extras.piercing_major, Extras.deep_penetration})
 
 -- Konatsu Racial
 add_melee("moonlight", 4, 0.6, UBS, 1, 1, {Extras.piercing})
