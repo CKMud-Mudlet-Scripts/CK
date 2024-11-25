@@ -157,13 +157,16 @@ function Skills:learnable()
         hellfire = { "finalk", "justice", "shadow" },
         eclipse = { "finalk", "disrupt" },
         calamity = { "finalk", "supervb" },
-        emperor = { "deathball", "deathbeam", "deathsaucer" },
-        deathstorm = {"tailwhip", "emperor"},
     }
     if Player.BasePl > 125000000 then
         adict["finalk"] = { "warp", "final" }
         adict["justice"] = { "cyclone", "dynamite", "rage" }
         adict["supergodfist"] = { "godfist", "wolf", "dpunch" }
+    end
+
+    if race == "Icer" then
+        adict["emperor"] = { "deathball", "deathbeam", "deathsaucer" }
+        adict["deathstorm"] = {"tailwhip", "emperor"}
     end
 
     if API:isAndroid(race) then
