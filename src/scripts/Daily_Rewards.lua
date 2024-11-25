@@ -14,7 +14,7 @@ local function kill_triggers()
 end
 
 local function get_now()
-    return getTime(true, "yymmdd")
+    return getTime(true, "yyMMdd")
 end
 
 local function check_daily()
