@@ -9,6 +9,9 @@ Times:create("android_vent")
 Times:create("android_repair")
 
 local function on_prompt()
+    if not API:isAndroid() then
+        return
+    end
     if not API:cmd_stack_empty() then
         -- Don't stack cmds 
         return
