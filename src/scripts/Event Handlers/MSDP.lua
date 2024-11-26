@@ -9,6 +9,10 @@ local Toggles = ck:get_table("Toggles")
 -- So they will be there for msdp
 ck:get_table("Player.Stats")
 ck:get_table("Player.BaseStats")
+ck:define_feature("MSDP.debug", false)
+ck:define_constant("MSDP.timeout", 10)
+ck:define_constant("MSDP.reconnect_timeout", 120)
+
 
 local names = {"LEVEL", "RACE", "POWERLEVEL", "POWERLEVEL_MAX", "KI", "KI_MAX", "FATIGUE", "FATIGUE_MAX", "GODKI",
                "GODKI_MAX", "DARK_ENERGY", "AFFECTS", "ZENNI", "TOKENS", "EPOINTS", "MAX_GRAVITY", "HITROLL", "DAMROLL",
@@ -27,7 +31,7 @@ end
 
 -- Track Updates, fire off a CK.tick event for hud to hook into. 
 registerNamedEventHandler("__PKGNAME__", "MSDP UPDATE_EPOCH", "msdp.UPDATE_EPOCH", function()
-    if not Toggles.ticked_once then
+    if not Toggles.ticked_once and ck:feature("MSDP.debug") then
         cecho(f "<yellow>Received MSDP Update Epoch...\n")
     end
     Toggles.ticked_once = true

@@ -60,15 +60,19 @@ registerNamedTimer("__PKGNAME__", "CK:LastPrompt", 8, LastPrompt, true)
 local function onPrompt()
     Times:reset("prompt")
 
-    -- Lets check if MSDP is up2date 
+    -- Lets check if MSDP is up2date
     if Toggles.ticked_once then
         local last_update = MSDP:last_update()
-        if last_update > 60 then
-            cecho("<red>!<yellow>!<red>!<yellow>!<white> Reconnecting to fix CKMud MSDP feed <yellow>!<red>!<yellow>!<red>!\n")
+        if last_update > ck:constant("MSDP.reconnect_timeout") then
+            cecho(
+            "<red>!<yellow>!<red>!<yellow>!<white> Reconnecting to fix CKMud MSDP feed <yellow>!<red>!<yellow>!<red>!\n")
             reconnect()
             Toggles.ticked_once = false
-        elseif last_update > 5 then
-            cecho("<red>!<yellow>!<red>!<yellow>!<white> Re-Subscribing to MSDP events<yellow>!<red>!<yellow>!<red>!\n")
+        elseif last_update > ck:constant("MSDP.timeout") then
+            if ck:feature("MSDP.debug") then
+                cecho(
+                "<red>!<yellow>!<red>!<yellow>!<white> Re-Subscribing to MSDP events<yellow>!<red>!<yellow>!<red>!\n")
+            end
             MSDP:report_names()
             Toggles.ticked_once = false
         end
@@ -136,7 +140,7 @@ local function onFightingPrompt(val)
     if ck:feature("auto_fight") and Mode:is(Mode.Interactive) and State:is(State.NORMAL) then
         if API:cmd_stack_empty() then
             if not Toggles.no_fight then
-                API:cmd_fight(nil, {free_only=true})
+                API:cmd_fight(nil, { free_only = true })
             end
         end
     end
