@@ -14,7 +14,7 @@ local function on_prompt()
         return
     end
 
-    if Mode:is(Mode.Interactive) or Mode:is(Mode.Zetabot) then
+    if Mode:is(Mode.Zetabot) then
         if State:is(State.NORMAL) then
             if Times:last("android_vent") > 60 and Player.get_energy() < 50 then
                 send("vent")
