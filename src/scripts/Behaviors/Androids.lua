@@ -21,7 +21,7 @@ local function on_prompt()
         if State:is(State.NORMAL) then
             if Times:last("android_vent") > 60 and Player.get_energy() < 50 then
                 send("vent")
-                Times.reset("android_vent")
+                Times:reset("android_vent")
             end
         end
     end
