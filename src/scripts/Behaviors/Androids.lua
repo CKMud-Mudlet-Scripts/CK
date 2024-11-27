@@ -6,7 +6,6 @@ local Mode = ck:get_table("API.Mode")
 local Times = ck:get_table("API.Times")
 
 Times:create("android_vent")
-Times:create("android_repair")
 
 local function on_prompt()
     if not API:isAndroid() then
@@ -27,9 +26,8 @@ local function on_prompt()
     end
 
     if State:is(State.REST) then
-        if Times:last("android_repair") > 10 and Player.get_health() < 100 then
+        if Player.get_health() < 100 then
             send("repair")
-            Times:reset("android_repair")
         end
     end
 end
