@@ -265,6 +265,18 @@ function Skills:heals()
     return alist
 end
 
+function Skills:get_heal()
+    -- Get highest learned heal
+    -- Should include divine heal if we have the godki for it. 
+    if self:learned("revitalize") then
+        return "revitalize"
+    elseif self:learned("restoration") then
+        return "restoration"
+    elseif self:learned("heal") then
+        return "heal"
+    end
+end
+
 function Skills:buffs()
     local alist = {}
     for _, v in ipairs(known_buffs) do

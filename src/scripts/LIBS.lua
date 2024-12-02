@@ -73,6 +73,10 @@ function API:cmd_stack_empty()
     return CK.cmd_stack == 0
 end
 
+function API:cmd_stack()
+    return CK.cmd_stack
+end
+
 function API:status_ok()
     return Player:get_health() >= 50 and Player:get_energy() >= 50 and Player:get_stamina() >= 50
 end

@@ -19,6 +19,9 @@
         "name": "Damage"
     },
     {
+        "name": "Behavior"
+    },
+    {
         "name": "StateMachine"
     },
     {

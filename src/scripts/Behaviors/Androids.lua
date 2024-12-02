@@ -7,10 +7,7 @@ local Times = ck:get_table("API.Times")
 
 Times:create("android_vent")
 
-local function on_prompt()
-    if not API:isAndroid() then
-        return
-    end
+local function not_fighting()
     if not API:cmd_stack_empty() then
         -- Don't stack cmds 
         return
@@ -32,4 +29,4 @@ local function on_prompt()
     end
 end
 
-registerNamedEventHandler("__PKGNAME__", "Behavior_Android_NotFighting", "CK.notFighting", on_prompt)
+API:register_behavior(nil, "android", not_fighting)
