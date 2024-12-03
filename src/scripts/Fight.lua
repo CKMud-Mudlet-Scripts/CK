@@ -95,7 +95,11 @@ local function energy_cost(attack, _race)
   end
 
   local cost = data[1]
-  if Skills:ultimate(attack) then
+  return API:get_energy_cost(attack, cost, _race)
+end
+
+function API:get_energy_cost(name, cost, _race)
+  if Skills:ultimate(name) then
     cost = cost * 4
   end
   if API:isBioDroid(_race) then
@@ -105,7 +109,6 @@ local function energy_cost(attack, _race)
 end
 
 local function melee_cost(attack, _race)
-  local race = _race or API:getRace()
   local data = Attacks[attack]
   if data == nil then
     cecho(f "<red>can_use_melee_attack: Unknown Melee {attack}!!!")
@@ -116,7 +119,12 @@ local function melee_cost(attack, _race)
     return 10000000000
   end
   local cost = data[1]
-  if Skills:ultimate(attack) then
+  return API:get_melee_cost(attack, cost, _race)
+end
+
+function API:get_melee_cost(name, cost, _race)
+  local race = _race or API:getRace()
+  if Skills:ultimate(name) then
     cost = cost * 2.1875
   end
   if API:has_fatigue(race) then

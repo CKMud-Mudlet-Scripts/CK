@@ -90,6 +90,8 @@ local function do_learning()
         elseif learn:need_to_master("scan") and API:status_ok() then
             send("scan")
             sent = true
+        elseif learn:need_to_master("taiyoken") and Player.Ki > API:get_energy_cost("taiyoken", 10) then
+            send(f"focus 'taiyoken' {target}")
         elseif learn:need_to_master("portal") and Player.Ki > (Player.MaxKi * .10) then
             send(f "focus 'portal' king kai")
             sent = true
