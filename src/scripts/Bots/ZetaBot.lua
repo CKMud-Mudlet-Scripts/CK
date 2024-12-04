@@ -81,7 +81,10 @@ local function enter()
         -- Its okay to blast again
         zeta.state.ok_to_blast = true
     end))
-
+    -- Dazed?
+    table.insert(zeta.triggers, tempTrigger("You are dazed and can not do that right now.", function()
+        zeta.state.ok_to_blast = true
+    end))
     -- Look for a single nobody is around to aoe
     table.insert(zeta.triggers, tempTrigger("There is no one around to use", function()
         -- Move to SENSE state
