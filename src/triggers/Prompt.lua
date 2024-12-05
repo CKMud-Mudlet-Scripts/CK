@@ -21,10 +21,14 @@ end
 ]]
 
 -- Handle States [HT] [FLY] [UI]
-for _, form in ipairs(forms:split(" ")) do
+for form in rex.split(forms, "(?<=]) ") do
   if form:starts("[") and form:ends("]") then
     form = form:sub(2, -2)  -- Strip off [ and ]
-    Player.Status[form] = true
+    if form:starts("Rage:") then
+      Player.Rage = tonumber(form:sub(7, -2))
+    else
+      Player.Status[form] = true
+    end
   end
 end
 
