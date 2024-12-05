@@ -19,7 +19,7 @@ local names = {"LEVEL", "RACE", "POWERLEVEL", "POWERLEVEL_MAX", "KI", "KI_MAX", 
                "ARMOR", "STR", "INT", "WIS", "SPD", "CON", "STR_BASE", "INT_BASE", "WIS_BASE", "SPD_BASE", "CON_BASE",
                "OPPONENT_HEALTH", "OPPONENT_HEALTH_MAX", "OPPONENT_LEVEL", "OPPONENT_NAME", "AREA_NAME", "ROOM_EXITS",
                "ROOM_NAME", "ROOM_VNUM", "CHARACTER_NAME", "THIRST", "HUNGER", "ROOM_GRAVITY", "BASE_PL", "UBS", "LBS",
-               "UPDATE_EPOCH", "MAX_DENERGY", "CMD_STACK"}
+               "UPDATE_EPOCH", "MAX_DENERGY", "CMD_STACK", "RAGE"}
 
 function MSDP:last_update()
     return getEpoch() - ((msdp or {}).UPDATE_EPOCH or 0)
@@ -173,6 +173,10 @@ end)
 
 registerNamedEventHandler("__PKGNAME__", "MSDP Thirst", "msdp.THIRST", function()
     Player.Thirst = tonumber(msdp.THIRST)
+end)
+
+registerNamedEventHandler("__PKGNAME__", "MSDP Rage", "msdp.RAGE", function()
+    Player.Rage = tonumber(msdp.RAGE)
 end)
 
 -- Room Stuff
