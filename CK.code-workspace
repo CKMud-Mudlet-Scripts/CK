@@ -7,6 +7,7 @@
 	"settings": {
 		"Lua.runtime.version": "Lua 5.1",
 		"Lua.diagnostics.globals": [
+			"alert",
 			"cecho",
 			"CK",
 			"createStopWatch",

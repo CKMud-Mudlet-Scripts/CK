@@ -196,10 +196,11 @@
     },
     {
         "name": "Beep Support",
+        "matchall": "yes",
         "patterns": [
             {
-                "pattern": "\u0007",
-                "type": "substring"
+                "pattern": "\\a",
+                "type": "regex"
             }
         ],
         "script": "CK.API:BEEP()"

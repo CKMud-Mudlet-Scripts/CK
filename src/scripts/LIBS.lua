@@ -41,6 +41,7 @@ end
 
 function API:BEEP()
     if ck:feature("beep") then
+        alert()
         playSoundFile({ name = getMudletHomeDir() .. "/__PKGNAME__/beep.mp3", loops = #matches })
         for i = 1, #matches do
             selectCaptureGroup(i)
