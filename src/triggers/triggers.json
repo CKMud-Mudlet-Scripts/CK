@@ -74,7 +74,7 @@
         "script": "send(\"gogogo\\n\") send(\"\\n\\n\") send(\"who\") send(\"status\") send(\"learn\")"
     },
     {
-        "name": "Eat Fruit on 6x donation",
+        "name": "Eat Fruit on 6x+ donation",
         "multiline": "yes",
         "multilineDelta": "0",
         "patterns": [
@@ -83,14 +83,14 @@
                 "type": "startOfLine"
             },
             {
-                "pattern": "^\\[CKMud Info]: (.+)'s donation has unlocked 6.0x Gains upon the universe for 30 minutes.",
+                "pattern": "^\\[CKMud Info]: (.+)'s donation has unlocked (.+)x Gains upon the universe for 30 minutes.",
                 "type": "regex"
             }
         ],
-        "script": "if CK.API:feature(\"auto_fruit\") then\nsend(\"--\")\nsend(\"eat fruit all\")\nend"
+        "script": "if CK.API:feature(\"auto_fruit\") and tonumber(multimatches[2][3]) >= 6 then\nsend(\"eat fruit all\")\nend"
     },
     {
-        "name": "Eat Fruit on 6x bestowed",
+        "name": "Eat Fruit on 6x+ bestowed",
         "multiline": "yes",
         "multilineDelta": "0",
         "patterns": [
@@ -99,11 +99,11 @@
                 "type": "startOfLine"
             },
             {
-                "pattern": "^\\[CKMud Info]: (.+) has bestowed 6.0x Gains upon the universe for ",
+                "pattern": "^\\[CKMud Info]: (.+) has bestowed (.+)x Gains upon the universe for ",
                 "type": "regex"
             }
         ],
-        "script": "if CK.API:feature(\"auto_fruit\") then\nsend(\"--\")\nsend(\"eat fruit all\")\nend"
+        "script": "if CK.API:feature(\"auto_fruit\") and tonumber(multimatches[2][3]) >= 6 then\nsend(\"eat fruit all\")\nend"
     },
     {
         "name": "Auto Unravel Gauntlet",
