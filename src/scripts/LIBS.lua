@@ -12,6 +12,7 @@ local Mode = ck:get_table("API.Mode")
 ck:define_constant("name", "???")
 ck:define_feature("auto_unravel", true)
 ck:define_feature("auto_fruit", true)
+ck:define_feature("beep", true)
 
 function Player:get_health()
     if Player.Pl and Player.MaxPl then
@@ -36,6 +37,16 @@ function API:RESET_ALL()
     API.SendQueue:clear()
     Mode:switch()
     State:set()
+end
+
+function API:BEEP()
+    if ck:feature("beep") then
+        playSoundFile({ name = getMudletHomeDir() .. "/__PKGNAME__/beep.mp3", loops = #matches })
+        for i = 1, #matches do
+            selectCaptureGroup(i)
+            replace("")
+        end
+    end
 end
 
 function API:setName(name)

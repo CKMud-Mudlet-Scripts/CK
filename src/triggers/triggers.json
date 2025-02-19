@@ -193,5 +193,15 @@
             }
         ],
         "script": "CK.API.Learning:find_target(multimatches[2][2])"
+    },
+    {
+        "name": "Beep Support",
+        "patterns": [
+            {
+                "pattern": "\u0007",
+                "type": "substring"
+            }
+        ],
+        "script": "CK.API:BEEP()"
     }
 ]
