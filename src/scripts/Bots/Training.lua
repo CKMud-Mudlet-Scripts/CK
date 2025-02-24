@@ -85,11 +85,11 @@ local function enter()
     }
     -- Install Triggers
     -- Rest Triggers
-    table.insert(train.triggers, tempExactMatchTrigger("You stop doing pushups because you are too tired.", go_rest))
-    table.insert(train.triggers, tempExactMatchTrigger("You stop doing situps because you are too tired.", go_rest))
-    table.insert(train.triggers, tempExactMatchTrigger("You stop doing exercises because you are too tired.", go_rest))
-    table.insert(train.triggers, tempExactMatchTrigger("You stop studying because you are too tired.", go_rest))
-    table.insert(train.triggers, tempExactMatchTrigger("You stop meditating because you are too tired.", go_rest))
+    table.insert(train.triggers, tempExactMatchTrigger("You stop doing situps and stand up.", go_rest))
+    table.insert(train.triggers, tempExactMatchTrigger("You stop doing pushups and stand up.", go_rest))
+    table.insert(train.triggers, tempExactMatchTrigger("You stop exercising and stand up.", go_rest))
+    table.insert(train.triggers, tempExactMatchTrigger("You stop studying and stand up.", go_rest))
+    table.insert(train.triggers, tempExactMatchTrigger("You stop meditating and stand up.", go_rest))
 
     -- Jog Trigger
     table.insert(train.triggers, tempExactMatchTrigger("You jog around a bit.",
