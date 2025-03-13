@@ -204,13 +204,13 @@
               "script":"CK.API:auto_rebuff(\"tremor\")"
        },
        {
-              "name": "kenjetsu",
+              "name": "kenjutsu",
               "patterns": [
                      {
                             "pattern": "Your focus wanes, the clarity of your technique fading as your stance relaxes.",
                             "type": "exactMatch"
                      }
               ],
-              "script":"CK.API:auto_rebuff(\"kenjetsu\")"
+              "script":"CK.API:auto_rebuff(\"kenjutsu\")"
        }
 ]

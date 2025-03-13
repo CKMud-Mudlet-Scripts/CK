@@ -104,7 +104,7 @@ local fullname_to_cmd = {
 local known_buffs = { "demonic will", "energy shield", "barrier", "hasshuken", "herculean force", "resonance",
     "zanzoken", "kino tsurugi", "regenerate", "forcefield", "infravision", "celestial shield",
     "celestial drain", "invigorate", "swiftness", "gigantification", "wrathful fury",
-    "divine judgement", "hakai barrier", "tremor pulse", "kenjetsu" }
+    "divine judgement", "hakai barrier", "tremor pulse", "kenjutsu" }
 
 local learnable_aoe = { "final", "scatter", "whirl" }
 
